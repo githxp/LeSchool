@@ -1,7 +1,6 @@
 package com.hxp.leschool.view.activity;
 
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,13 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVOSCloud;
 import com.hxp.leschool.R;
-import com.hxp.leschool.databinding.MainBinding;
 import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.MicroblogFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
 import com.hxp.leschool.view.fragment.NearFragment;
-import com.hxp.leschool.viewmodel.MainViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,42 +37,52 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Fragment生命周期管理", "创建ClassFragment");
         }
         getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
+        AVOSCloud.initialize(this, "JXors33cW6wDujTiVDgfJh5x-gzGzoHsz", "AgN648cOdXpbA0HHdBJPBXEc");
+        AVAnalytics.trackAppOpened(getIntent());
     }
 
     public void onMian_Layout_ClassClicked(View view) {
-        Toast.makeText(this, "ttt1", Toast.LENGTH_SHORT).show();
         if (mClassFragment == null) {
             mClassFragment = new ClassFragment();
             Log.d("Fragment生命周期管理", "创建ClassFragment");
         }
-        getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mClassFragment).commit();
+        if (!mClassFragment.isVisible()) {
+            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mClassFragment).commit();
+            Log.d("Fragment生命周期管理", "替换ClassFragment");
+        }
     }
 
     public void onMian_Layout_MicroblogClicked(View view) {
-        Toast.makeText(this, "ttt2", Toast.LENGTH_SHORT).show();
         if (mMicroblogFragment == null) {
             mMicroblogFragment = new MicroblogFragment();
             Log.d("Fragment生命周期管理", "创建MicroblogFragment");
         }
-        getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mMicroblogFragment).commit();
+        if (!mMicroblogFragment.isVisible()) {
+            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mMicroblogFragment).commit();
+            Log.d("Fragment生命周期管理", "替换MicroblogFragment");
+        }
     }
 
     public void onMian_Layout_NearClicked(View view) {
-        Toast.makeText(this, "ttt3", Toast.LENGTH_SHORT).show();
         if (mNearFragment == null) {
             mNearFragment = new NearFragment();
             Log.d("Fragment生命周期管理", "创建NearFragment");
         }
-        getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mNearFragment).commit();
+        if (!mNearFragment.isVisible()) {
+            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mNearFragment).commit();
+            Log.d("Fragment生命周期管理", "替换NearFragment");
+        }
     }
 
     public void onMian_Layout_MineClicked(View view) {
-        Toast.makeText(this, "ttt4", Toast.LENGTH_SHORT).show();
         if (mMineFragment == null) {
             mMineFragment = new MineFragment();
             Log.d("Fragment生命周期管理", "创建MineFragment");
         }
-        getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mMineFragment).commit();
+        if (!mMineFragment.isVisible()) {
+            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mMineFragment).commit();
+            Log.d("Fragment生命周期管理", "替换MineFragment");
+        }
     }
 
     @Override
