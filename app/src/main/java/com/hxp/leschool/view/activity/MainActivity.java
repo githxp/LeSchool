@@ -1,6 +1,7 @@
 package com.hxp.leschool.view.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private MicroblogFragment mMicroblogFragment;
     private NearFragment mNearFragment;
     private MineFragment mMineFragment;
+    private SelecteUploadFileCallback mSelecteUploadFileCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,5 +103,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
+            String filePath = data.getData().getPath();
+            String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+            Log.d("fragment", data.getData().getPath());
+            Log.d("fragment", fileName);
+            mSelecteUploadFileCallback = mClassFragment.mClassViewModel;
+            mSelecteUploadFileCallback.selecteUploadFileCompleted(fileName,filePath);
+        }
+    }
+
+    public interface SelecteUploadFileCallback{
+        void selecteUploadFileCompleted(String fileName,String filePath);
     }
 }

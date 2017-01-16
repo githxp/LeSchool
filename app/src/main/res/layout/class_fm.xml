@@ -8,7 +8,7 @@
             type="com.hxp.leschool.viewmodel.ClassViewModel" />
     </data>
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,12 +18,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_class_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_class_uploadFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp" />
 
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>
