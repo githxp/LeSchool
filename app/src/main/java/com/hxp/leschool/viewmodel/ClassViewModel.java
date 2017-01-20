@@ -1,8 +1,6 @@
 package com.hxp.leschool.viewmodel;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +12,8 @@ import android.widget.Toast;
 import com.hxp.leschool.adapter.ClassAdapter;
 import com.hxp.leschool.databinding.ClassFmBinding;
 import com.hxp.leschool.model.operate.ClassModelOpt;
-import com.hxp.leschool.model.operate.ClassModelOpt.GetdataCallback;
-import com.hxp.leschool.model.operate.ClassModelOpt.RefreshdataCallback;
+import com.hxp.leschool.model.operate.ClassModelOpt.ClassGetdataCallback;
+import com.hxp.leschool.model.operate.ClassModelOpt.ClassRefreshdataCallback;
 import com.hxp.leschool.view.activity.MainActivity;
 import com.hxp.leschool.view.fragment.ClassFragment;
 
@@ -25,7 +23,7 @@ import java.io.FileNotFoundException;
  * Created by hxp on 17-1-13.
  */
 
-public class ClassViewModel implements GetdataCallback, RefreshdataCallback, MainActivity.SelecteUploadFileCallback {
+public class ClassViewModel implements ClassGetdataCallback, ClassRefreshdataCallback, MainActivity.SelecteUploadFileCallback {
 
     public ClassModelOpt mClassModelOpt;
     private ClassFmBinding mClassFmBinding;
@@ -43,14 +41,17 @@ public class ClassViewModel implements GetdataCallback, RefreshdataCallback, Mai
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 return null;
             }
+
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             }
+
             @Override
             public int getItemCount() {
                 return 0;
             }
         });
+        mClassFmBinding.swifreshClassContent.setRefreshing(true);
 
         mClassModelOpt = new ClassModelOpt(this);
         mClassAdapter = new ClassAdapter(this);
@@ -103,14 +104,15 @@ public class ClassViewModel implements GetdataCallback, RefreshdataCallback, Mai
     }
 
     @Override
-    public void getdataCompleted() {
+    public void classGetdataCompleted() {
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mClassFmBinding.rvClassContent.setAdapter(mClassAdapter);
+        mClassFmBinding.swifreshClassContent.setRefreshing(false);
         Log.d("fragment", "数据获取回调接收方");
     }
 
     @Override
-    public void refreshdataCompleted() {
+    public void classRefreshdataCompleted() {
         mClassFmBinding.swifreshClassContent.setRefreshing(false);
         mClassAdapter.notifyDataSetChanged();
         Log.d("fragment", "数据刷新回调接收方");

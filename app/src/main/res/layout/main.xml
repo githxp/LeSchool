@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="onMian_Layout_ClassClicked">
+            android:onClick="onMain_Layout_ClassClicked">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,12 +42,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/tw"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="onMian_Layout_MicroblogClicked">
+            android:onClick="onMain_Layout_MicroblogClicked">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,12 +55,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/tt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="onMian_Layout_NearClicked">
+            android:onClick="onMain_Layout_NearClicked">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,7 +72,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:onClick="onMian_Layout_MineClicked">
+            android:onClick="onMain_Layout_MineClicked">
 
             <TextView
                 android:layout_width="wrap_content"

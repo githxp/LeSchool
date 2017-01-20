@@ -1,7 +1,7 @@
 package com.hxp.leschool.view.activity;
 
-
 import android.content.Intent;
+import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
@@ -18,7 +19,6 @@ import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.MicroblogFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
 import com.hxp.leschool.view.fragment.NearFragment;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,16 +34,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_toolbar);
         setSupportActionBar(toolbar);
+
         if (mClassFragment == null) {
             mClassFragment = new ClassFragment();
             Log.d("Fragment生命周期管理", "创建ClassFragment");
         }
         getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
-        AVOSCloud.initialize(this, "JXors33cW6wDujTiVDgfJh5x-gzGzoHsz", "AgN648cOdXpbA0HHdBJPBXEc");
+
+        //跟踪统计应用的打开情况
         AVAnalytics.trackAppOpened(getIntent());
     }
 
-    public void onMian_Layout_ClassClicked(View view) {
+    public void onMain_Layout_ClassClicked(View view) {
         if (mClassFragment == null) {
             mClassFragment = new ClassFragment();
             Log.d("Fragment生命周期管理", "创建ClassFragment");
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onMian_Layout_MicroblogClicked(View view) {
+    public void onMain_Layout_MicroblogClicked(View view) {
         if (mMicroblogFragment == null) {
             mMicroblogFragment = new MicroblogFragment();
             Log.d("Fragment生命周期管理", "创建MicroblogFragment");
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onMian_Layout_NearClicked(View view) {
+    public void onMain_Layout_NearClicked(View view) {
         if (mNearFragment == null) {
             mNearFragment = new NearFragment();
             Log.d("Fragment生命周期管理", "创建NearFragment");
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onMian_Layout_MineClicked(View view) {
+    public void onMain_Layout_MineClicked(View view) {
         if (mMineFragment == null) {
             mMineFragment = new MineFragment();
             Log.d("Fragment生命周期管理", "创建MineFragment");
@@ -120,5 +122,10 @@ public class MainActivity extends AppCompatActivity {
 
     public interface SelecteUploadFileCallback{
         void selecteUploadFileCompleted(String fileName,String filePath);
+    }
+
+    @BindingAdapter("imageres")
+    public static void setImageRes(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
     }
 }

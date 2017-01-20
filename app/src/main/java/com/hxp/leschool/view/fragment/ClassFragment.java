@@ -1,6 +1,5 @@
 package com.hxp.leschool.view.fragment;
 
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.ClassFmBinding;
@@ -23,7 +21,6 @@ import com.hxp.leschool.viewmodel.ClassViewModel;
 public class ClassFragment extends Fragment {
 
     public ClassViewModel mClassViewModel;
-    private int i = 0;  //测试变量
 
     @Nullable
     @Override
@@ -49,7 +46,6 @@ public class ClassFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        i++;
-        Log.d("Fragment生命周期管理", "onDestroy()触发-Class " + i);
+        Log.d("Fragment生命周期管理", "onDestroy()触发-Class ");
     }
 }

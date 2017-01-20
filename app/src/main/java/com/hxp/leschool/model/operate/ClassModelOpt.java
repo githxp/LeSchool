@@ -29,12 +29,12 @@ public class ClassModelOpt {
     public ClassModel mClassModel;
     public ArrayList<ClassModel> mData = new ArrayList<>();
     private AVQuery<AVObject> avQuery = new AVQuery<>("TodoFolder");
-    private GetdataCallback mGetdataCallback;
-    private RefreshdataCallback mRefreshdataCallback;
+    private ClassGetdataCallback mClassGetdataCallback;
+    private ClassRefreshdataCallback mClassRefreshdataCallback;
 
     public ClassModelOpt(ClassViewModel classViewModel) {
-        mGetdataCallback = classViewModel;
-        mRefreshdataCallback = classViewModel;
+        mClassGetdataCallback = classViewModel;
+        mClassRefreshdataCallback = classViewModel;
     }
 
     //获取数据
@@ -57,7 +57,7 @@ public class ClassModelOpt {
                 }
                 Log.d("fragment", "mdata.size:" + mData.size());
                 Log.d("fragment", "数据获取回调发送方");
-                mGetdataCallback.getdataCompleted();
+                mClassGetdataCallback.classGetdataCompleted();
             }
         });
     }
@@ -82,7 +82,7 @@ public class ClassModelOpt {
                 }
                 Log.d("fragment", "mdata.size:" + mData.size());
                 Log.d("fragment", "数据刷新回调发送方");
-                mRefreshdataCallback.refreshdataCompleted();
+                mClassRefreshdataCallback.classRefreshdataCompleted();
             }
         });
     }
@@ -126,12 +126,12 @@ public class ClassModelOpt {
     }
 
     //获取数据回调
-    public interface GetdataCallback {
-        void getdataCompleted();
+    public interface ClassGetdataCallback {
+        void classGetdataCompleted();
     }
 
     //刷新数据回调
-    public interface RefreshdataCallback {
-        void refreshdataCompleted();
+    public interface ClassRefreshdataCallback {
+        void classRefreshdataCompleted();
     }
 }

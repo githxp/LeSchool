@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 
 import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
-import com.hxp.leschool.viewmodel.ClassViewModel;
+import com.hxp.leschool.viewmodel.MineFunctionViewModel;
 
 /**
  * Created by hxp on 17-1-13.
  */
 
-public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> {
+public class MineFunctionAdapter extends RecyclerView.Adapter<MineFunctionAdapter.ViewHolder> {
 
-    private ClassViewModel mClassViewModel;
+    private MineFunctionViewModel mMineFunctionViewModel;
     private OnItemClickListener mOnItemClickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -37,13 +37,13 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         }
     }
 
-    public ClassAdapter(ClassViewModel classViewModel) {
-        mClassViewModel = classViewModel;
+    public MineFunctionAdapter(MineFunctionViewModel mineFunctionViewModel) {
+        mMineFunctionViewModel = mineFunctionViewModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.class_item, parent, false);
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.minefunction_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(viewDataBinding.getRoot());
         viewHolder.setBinding(viewDataBinding);
         Log.d("fragment", "onCreateViewHolder()");
@@ -52,7 +52,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.getBinding().setVariable(BR.mClassViewModel, mClassViewModel);
+        holder.getBinding().setVariable(BR.mMineFunctionViewModel, mMineFunctionViewModel);
         holder.getBinding().setVariable(BR.mPosition, position);
         holder.getBinding().executePendingBindings();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +66,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        int itemCount = mClassViewModel.mClassModelOpt.getCount();
+        int itemCount = mMineFunctionViewModel.mMineFunctionModelOpt.getCount();
         Log.d("fragment", "getItemCount()" + itemCount);
         return itemCount;
     }
