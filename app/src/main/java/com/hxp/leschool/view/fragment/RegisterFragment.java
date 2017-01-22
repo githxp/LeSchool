@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.RegisterFmBinding;
+import com.hxp.leschool.viewmodel.LoginAndRegisterViewModel;
 import com.hxp.leschool.viewmodel.RegisterViewModel;
 
 /**

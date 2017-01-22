@@ -6,18 +6,18 @@ import android.databinding.Bindable;
 import com.hxp.leschool.BR;
 
 /**
- * Created by hxp on 17-1-19.
+ * Created by hxp on 17-1-22.
  */
 
-public class MineUserInfoModel extends BaseObservable{
+public class MicroblogContactsModel extends BaseObservable{
 
     private String userName;
     private int userPicture;
 
-    public MineUserInfoModel() {
+    public MicroblogContactsModel() {
     }
 
-    public MineUserInfoModel(String userName, int userPicture) {
+    public MicroblogContactsModel(String userName, int userPicture) {
         this.userName = userName;
         this.userPicture = userPicture;
     }

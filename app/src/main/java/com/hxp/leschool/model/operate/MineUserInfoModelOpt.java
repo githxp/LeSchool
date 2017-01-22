@@ -1,5 +1,6 @@
 package com.hxp.leschool.model.operate;
 
+import com.avos.avoscloud.AVUser;
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.bean.MineUserInfoModel;
 
@@ -17,7 +18,12 @@ public class MineUserInfoModelOpt {
     //获取数据
     public void getData() {
         //用户查询
-        mData.setUserPicture(R.mipmap.ic_launcher);
-        mData.setUserName("登陆/注册");
+        if (AVUser.getCurrentUser() == null) {
+            mData.setUserPicture(R.mipmap.ic_launcher);
+            mData.setUserName("登陆/注册");
+        } else {
+            mData.setUserPicture(R.mipmap.ic_launcher);
+            mData.setUserName(AVUser.getCurrentUser().getUsername());
+        }
     }
 }

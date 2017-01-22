@@ -14,6 +14,7 @@ public class ClassModel extends BaseObservable {
 
     private String title;
     private String url;
+    private int picture;
 
     public ClassModel() {
     }
@@ -41,5 +42,15 @@ public class ClassModel extends BaseObservable {
     public void setUrl(String url) {
         this.url = url;
         notifyPropertyChanged(BR.url);
+    }
+
+    @Bindable
+    public int getPicture() {
+        return picture;
+    }
+
+    public void setPicture(int picture) {
+        this.picture = picture;
+        notifyPropertyChanged(BR.picture);
     }
 }

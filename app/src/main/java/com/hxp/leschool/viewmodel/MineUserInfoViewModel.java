@@ -6,6 +6,9 @@ import android.widget.Toast;
 
 import com.hxp.leschool.databinding.MineuserinfoFmBinding;
 import com.hxp.leschool.model.operate.MineUserInfoModelOpt;
+import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.utils.MyApplication.LogoutSucceedCallback;
+import com.hxp.leschool.utils.MyApplication.LoginSucceedCallback;
 import com.hxp.leschool.view.fragment.LoginAndRegisterFragment;
 import com.hxp.leschool.view.fragment.MineUserInfoFragment;
 
@@ -13,7 +16,7 @@ import com.hxp.leschool.view.fragment.MineUserInfoFragment;
  * Created by hxp on 17-1-13.
  */
 
-public class MineUserInfoViewModel {
+public class MineUserInfoViewModel implements LoginSucceedCallback, LogoutSucceedCallback {
 
     public MineUserInfoModelOpt mMineUserInfoModelOpt;
     private MineUserInfoFragment mMineUserInfoFragment;
@@ -28,7 +31,9 @@ public class MineUserInfoViewModel {
         mMineUserInfoModelOpt.getData();
         Log.d("fragment", "用户信息数据opt获取数据");
 
-        mineuserinfoFmBinding.setMMineUserInfoViewModel(this);
+        mMineuserinfoFmBinding.setMMineUserInfoViewModel(this);
+
+        MyApplication.getInstance().setMineUserInfoViewModel(this);
 
         mMineuserinfoFmBinding.llMineUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,5 +41,19 @@ public class MineUserInfoViewModel {
                 new LoginAndRegisterFragment().show(mMineUserInfoFragment.getFragmentManager(), "loginAndRegister");
             }
         });
+    }
+
+    @Override
+    public void loginSucceedCallback() {
+        Log.d("fragment", "登陆成功回调接收方");
+        Toast.makeText(mMineUserInfoFragment.getActivity(), "用户已登录", Toast.LENGTH_SHORT).show();
+        mMineUserInfoModelOpt.getData();
+    }
+
+    @Override
+    public void logoutSucceedCallback() {
+        Log.d("fragment", "注销成功回调接收方");
+        Toast.makeText(mMineUserInfoFragment.getActivity(), "用户已注销", Toast.LENGTH_SHORT).show();
+        mMineUserInfoModelOpt.getData();
     }
 }

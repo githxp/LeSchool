@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="mMicroblogSingleChatViewModel"
+            type="com.hxp.leschool.viewmodel.MicroblogSingleChatViewModel" />
+
+        <variable
+            name="mPosition"
+            type="int" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/ll_microblogSingleChat_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="@drawable/microblogsinglechat_item_left_bg"
+            android:visibility="@{mMicroblogSingleChatViewModel.mMicroblogSingleChatModelOpt.mData.get(mPosition).isToSend ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{mMicroblogSingleChatViewModel.mMicroblogSingleChatModelOpt.mData.get(mPosition).message}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/microblogsinglechat_item_right_bg"
+            android:visibility="@{mMicroblogSingleChatViewModel.mMicroblogSingleChatModelOpt.mData.get(mPosition).isToSend ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{mMicroblogSingleChatViewModel.mMicroblogSingleChatModelOpt.mData.get(mPosition).message}" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -20,8 +20,8 @@ public class MineViewModel {
 
     public MineViewModel(MineFragment mineFragment, MineFmBinding mineFmBinding) {
 
-        mMineFmBinding = mineFmBinding;
         mMineFragment = mineFragment;
+        mMineFmBinding = mineFmBinding;
 
         if (mUserInfomationFragment == null) {
             mUserInfomationFragment = new MineUserInfoFragment();
@@ -32,7 +32,7 @@ public class MineViewModel {
             Log.d("fragment", "创建MineFunctionFragment");
         }
 
-        mineFmBinding.setMMineViewModel(this);
+        mMineFmBinding.setMMineViewModel(this);
 
         mMineFragment.getActivity().getFragmentManager().beginTransaction().add(mMineFmBinding.llMineUserInfomation.getId(), mUserInfomationFragment).commit();
         Log.d("fragment", "UserInfomationFragment已添加到视图");

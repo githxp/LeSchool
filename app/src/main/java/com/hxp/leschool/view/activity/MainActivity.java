@@ -1,5 +1,6 @@
 package com.hxp.leschool.view.activity;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.os.Bundle;
@@ -13,20 +14,23 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
-import com.avos.avoscloud.AVOSCloud;
 import com.hxp.leschool.R;
+import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.utils.MyApplication.MicroblogSingleChatCallback;
 import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.MicroblogFragment;
+import com.hxp.leschool.view.fragment.MicroblogSingleChatFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
 import com.hxp.leschool.view.fragment.NearFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MicroblogSingleChatCallback {
 
     private ClassFragment mClassFragment;
     private MicroblogFragment mMicroblogFragment;
     private NearFragment mNearFragment;
     private MineFragment mMineFragment;
     private SelecteUploadFileCallback mSelecteUploadFileCallback;
+    private MicroblogSingleChatFragment mMicroblogSingleChatFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         //跟踪统计应用的打开情况
         AVAnalytics.trackAppOpened(getIntent());
+
+        MyApplication.getInstance().setMainActivity(this);
     }
 
     public void onMain_Layout_ClassClicked(View view) {
@@ -116,16 +122,28 @@ public class MainActivity extends AppCompatActivity {
             Log.d("fragment", data.getData().getPath());
             Log.d("fragment", fileName);
             mSelecteUploadFileCallback = mClassFragment.mClassViewModel;
-            mSelecteUploadFileCallback.selecteUploadFileCompleted(fileName,filePath);
+            mSelecteUploadFileCallback.selecteUploadFileCompleted(fileName, filePath);
         }
     }
 
-    public interface SelecteUploadFileCallback{
-        void selecteUploadFileCompleted(String fileName,String filePath);
+    public interface SelecteUploadFileCallback {
+        void selecteUploadFileCompleted(String fileName, String filePath);
     }
 
     @BindingAdapter("imageres")
     public static void setImageRes(ImageView imageView, int resource) {
         imageView.setImageResource(resource);
+    }
+
+    @Override
+    public void microblogSingleChatCallback(String userName) {
+
+        mMicroblogSingleChatFragment = new MicroblogSingleChatFragment();
+        mMicroblogSingleChatFragment.setUserName(userName);
+        Log.d("fragment", "创建了MicroblogSingleChatFragment");
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fl_main_fms, mMicroblogSingleChatFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

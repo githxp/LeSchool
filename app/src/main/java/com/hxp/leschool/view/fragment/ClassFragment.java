@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.ClassFmBinding;
+import com.hxp.leschool.databinding.ClassItemBinding;
 import com.hxp.leschool.viewmodel.ClassViewModel;
 
 /**
@@ -26,7 +27,8 @@ public class ClassFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ClassFmBinding classFmBinding = DataBindingUtil.inflate(inflater, R.layout.class_fm, container, false);
-        mClassViewModel = new ClassViewModel(this, classFmBinding);
+        ClassItemBinding classItemBinding = DataBindingUtil.inflate(inflater, R.layout.class_item, container, false);
+        mClassViewModel = new ClassViewModel(this, classFmBinding,classItemBinding);
         Log.d("Fragment生命周期管理", "onCreateView()触发-Class");
         return classFmBinding.getRoot();
     }

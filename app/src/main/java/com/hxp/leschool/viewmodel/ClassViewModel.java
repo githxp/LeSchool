@@ -11,10 +11,10 @@ import android.widget.Toast;
 
 import com.hxp.leschool.adapter.ClassAdapter;
 import com.hxp.leschool.databinding.ClassFmBinding;
+import com.hxp.leschool.databinding.ClassItemBinding;
 import com.hxp.leschool.model.operate.ClassModelOpt;
-import com.hxp.leschool.model.operate.ClassModelOpt.ClassGetdataCallback;
-import com.hxp.leschool.model.operate.ClassModelOpt.ClassRefreshdataCallback;
-import com.hxp.leschool.view.activity.MainActivity;
+import com.hxp.leschool.model.operate.ClassModelOpt.ClassOptCallback;
+import com.hxp.leschool.view.activity.MainActivity.SelecteUploadFileCallback;
 import com.hxp.leschool.view.fragment.ClassFragment;
 
 import java.io.FileNotFoundException;
@@ -23,17 +23,19 @@ import java.io.FileNotFoundException;
  * Created by hxp on 17-1-13.
  */
 
-public class ClassViewModel implements ClassGetdataCallback, ClassRefreshdataCallback, MainActivity.SelecteUploadFileCallback {
+public class ClassViewModel implements ClassOptCallback, SelecteUploadFileCallback {
 
     public ClassModelOpt mClassModelOpt;
     private ClassFmBinding mClassFmBinding;
+    private ClassItemBinding mClassItemBinding;
     private ClassFragment mClassFragment;
     public ClassAdapter mClassAdapter;
 
-    public ClassViewModel(final ClassFragment classFragment, ClassFmBinding classFmBinding) {
+    public ClassViewModel(ClassFragment classFragment, ClassFmBinding classFmBinding, ClassItemBinding classItemBinding) {
 
         mClassFmBinding = classFmBinding;
         mClassFragment = classFragment;
+        mClassItemBinding = classItemBinding;
 
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mClassFmBinding.rvClassContent.setAdapter(new RecyclerView.Adapter() {
@@ -57,6 +59,7 @@ public class ClassViewModel implements ClassGetdataCallback, ClassRefreshdataCal
         mClassAdapter = new ClassAdapter(this);
 
         mClassFmBinding.setMClassViewModel(this);
+        mClassItemBinding.setMClassViewModel(this);
 
         mClassModelOpt.getData();
 
@@ -71,7 +74,6 @@ public class ClassViewModel implements ClassGetdataCallback, ClassRefreshdataCal
                     @Override
                     public void onRefresh() {
                         mClassModelOpt.refreshData();
-                        Toast.makeText(mClassFragment.getActivity(), "刷新", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -104,18 +106,29 @@ public class ClassViewModel implements ClassGetdataCallback, ClassRefreshdataCal
     }
 
     @Override
-    public void classGetdataCompleted() {
+    public void classGetdataSucceedCompleted() {
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mClassFmBinding.rvClassContent.setAdapter(mClassAdapter);
         mClassFmBinding.swifreshClassContent.setRefreshing(false);
-        Log.d("fragment", "数据获取回调接收方");
+        Log.d("fragment", "ClassModelOpt数据获取成功回调接收方");
     }
 
     @Override
-    public void classRefreshdataCompleted() {
+    public void classGetdataFailedCompleted() {
+        Toast.makeText(mClassFragment.getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void classRefreshdataSucceedCompleted() {
         mClassFmBinding.swifreshClassContent.setRefreshing(false);
         mClassAdapter.notifyDataSetChanged();
-        Log.d("fragment", "数据刷新回调接收方");
+        Toast.makeText(mClassFragment.getActivity(), "刷新", Toast.LENGTH_SHORT).show();
+        Log.d("fragment", "ClassModelOpt数据刷新成功回调接收方");
+    }
+
+    @Override
+    public void classRefreshdataFailedCompleted() {
+        Toast.makeText(mClassFragment.getActivity(), "刷新数据失败", Toast.LENGTH_SHORT).show();
     }
 
     @Override
