@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="mRegisterViewModel"
-            type="com.hxp.leschool.viewmodel.RegisterViewModel" />
+            name="mRegViewModel"
+            type="com.hxp.leschool.viewmodel.RegViewModel" />
     </data>
 
     <LinearLayout
@@ -21,12 +21,12 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/et_register_userName"
+                android:id="@+id/et_reg_userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/et_register_userPassword"
+                android:id="@+id/et_reg_userPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -39,7 +39,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{mRegisterViewModel.onRegister_Layout_RegisterClicked}"
+                android:onClick="@{mRegViewModel.onReg_Layout_RegClicked}"
                 android:text="注册" />
         </LinearLayout>
 

@@ -41,7 +41,7 @@ public class LoginViewModel {
                     if (e == null) {
                         Toast.makeText(mLoginFragment.getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
                         Log.d("fragment", "登陆成功回调发送方");
-                        MyApplication.getInstance().getLoginSucceedCallback().loginSucceedCallback();
+                        MyApplication.getInstance().getLoginAndRegCallback().loginSucceedCallback();
                     } else {
                         Toast.makeText(mLoginFragment.getActivity(), "登陆失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -53,9 +53,11 @@ public class LoginViewModel {
     }
 
     public void onLogin_Layout_LogoutClicked(View view) {
-        if (!AVUser.getCurrentUser().getUsername().equals("")) {
+        if (AVUser.getCurrentUser() != null) {
             AVUser.getCurrentUser().logOut();
-            MyApplication.getInstance().getLogoutSucceedCallback().logoutSucceedCallback();
+            MyApplication.getInstance().getLoginAndRegCallback().logoutSucceedCallback();
+        } else {
+            Toast.makeText(mLoginFragment.getActivity(), "暂时无用户登陆", Toast.LENGTH_SHORT).show();
         }
     }
 }

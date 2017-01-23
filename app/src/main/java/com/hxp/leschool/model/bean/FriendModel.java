@@ -9,15 +9,15 @@ import com.hxp.leschool.BR;
  * Created by hxp on 17-1-22.
  */
 
-public class MicroblogContactsModel extends BaseObservable{
+public class FriendModel extends BaseObservable{
 
     private String userName;
     private int userPicture;
 
-    public MicroblogContactsModel() {
+    public FriendModel() {
     }
 
-    public MicroblogContactsModel(String userName, int userPicture) {
+    public FriendModel(String userName, int userPicture) {
         this.userName = userName;
         this.userPicture = userPicture;
     }

@@ -10,16 +10,15 @@ import android.view.ViewGroup;
 
 import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
-import com.hxp.leschool.viewmodel.MicroblogSingleChatViewModel;
-import com.hxp.leschool.viewmodel.MicroblogViewModel;
+import com.hxp.leschool.viewmodel.FriendViewModel;
 
 /**
  * Created by hxp on 17-1-13.
  */
 
-public class MicroblogSingleChatAdapter extends RecyclerView.Adapter<MicroblogSingleChatAdapter.ViewHolder> {
+public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
 
-    private MicroblogSingleChatViewModel mMicroblogSingleChatViewModel;
+    private FriendViewModel mFriendViewModel;
     private OnItemClickListener mOnItemClickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,22 +37,22 @@ public class MicroblogSingleChatAdapter extends RecyclerView.Adapter<MicroblogSi
         }
     }
 
-    public MicroblogSingleChatAdapter(MicroblogSingleChatViewModel microblogSingleChatViewModel) {
-        mMicroblogSingleChatViewModel = microblogSingleChatViewModel;
+    public FriendAdapter(FriendViewModel friendViewModel) {
+        mFriendViewModel = friendViewModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.microblogsinglechat_item, parent, false);
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.friend_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(viewDataBinding.getRoot());
         viewHolder.setBinding(viewDataBinding);
-        Log.d("fragment", "onCreateViewHolder()-MicroblogSingleChatAdapter");
+        Log.d("fragment", "onCreateViewHolder()-FriendAdapter");
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.getBinding().setVariable(BR.mMicroblogSingleChatViewModel, mMicroblogSingleChatViewModel);
+        holder.getBinding().setVariable(BR.mFriendViewModel, mFriendViewModel);
         holder.getBinding().setVariable(BR.mPosition, position);
         holder.getBinding().executePendingBindings();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,13 +61,13 @@ public class MicroblogSingleChatAdapter extends RecyclerView.Adapter<MicroblogSi
                 mOnItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
             }
         });
-        Log.d("fragment", "onBindViewHolder()-MicroblogSingleChatAdapter");
+        Log.d("fragment", "onBindViewHolder()-FriendAdapter");
     }
 
     @Override
     public int getItemCount() {
-        int itemCount = mMicroblogSingleChatViewModel.mMicroblogSingleChatModelOpt.getCount();
-        Log.d("fragment", "getItemCount()-MicroblogSingleChatAdapter" + itemCount);
+        int itemCount = mFriendViewModel.mFriendModelOpt.getCount();
+        Log.d("fragment", "getItemCount()-FriendAdapter" + itemCount);
         return itemCount;
     }
 

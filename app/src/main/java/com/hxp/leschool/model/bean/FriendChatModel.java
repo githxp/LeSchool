@@ -9,15 +9,15 @@ import com.hxp.leschool.BR;
  * Created by hxp on 17-1-22.
  */
 
-public class MicroblogSingleChatModel extends BaseObservable {
+public class FriendChatModel extends BaseObservable {
 
     private String message;
     private boolean isToSend;//t为发送，f为接收
 
-    public MicroblogSingleChatModel() {
+    public FriendChatModel() {
     }
 
-    public MicroblogSingleChatModel(String message, boolean isToSend) {
+    public FriendChatModel(String message, boolean isToSend) {
         this.message = message;
         this.isToSend = isToSend;
     }

@@ -2,42 +2,33 @@ package com.hxp.leschool.model.operate;
 
 import android.util.Log;
 
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.AVIMMessage;
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
-import com.hxp.leschool.model.bean.ClassModel;
-import com.hxp.leschool.model.bean.MicroblogSingleChatModel;
-import com.hxp.leschool.viewmodel.MicroblogSingleChatViewModel;
+import com.hxp.leschool.model.bean.FriendChatModel;
+import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by hxp on 17-1-22.
  */
 
-public class MicroblogSingleChatModelOpt {
+public class FriendChatModelOpt {
 
-    public ArrayList<MicroblogSingleChatModel> mData = new ArrayList<>();
-    private MicroblogSingleChatModel mMicroblogSingleChatModel;
-    private MicroblogSingleChatSetdataCallback mMicroblogSingleChatSetdataCallback;
+    public ArrayList<FriendChatModel> mData = new ArrayList<>();
+    private FriendChatModel mMicroblogSingleChatModel;
+    private FriendChatSendMsgCallback mFriendChatSendMsgCallback;
 
-    public MicroblogSingleChatModelOpt(MicroblogSingleChatViewModel microblogSingleChatViewModel) {
-        mMicroblogSingleChatSetdataCallback = microblogSingleChatViewModel;
+    public FriendChatModelOpt(FriendChatViewModel friendChatViewModel) {
+        mFriendChatSendMsgCallback = friendChatViewModel;
     }
 
     public void setData(String message) {
-        mMicroblogSingleChatModel = new MicroblogSingleChatModel();
+        mMicroblogSingleChatModel = new FriendChatModel();
         mMicroblogSingleChatModel.setMessage(message);
         mMicroblogSingleChatModel.setToSend(true);
         mData.add(mMicroblogSingleChatModel);
         Log.d("fragment", "MicroblogSingleChatModelOpt消息发送成功回调发送方");
         Log.d("fragment", "MicroblogSingleChatModelOpt消息发送数量为：" + mData.size());
-        mMicroblogSingleChatSetdataCallback.microblogSingleChatSetdataCompleted();
+        mFriendChatSendMsgCallback.friendChatSendMsgCompleted();
     }
 
     //获取聊天历史
@@ -65,7 +56,7 @@ public class MicroblogSingleChatModelOpt {
         return mData.size();
     }
 
-    public interface MicroblogSingleChatSetdataCallback {
-        void microblogSingleChatSetdataCompleted();
+    public interface FriendChatSendMsgCallback {
+        void friendChatSendMsgCompleted();
     }
 }

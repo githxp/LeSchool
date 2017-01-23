@@ -9,31 +9,31 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.SignUpCallback;
-import com.hxp.leschool.databinding.RegisterFmBinding;
-import com.hxp.leschool.view.fragment.RegisterFragment;
+import com.hxp.leschool.databinding.RegFmBinding;
+import com.hxp.leschool.view.fragment.RegFragment;
 
 /**
  * Created by hxp on 17-1-20.
  */
 
-public class RegisterViewModel {
+public class RegViewModel {
 
-    private RegisterFragment mRegisterFragment;
-    private RegisterFmBinding mRegisterFmBinding;
+    private RegFragment mRegFragment;
+    private RegFmBinding mRegFmBinding;
 
-    public RegisterViewModel(RegisterFragment registerFragment, RegisterFmBinding registerFmBinding) {
+    public RegViewModel(RegFragment regFragment, RegFmBinding regFmBinding) {
 
-        mRegisterFragment = registerFragment;
-        mRegisterFmBinding = registerFmBinding;
+        mRegFragment = regFragment;
+        mRegFmBinding = regFmBinding;
 
-        mRegisterFmBinding.setMRegisterViewModel(this);
+        mRegFmBinding.setMRegViewModel(this);
     }
 
-    public void onRegister_Layout_RegisterClicked(View view) {
-        final String userName = mRegisterFmBinding.etRegisterUserName.getText().toString();
-        final String userPassword = mRegisterFmBinding.etRegisterUserPassword.getText().toString();
+    public void onReg_Layout_RegClicked(View view) {
+        final String userName = mRegFmBinding.etRegUserName.getText().toString();
+        final String userPassword = mRegFmBinding.etRegUserPassword.getText().toString();
         if ((!userName.equals("")) && (!userPassword.equals(""))) {
-            Toast.makeText(mRegisterFragment.getActivity(), "正在注册", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mRegFragment.getActivity(), "正在注册", Toast.LENGTH_SHORT).show();
             AVUser user = new AVUser();
             user.setUsername(userName);
             user.setPassword(userPassword);
@@ -54,14 +54,14 @@ public class RegisterViewModel {
                                 }
                             }
                         });
-                        Toast.makeText(mRegisterFragment.getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mRegFragment.getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(mRegisterFragment.getActivity(), "注册失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mRegFragment.getActivity(), "注册失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } else {
-            Toast.makeText(mRegisterFragment.getActivity(), "请输入用户名和密码", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mRegFragment.getActivity(), "请输入用户名和密码", Toast.LENGTH_SHORT).show();
         }
     }
 }

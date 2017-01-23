@@ -1,5 +1,6 @@
 package com.hxp.leschool.viewmodel;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -7,16 +8,15 @@ import android.widget.Toast;
 import com.hxp.leschool.databinding.MineuserinfoFmBinding;
 import com.hxp.leschool.model.operate.MineUserInfoModelOpt;
 import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.MyApplication.LogoutSucceedCallback;
-import com.hxp.leschool.utils.MyApplication.LoginSucceedCallback;
-import com.hxp.leschool.view.fragment.LoginAndRegisterFragment;
+import com.hxp.leschool.utils.MyApplication.LoginAndRegCallback;
+import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.fragment.MineUserInfoFragment;
 
 /**
  * Created by hxp on 17-1-13.
  */
 
-public class MineUserInfoViewModel implements LoginSucceedCallback, LogoutSucceedCallback {
+public class MineUserInfoViewModel implements MyApplication.LoginAndRegCallback {
 
     public MineUserInfoModelOpt mMineUserInfoModelOpt;
     private MineUserInfoFragment mMineUserInfoFragment;
@@ -38,7 +38,8 @@ public class MineUserInfoViewModel implements LoginSucceedCallback, LogoutSuccee
         mMineuserinfoFmBinding.llMineUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LoginAndRegisterFragment().show(mMineUserInfoFragment.getFragmentManager(), "loginAndRegister");
+                Intent intent = new Intent(mMineUserInfoFragment.getActivity(), LoginAndRegActivity.class);
+                mMineUserInfoFragment.getActivity().startActivity(intent);
             }
         });
     }

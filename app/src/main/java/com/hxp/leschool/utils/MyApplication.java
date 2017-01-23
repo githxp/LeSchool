@@ -22,9 +22,7 @@ public class MyApplication extends Application {
 
     private static MyApplication app;
 
-    private LoginSucceedCallback mLoginSucceedCallback;
-    private LogoutSucceedCallback mLogoutSucceedCallback;
-    private MicroblogSingleChatCallback mMicroblogSingleChatCallback;
+    private LoginAndRegCallback mLoginAndRegCallback;
 
     public static class CustomMessageHandler extends AVIMMessageHandler {
         @Override
@@ -53,35 +51,15 @@ public class MyApplication extends Application {
     }
 
     public void setMineUserInfoViewModel(MineUserInfoViewModel mineUserInfoViewModel) {
-        mLoginSucceedCallback = mineUserInfoViewModel;
-        mLogoutSucceedCallback = mineUserInfoViewModel;
+        mLoginAndRegCallback = mineUserInfoViewModel;
     }
 
-    public void setMainActivity(MainActivity mainActivity) {
-        mMicroblogSingleChatCallback = mainActivity;
-    }
-
-    public interface LoginSucceedCallback {
+    public interface LoginAndRegCallback {
         void loginSucceedCallback();
-    }
-
-    public interface LogoutSucceedCallback {
         void logoutSucceedCallback();
     }
 
-    public interface MicroblogSingleChatCallback {
-        void microblogSingleChatCallback(String userName);
-    }
-
-    public LoginSucceedCallback getLoginSucceedCallback() {
-        return mLoginSucceedCallback;
-    }
-
-    public LogoutSucceedCallback getLogoutSucceedCallback() {
-        return mLogoutSucceedCallback;
-    }
-
-    public MicroblogSingleChatCallback getMicroblogSingleChatCallback() {
-        return mMicroblogSingleChatCallback;
+    public LoginAndRegCallback getLoginAndRegCallback() {
+        return mLoginAndRegCallback;
     }
 }

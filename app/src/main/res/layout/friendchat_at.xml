@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="mMicroblogSingleChatViewModel"
-            type="com.hxp.leschool.viewmodel.MicroblogSingleChatViewModel" />
+            name="mFriendChatViewModel"
+            type="com.hxp.leschool.viewmodel.FriendChatViewModel" />
 
         <variable
             name="mPosition"
@@ -35,7 +35,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:onClick="@{mMicroblogSingleChatViewModel.onMicroblogSingleChat_Layout_SendMessageClicked}"
+                android:onClick="@{mFriendChatViewModel.onFriendChat_Layout_SendMsgClicked}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="发送" />

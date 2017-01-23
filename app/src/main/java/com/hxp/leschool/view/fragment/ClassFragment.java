@@ -1,7 +1,6 @@
 package com.hxp.leschool.view.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

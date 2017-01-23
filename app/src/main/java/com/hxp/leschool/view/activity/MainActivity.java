@@ -1,6 +1,5 @@
 package com.hxp.leschool.view.activity;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.os.Bundle;
@@ -15,22 +14,16 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.hxp.leschool.R;
-import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.MyApplication.MicroblogSingleChatCallback;
 import com.hxp.leschool.view.fragment.ClassFragment;
-import com.hxp.leschool.view.fragment.MicroblogFragment;
-import com.hxp.leschool.view.fragment.MicroblogSingleChatFragment;
+import com.hxp.leschool.view.fragment.FriendFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
-import com.hxp.leschool.view.fragment.NearFragment;
 
-public class MainActivity extends AppCompatActivity implements MicroblogSingleChatCallback {
+public class MainActivity extends AppCompatActivity {
 
     private ClassFragment mClassFragment;
-    private MicroblogFragment mMicroblogFragment;
-    private NearFragment mNearFragment;
+    private FriendFragment mFriendFragment;
     private MineFragment mMineFragment;
     private SelecteUploadFileCallback mSelecteUploadFileCallback;
-    private MicroblogSingleChatFragment mMicroblogSingleChatFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,57 +34,96 @@ public class MainActivity extends AppCompatActivity implements MicroblogSingleCh
 
         if (mClassFragment == null) {
             mClassFragment = new ClassFragment();
-            Log.d("Fragment生命周期管理", "创建ClassFragment");
+            Log.d("Fragment", "创建mClassFragment in1");
         }
         getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
+        Log.d("Fragment", "添加mClassFragment in1");
 
         //跟踪统计应用的打开情况
         AVAnalytics.trackAppOpened(getIntent());
-
-        MyApplication.getInstance().setMainActivity(this);
     }
 
     public void onMain_Layout_ClassClicked(View view) {
         if (mClassFragment == null) {
             mClassFragment = new ClassFragment();
-            Log.d("Fragment生命周期管理", "创建ClassFragment");
-        }
-        if (!mClassFragment.isVisible()) {
-            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mClassFragment).commit();
-            Log.d("Fragment生命周期管理", "替换ClassFragment");
+            Log.d("Fragment", "创建mClassFragment in2");
+            getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
+            Log.d("Fragment", "添加mClassFragment in2");
+            if (mFriendFragment != null) {
+                getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
+                Log.d("Fragment", "隐藏mFriendFragment in");
+            }
+            if (mMineFragment != null) {
+                getFragmentManager().beginTransaction().hide(mMineFragment).commit();
+                Log.d("Fragment", "隐藏mMineFragment in");
+            }
+        } else if (!mClassFragment.isVisible()) {
+            if (mFriendFragment != null) {
+                getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
+                Log.d("Fragment", "隐藏mFriendFragment on");
+            }
+            if (mMineFragment != null) {
+                getFragmentManager().beginTransaction().hide(mMineFragment).commit();
+                Log.d("Fragment", "隐藏mMineFragment on");
+            }
+            getFragmentManager().beginTransaction().show(mClassFragment).commit();
+            Log.d("Fragment", "显示mClassFragment on");
         }
     }
 
-    public void onMain_Layout_MicroblogClicked(View view) {
-        if (mMicroblogFragment == null) {
-            mMicroblogFragment = new MicroblogFragment();
-            Log.d("Fragment生命周期管理", "创建MicroblogFragment");
-        }
-        if (!mMicroblogFragment.isVisible()) {
-            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mMicroblogFragment).commit();
-            Log.d("Fragment生命周期管理", "替换MicroblogFragment");
-        }
-    }
-
-    public void onMain_Layout_NearClicked(View view) {
-        if (mNearFragment == null) {
-            mNearFragment = new NearFragment();
-            Log.d("Fragment生命周期管理", "创建NearFragment");
-        }
-        if (!mNearFragment.isVisible()) {
-            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mNearFragment).commit();
-            Log.d("Fragment生命周期管理", "替换NearFragment");
+    public void onMain_Layout_FriendClicked(View view) {
+        if (mFriendFragment == null) {
+            mFriendFragment = new FriendFragment();
+            Log.d("Fragment", "创建mFriendFragment in");
+            getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mFriendFragment).commit();
+            Log.d("Fragment", "添加mFriendFragment in");
+            if (mClassFragment != null) {
+                getFragmentManager().beginTransaction().hide(mClassFragment).commit();
+                Log.d("Fragment", "隐藏mClassFragment in");
+            }
+            if (mMineFragment != null) {
+                getFragmentManager().beginTransaction().hide(mMineFragment).commit();
+                Log.d("Fragment", "隐藏mMineFragment in");
+            }
+        } else if (!mFriendFragment.isVisible()) {
+            if (mClassFragment != null) {
+                getFragmentManager().beginTransaction().hide(mClassFragment).commit();
+                Log.d("Fragment", "隐藏mClassFragment on");
+            }
+            if (mMineFragment != null) {
+                getFragmentManager().beginTransaction().hide(mMineFragment).commit();
+                Log.d("Fragment", "隐藏mMineFragment on");
+            }
+            getFragmentManager().beginTransaction().show(mFriendFragment).commit();
+            Log.d("Fragment", "显示mFriendFragment on");
         }
     }
 
     public void onMain_Layout_MineClicked(View view) {
         if (mMineFragment == null) {
             mMineFragment = new MineFragment();
-            Log.d("Fragment生命周期管理", "创建MineFragment");
-        }
-        if (!mMineFragment.isVisible()) {
-            getFragmentManager().beginTransaction().replace(R.id.fl_main_fms, mMineFragment).commit();
-            Log.d("Fragment生命周期管理", "替换MineFragment");
+            Log.d("Fragment", "创建MineFragment in");
+            getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mMineFragment).commit();
+            Log.d("Fragment", "添加mMineFragment in");
+            if (mClassFragment != null) {
+                getFragmentManager().beginTransaction().hide(mClassFragment).commit();
+                Log.d("Fragment", "隐藏mClassFragment in");
+            }
+            if (mFriendFragment != null) {
+                getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
+                Log.d("Fragment", "隐藏mFriendFragment in");
+            }
+        } else if (!mMineFragment.isVisible()) {
+            if (mClassFragment != null) {
+                getFragmentManager().beginTransaction().hide(mClassFragment).commit();
+                Log.d("Fragment", "隐藏mClassFragment on");
+            }
+            if (mFriendFragment != null) {
+                getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
+                Log.d("Fragment", "隐藏mFriendFragment on");
+            }
+            getFragmentManager().beginTransaction().show(mMineFragment).commit();
+            Log.d("Fragment", "显示mMineFragment on");
         }
     }
 
@@ -133,17 +165,5 @@ public class MainActivity extends AppCompatActivity implements MicroblogSingleCh
     @BindingAdapter("imageres")
     public static void setImageRes(ImageView imageView, int resource) {
         imageView.setImageResource(resource);
-    }
-
-    @Override
-    public void microblogSingleChatCallback(String userName) {
-
-        mMicroblogSingleChatFragment = new MicroblogSingleChatFragment();
-        mMicroblogSingleChatFragment.setUserName(userName);
-        Log.d("fragment", "创建了MicroblogSingleChatFragment");
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fl_main_fms, mMicroblogSingleChatFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 }

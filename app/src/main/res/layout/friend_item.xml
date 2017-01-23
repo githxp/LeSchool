@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="mMicroblogViewModel"
-            type="com.hxp.leschool.viewmodel.MicroblogViewModel" />
+            name="mFriendViewModel"
+            type="com.hxp.leschool.viewmodel.FriendViewModel" />
 
         <variable
             name="mPosition"
@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    imageres="@{mMicroblogViewModel.mMicroblogContactsModelOpt.mData.get(mPosition).userPicture}" />
+                    imageres="@{mFriendViewModel.mFriendModelOpt.mData.get(mPosition).userPicture}" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@{mMicroblogViewModel.mMicroblogContactsModelOpt.mData.get(mPosition).userName}" />
+                    android:text="@{mFriendViewModel.mFriendModelOpt.mData.get(mPosition).userName}" />
             </RelativeLayout>
 
         </LinearLayout>

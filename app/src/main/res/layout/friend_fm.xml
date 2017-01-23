@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="mMicroblogViewModel"
-            type="com.hxp.leschool.viewmodel.MicroblogViewModel" />
+            name="mFriendViewModel"
+            type="com.hxp.leschool.viewmodel.FriendViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
