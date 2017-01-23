@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
-                Log.d("Fragment", "隐藏mMineFragment in");
+                Log.d("Fragment", "隐藏mMineFragmet in");
             }
         } else if (!mClassFragment.isVisible()) {
             if (mFriendFragment != null) {
