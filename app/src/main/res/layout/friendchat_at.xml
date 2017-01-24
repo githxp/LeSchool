@@ -17,8 +17,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.hxp.leschool.widget.Navbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_microblogSingleChat_message"
+            android:id="@+id/rv_friendChat_msg"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -29,7 +33,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/et_microblogSingleChat_message"
+                android:id="@+id/et_friendChat_msg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />

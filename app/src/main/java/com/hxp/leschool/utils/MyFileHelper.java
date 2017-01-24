@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by hxp on 17-1-16.
@@ -263,5 +265,18 @@ public class MyFileHelper {
         } else {
             return false;
         }
+    }
+
+    //获取某个目录下所有的文件列表（包括文件夹下的文件）
+    public static ArrayList<String> getFileNameList(String fileDir) {
+        ArrayList<String> fileNameList = new ArrayList<>();
+        File file = new File(fileDir);
+        File[] fileArr = file.listFiles();
+        for (File f : fileArr) {
+            fileNameList.add(f.getName());
+            Log.d("fragment", "文件名：" + f.getName());
+        }
+        Log.d("fragment", "文件完毕");
+        return fileNameList;
     }
 }

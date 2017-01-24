@@ -47,8 +47,8 @@ public class FriendChatViewModel implements FriendChatSendMsgCallback {
 
         mFriendchatAtBinding.setMFriendChatViewModel(this);
 
-        mFriendchatAtBinding.rvMicroblogSingleChatMessage.setLayoutManager(new LinearLayoutManager(mFriendChatActivity, LinearLayoutManager.VERTICAL, false));
-        mFriendchatAtBinding.rvMicroblogSingleChatMessage.setAdapter(mFriendChatAdapter);
+        mFriendchatAtBinding.rvFriendChatMsg.setLayoutManager(new LinearLayoutManager(mFriendChatActivity, LinearLayoutManager.VERTICAL, false));
+        mFriendchatAtBinding.rvFriendChatMsg.setAdapter(mFriendChatAdapter);
 
         mFriendChatAdapter.setOnItemClickListener(new FriendChatAdapter.OnItemClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class FriendChatViewModel implements FriendChatSendMsgCallback {
     }
 
     public void onFriendChat_Layout_SendMsgClicked(View view) {
-        final String message = mFriendchatAtBinding.etMicroblogSingleChatMessage.getText().toString();
+        final String message = mFriendchatAtBinding.etFriendChatMsg.getText().toString();
         if (!message.equals("")) {
             if (mAVIMTextMessage == null) {
                 mAVIMTextMessage = new AVIMTextMessage();

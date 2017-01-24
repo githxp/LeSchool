@@ -1,6 +1,6 @@
 package com.hxp.leschool.viewmodel;
 
-import android.databinding.BindingAdapter;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +11,9 @@ import android.widget.Toast;
 import com.hxp.leschool.adapter.MineFunctionAdapter;
 import com.hxp.leschool.databinding.MinefunctionFmBinding;
 import com.hxp.leschool.model.operate.MineFunctionModelOpt;
+import com.hxp.leschool.view.activity.DownloadActivity;
 import com.hxp.leschool.view.fragment.MineFunctionFragment;
+import com.hxp.leschool.view.activity.MapActivity;
 
 /**
  * Created by hxp on 17-1-13.
@@ -63,7 +65,17 @@ public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionG
         mMineFunctionAdapter.setOnItemClickListener(new MineFunctionAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(mMineFunctionFragment.getActivity(), "点击了功能列表", Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                        mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), DownloadActivity.class));
+                        Toast.makeText(mMineFunctionFragment.getActivity(), "课件", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), MapActivity.class));
+                        Toast.makeText(mMineFunctionFragment.getActivity(), "地图", Toast.LENGTH_SHORT).show();
+                    default:
+                        break;
+                }
             }
         });
     }

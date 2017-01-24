@@ -110,25 +110,28 @@ public class ClassViewModel implements ClassOptCallback, SelecteUploadFileCallba
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mClassFmBinding.rvClassContent.setAdapter(mClassAdapter);
         mClassFmBinding.swifreshClassContent.setRefreshing(false);
+        Toast.makeText(mClassFragment.getActivity(), "获取数据成功", Toast.LENGTH_SHORT).show();
         Log.d("fragment", "ClassModelOpt数据获取成功回调接收方");
     }
 
     @Override
     public void classGetdataFailedCompleted() {
         Toast.makeText(mClassFragment.getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+        Log.d("fragment", "ClassModelOpt数据获取失败回调接收方");
     }
 
     @Override
     public void classRefreshdataSucceedCompleted() {
         mClassFmBinding.swifreshClassContent.setRefreshing(false);
         mClassAdapter.notifyDataSetChanged();
-        Toast.makeText(mClassFragment.getActivity(), "刷新", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mClassFragment.getActivity(), "刷新数据成功", Toast.LENGTH_SHORT).show();
         Log.d("fragment", "ClassModelOpt数据刷新成功回调接收方");
     }
 
     @Override
     public void classRefreshdataFailedCompleted() {
         Toast.makeText(mClassFragment.getActivity(), "刷新数据失败", Toast.LENGTH_SHORT).show();
+        Log.d("fragment", "ClassModelOpt数据刷新失败回调接收方");
     }
 
     @Override

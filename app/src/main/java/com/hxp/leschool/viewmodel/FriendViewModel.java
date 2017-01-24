@@ -32,8 +32,8 @@ public class FriendViewModel implements FriendOptCallback {
 
         mFriendFmBinding.setMFriendViewModel(this);
 
-        mFriendFmBinding.rvMicroblogContacts.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
-        mFriendFmBinding.rvMicroblogContacts.setAdapter(new RecyclerView.Adapter() {
+        mFriendFmBinding.rvFriendContent.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
+        mFriendFmBinding.rvFriendContent.setAdapter(new RecyclerView.Adapter() {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 return null;
@@ -49,20 +49,20 @@ public class FriendViewModel implements FriendOptCallback {
             }
         });
 
-        mFriendFmBinding.swifreshMicroblogContacts.setRefreshing(true);
+        mFriendFmBinding.swifreshFriendContent.setRefreshing(true);
 
         mFriendModelOpt = new FriendModelOpt(this,mFriendFragment);
         mFriendAdapter = new FriendAdapter(this);
 
         mFriendModelOpt.getData();
 
-        mFriendFmBinding.swifreshMicroblogContacts.setProgressViewOffset(true, 0, 50);
-        mFriendFmBinding.swifreshMicroblogContacts.setColorSchemeResources(
+        mFriendFmBinding.swifreshFriendContent.setProgressViewOffset(true, 0, 50);
+        mFriendFmBinding.swifreshFriendContent.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        mFriendFmBinding.swifreshMicroblogContacts.setOnRefreshListener(
+        mFriendFmBinding.swifreshFriendContent.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -71,7 +71,7 @@ public class FriendViewModel implements FriendOptCallback {
                 }
         );
 
-        mFriendFmBinding.fabMicroblogAddContacts.setOnClickListener(new View.OnClickListener() {
+        mFriendFmBinding.fabFriendAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mFriendFragment.getActivity(), "添加好友", Toast.LENGTH_SHORT).show();
@@ -93,9 +93,9 @@ public class FriendViewModel implements FriendOptCallback {
 
     @Override
     public void friendGetdataSucceedCompleted() {
-        mFriendFmBinding.rvMicroblogContacts.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
-        mFriendFmBinding.rvMicroblogContacts.setAdapter(mFriendAdapter);
-        mFriendFmBinding.swifreshMicroblogContacts.setRefreshing(false);
+        mFriendFmBinding.rvFriendContent.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
+        mFriendFmBinding.rvFriendContent.setAdapter(mFriendAdapter);
+        mFriendFmBinding.swifreshFriendContent.setRefreshing(false);
         Log.d("fragment", "数据获取成功回调接收方-FriendModelOpt");
     }
 
@@ -106,7 +106,7 @@ public class FriendViewModel implements FriendOptCallback {
 
     @Override
     public void friendRefreshdataSucceedCompleted() {
-        mFriendFmBinding.swifreshMicroblogContacts.setRefreshing(false);
+        mFriendFmBinding.swifreshFriendContent.setRefreshing(false);
         mFriendAdapter.notifyDataSetChanged();
         Toast.makeText(mFriendFragment.getActivity(), "刷新", Toast.LENGTH_SHORT).show();
         Log.d("fragment", "数据刷新成功回调接收方-FriendModelOpt");

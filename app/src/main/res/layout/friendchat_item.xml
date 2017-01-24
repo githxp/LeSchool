@@ -21,11 +21,10 @@
         android:padding="10dp">
 
         <LinearLayout
-            android:id="@+id/ll_microblogSingleChat_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:background="@drawable/microblogsinglechat_item_left_bg"
+            android:background="@drawable/friendchat_item_left_bg"
             android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isToSend ? View.GONE : View.VISIBLE}">
 
             <TextView
@@ -39,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:background="@drawable/microblogsinglechat_item_right_bg"
+            android:background="@drawable/friendchat_item_right_bg"
             android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isToSend ? View.VISIBLE : View.GONE}">
 
             <TextView
