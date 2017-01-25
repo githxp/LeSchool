@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">乐校</string>
-    <string name="menu_main_setting">设置</string>
+    <string name="str_appName">乐校</string>
+    <string name="str_main_setting">设置</string>
+    <string name="str_download_fileDel">删除</string>
 </resources>

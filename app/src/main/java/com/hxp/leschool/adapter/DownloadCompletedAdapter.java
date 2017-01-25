@@ -10,16 +10,16 @@ import android.view.ViewGroup;
 
 import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
-import com.hxp.leschool.viewmodel.ClassViewModel;
+import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
 import com.hxp.leschool.viewmodel.DownloadViewModel;
 
 /**
  * Created by hxp on 17-1-13.
  */
 
-public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
+public class DownloadCompletedAdapter extends RecyclerView.Adapter<DownloadCompletedAdapter.ViewHolder> {
 
-    private DownloadViewModel mDownloadViewModel;
+    private DownloadCompletedViewModel mDownloadCompletedViewModel;
     private OnItemClickListener mOnItemClickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,13 +38,13 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         }
     }
 
-    public DownloadAdapter(DownloadViewModel downloadViewModel) {
-        mDownloadViewModel = downloadViewModel;
+    public DownloadCompletedAdapter(DownloadCompletedViewModel downloadCompletedViewModel) {
+        mDownloadCompletedViewModel = downloadCompletedViewModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.download_item, parent, false);
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.downloadcompleted_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(viewDataBinding.getRoot());
         viewHolder.setBinding(viewDataBinding);
         Log.d("fragment", "onCreateViewHolder()");
@@ -53,13 +53,19 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.getBinding().setVariable(BR.mDownloadViewModel, mDownloadViewModel);
+        holder.getBinding().setVariable(BR.mDownloadCompletedViewModel, mDownloadCompletedViewModel);
         holder.getBinding().setVariable(BR.mPosition, position);
         holder.getBinding().executePendingBindings();
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.findViewById(R.id.ll_download_openFile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
+                mOnItemClickListener.onItemOpenFileClick(holder.itemView, holder.getLayoutPosition());
+            }
+        });
+        holder.itemView.findViewById(R.id.ll_download_delFile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemDelFileClick(holder.itemView, holder.getLayoutPosition());
             }
         });
         Log.d("fragment", "onBindViewHolder()");
@@ -67,13 +73,15 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        int itemCount = mDownloadViewModel.mDownloadModelOpt.getCount();
+        int itemCount = mDownloadCompletedViewModel.mDownloadCompletedModelOpt.getCount();
         Log.d("fragment", "getItemCount()" + itemCount);
         return itemCount;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemOpenFileClick(View view, int position);
+
+        void onItemDelFileClick(View view, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

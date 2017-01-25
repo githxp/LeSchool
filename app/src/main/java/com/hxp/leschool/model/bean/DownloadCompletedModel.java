@@ -9,15 +9,15 @@ import com.hxp.leschool.BR;
  * Created by hxp on 17-1-24.
  */
 
-public class DownloadModel extends BaseObservable {
+public class DownloadCompletedModel extends BaseObservable {
 
     private String title;
     private int picture;
 
-    public DownloadModel() {
+    public DownloadCompletedModel() {
     }
 
-    public DownloadModel(String title, int picture) {
+    public DownloadCompletedModel(String title, int picture) {
         this.title = title;
         this.picture = picture;
     }

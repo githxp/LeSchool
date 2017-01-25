@@ -268,15 +268,14 @@ public class MyFileHelper {
     }
 
     //获取某个目录下所有的文件列表（包括文件夹下的文件）
-    public static ArrayList<String> getFileNameList(String fileDir) {
-        ArrayList<String> fileNameList = new ArrayList<>();
-        File file = new File(fileDir);
-        File[] fileArr = file.listFiles();
+    public static ArrayList<File> getFileNameList(String fileDir) {
+        ArrayList<File> fileList = new ArrayList<>();
+        File[] fileArr = new File(fileDir).listFiles();
         for (File f : fileArr) {
-            fileNameList.add(f.getName());
+            fileList.add(f);
             Log.d("fragment", "文件名：" + f.getName());
         }
-        Log.d("fragment", "文件完毕");
-        return fileNameList;
+        Log.d("fragment", "扫描完毕");
+        return fileList;
     }
 }

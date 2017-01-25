@@ -128,20 +128,6 @@ public class ClassModelOpt {
                 } else {
                     Log.d("fragment", "上传失败" + e.getMessage());
                 }
-
-            }
-        });
-
-    }
-
-    //下载数据到本地
-    public void downloadData(int position) {
-        final AVFile file = new AVFile(mData.get(position).getTitle(), mData.get(position).getUrl(), new HashMap<String, Object>());
-        file.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] bytes, AVException e) {
-                Log.d("fragment", "ClassModelOpt下载完成");
-                MyFileHelper.saveFileToExternalStoragePrivateFileDir(bytes, "download", file.getName(), MyApplication.getInstance());
             }
         });
     }

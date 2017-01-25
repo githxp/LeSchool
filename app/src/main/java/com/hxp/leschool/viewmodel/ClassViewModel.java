@@ -14,6 +14,8 @@ import com.hxp.leschool.databinding.ClassFmBinding;
 import com.hxp.leschool.databinding.ClassItemBinding;
 import com.hxp.leschool.model.operate.ClassModelOpt;
 import com.hxp.leschool.model.operate.ClassModelOpt.ClassOptCallback;
+import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.view.activity.ClassDetailActivity;
 import com.hxp.leschool.view.activity.MainActivity.SelecteUploadFileCallback;
 import com.hxp.leschool.view.fragment.ClassFragment;
 
@@ -88,19 +90,26 @@ public class ClassViewModel implements ClassOptCallback, SelecteUploadFileCallba
                 //设置文件类型
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 // 添加Category属性
-                try {
+                if (intent.resolveActivity(MyApplication.getInstance().getPackageManager()) != null) {
                     mClassFragment.getActivity().startActivityForResult(intent, 1);
-                } catch (Exception e) {
-                    Toast.makeText(mClassFragment.getActivity(), "没有正确打开文件管理器" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mClassFragment.getActivity(), "未找到支持的应用", Toast.LENGTH_SHORT).show();
                 }
+//                try {
+//                    mClassFragment.getActivity().startActivityForResult(intent, 1);
+//                } catch (Exception e) {
+//                    Toast.makeText(mClassFragment.getActivity(), "没有正确打开文件管理器" + , Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
         mClassAdapter.setOnItemClickListener(new ClassAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                mClassModelOpt.downloadData(position);
-                Toast.makeText(mClassFragment.getActivity(), "click" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mClassFragment.getActivity(), ClassDetailActivity.class);
+                intent.putExtra("classTitle", mClassModelOpt.mData.get(position).getTitle());
+                intent.putExtra("classUrl",mClassModelOpt.mData.get(position).getUrl());
+                mClassFragment.getActivity().startActivity(intent);
             }
         });
     }

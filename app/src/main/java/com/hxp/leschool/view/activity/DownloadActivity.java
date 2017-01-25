@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.DownloadAtBinding;
@@ -14,6 +18,7 @@ import com.hxp.leschool.viewmodel.DownloadViewModel;
  */
 
 public class DownloadActivity extends Activity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
