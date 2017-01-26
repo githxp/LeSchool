@@ -1,12 +1,16 @@
 package com.hxp.leschool.viewmodel;
 
+import android.databinding.DataBindingUtil;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.ClassdetailAtBinding;
+import com.hxp.leschool.databinding.DownloadingItemBinding;
 import com.hxp.leschool.model.operate.ClassDetailModelOpt;
 import com.hxp.leschool.model.operate.ClassDetailModelOpt.ClassDetailOptCallback;
+import com.hxp.leschool.model.operate.DownloadingModelOpt;
 import com.hxp.leschool.view.activity.ClassDetailActivity;
 
 /**
@@ -26,13 +30,14 @@ public class ClassDetailViewModel implements ClassDetailOptCallback {
 
         mClassDetailModelOpt = new ClassDetailModelOpt(mClassDetailActivity, this);
 
+
         mClassdetailAtBinding.setMClassDetailViewModel(this);
 
         mClassDetailModelOpt.getData();
     }
 
     public void onClassDetail_Btn_downloadClicked(View view){
-        mClassDetailModelOpt.downloadData();
+        mClassDetailModelOpt.download();
     }
 
     @Override

@@ -24,7 +24,7 @@ public class DownloadCompletedViewModel implements DownloadCompletedOptCallback 
 
     public DownloadCompletedModelOpt mDownloadCompletedModelOpt;
     private DownloadCompletedFragment mDownloadCompletedFragment;
-    private DownloadcompletedItemBinding DownloadcompletedItemBinding;
+    private DownloadcompletedItemBinding mDownloadcompletedItemBinding;
     private DownloadcompletedFmBinding mDownloadcompletedFmBinding;
     private DownloadCompletedAdapter mDownloadCompletedAdapter;
 
@@ -32,7 +32,7 @@ public class DownloadCompletedViewModel implements DownloadCompletedOptCallback 
 
         mDownloadCompletedFragment = downloadCompletedFragment;
         mDownloadcompletedFmBinding = downloadcompletedFmBinding;
-        DownloadcompletedItemBinding = downloadcompletedItemBinding;
+        mDownloadcompletedItemBinding = downloadcompletedItemBinding;
 
         mDownloadcompletedFmBinding.rvDownloadCompletedContent.setLayoutManager(new LinearLayoutManager(mDownloadCompletedFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mDownloadcompletedFmBinding.rvDownloadCompletedContent.setAdapter(new RecyclerView.Adapter() {
@@ -56,7 +56,7 @@ public class DownloadCompletedViewModel implements DownloadCompletedOptCallback 
         mDownloadCompletedModelOpt = new DownloadCompletedModelOpt(this, mDownloadCompletedFragment);
 
         mDownloadcompletedFmBinding.setMDownloadCompletedViewModel(this);
-        DownloadcompletedItemBinding.setMDownloadCompletedViewModel(this);
+        mDownloadcompletedItemBinding.setMDownloadCompletedViewModel(this);
 
         mDownloadCompletedModelOpt.getData();
 

@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="mDownloadCompletedViewModel"
-            type="com.hxp.leschool.viewmodel.DownloadCompletedViewModel" />
+            name="mDownloadingViewModel"
+            type="com.hxp.leschool.viewmodel.DownloadingViewModel" />
 
         <variable
             name="mPosition"
@@ -18,11 +18,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/ll_downloadCompleted_openFile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:weightSum="8">
+            android:layout_weight="6"
+            android:weightSum="6">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -31,7 +30,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    imageres="@{mDownloadCompletedViewModel.mDownloadCompletedModelOpt.mData.get(mPosition).picture}"
+                    imageres="@{mDownloadingViewModel.mDownloadingModelOpt.mData.get(mPosition).picture}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true" />
@@ -40,20 +39,42 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:gravity="center">
+                android:layout_weight="4"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@{mDownloadCompletedViewModel.mDownloadCompletedModelOpt.mData.get(mPosition).title}" />
+                    android:text="@{mDownloadingViewModel.mDownloadingModelOpt.mData.get(mPosition).title}" />
+
+                <ProgressBar
+                    style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="@{mDownloadingViewModel.mDownloadingModelOpt.mData.get(mPosition).downloadProcess}" />
+
             </LinearLayout>
         </LinearLayout>
 
 
         <LinearLayout
-            android:id="@+id/ll_downloadCompleted_delFile"
+            android:id="@+id/ll_downloading_pauseDownload"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_delfile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_downloading_delDownload"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"

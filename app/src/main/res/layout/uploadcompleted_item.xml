@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="mDownloadCompletedViewModel"
-            type="com.hxp.leschool.viewmodel.DownloadCompletedViewModel" />
+            name="mUploadCompletedViewModel"
+            type="com.hxp.leschool.viewmodel.UploadCompletedViewModel" />
 
         <variable
             name="mPosition"
@@ -18,7 +18,6 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/ll_downloadCompleted_openFile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
@@ -31,7 +30,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    imageres="@{mDownloadCompletedViewModel.mDownloadCompletedModelOpt.mData.get(mPosition).picture}"
+                    imageres="@{mUploadCompletedViewModel.mUploadCompletedModelOpt.mData.get(mPosition).picture}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true" />
@@ -47,13 +46,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@{mDownloadCompletedViewModel.mDownloadCompletedModelOpt.mData.get(mPosition).title}" />
+                    android:text="@{mUploadCompletedViewModel.mUploadCompletedModelOpt.mData.get(mPosition).title}" />
             </LinearLayout>
         </LinearLayout>
 
 
         <LinearLayout
-            android:id="@+id/ll_downloadCompleted_delFile"
+            android:id="@+id/ll_uploadCompleted_delRecord"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"

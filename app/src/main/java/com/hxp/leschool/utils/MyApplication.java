@@ -11,8 +11,11 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMMessageHandler;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.hxp.leschool.model.bean.DownloadTaskModel;
 import com.hxp.leschool.view.activity.MainActivity;
 import com.hxp.leschool.viewmodel.MineUserInfoViewModel;
+
+import java.util.ArrayList;
 
 /**
  * Created by hxp on 17-1-12.
@@ -23,6 +26,7 @@ public class MyApplication extends Application {
     private static MyApplication app;
 
     private LoginAndRegCallback mLoginAndRegCallback;
+    private ArrayList<DownloadTaskModel> mData = new ArrayList<>();
 
     public static class CustomMessageHandler extends AVIMMessageHandler {
         @Override
@@ -56,10 +60,19 @@ public class MyApplication extends Application {
 
     public interface LoginAndRegCallback {
         void loginSucceedCallback();
+
         void logoutSucceedCallback();
     }
 
     public LoginAndRegCallback getLoginAndRegCallback() {
         return mLoginAndRegCallback;
+    }
+
+    public void addDownloadTask(DownloadTaskModel downloadTaskModel) {
+        mData.add(downloadTaskModel);
+    }
+
+    public ArrayList<DownloadTaskModel> getDownloadTask() {
+        return mData;
     }
 }

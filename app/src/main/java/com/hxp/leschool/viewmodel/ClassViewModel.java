@@ -86,7 +86,7 @@ public class ClassViewModel implements ClassOptCallback, SelecteUploadFileCallba
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 //系统调用Action属性
                 //intent.setType("application/msword");
-                intent.setType("application/vnd.ms-excel");
+                intent.setType("*/*");
                 //设置文件类型
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 // 添加Category属性
