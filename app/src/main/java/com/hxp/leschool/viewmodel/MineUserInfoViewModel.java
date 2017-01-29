@@ -8,13 +8,16 @@ import android.widget.Toast;
 import com.hxp.leschool.databinding.MineuserinfoFmBinding;
 import com.hxp.leschool.model.operate.MineUserInfoModelOpt;
 import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.MyApplication.LoginAndRegCallback;
 import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.fragment.MineUserInfoFragment;
+
+
 
 /**
  * Created by hxp on 17-1-13.
  */
+
+
 
 public class MineUserInfoViewModel implements MyApplication.LoginAndRegCallback {
 

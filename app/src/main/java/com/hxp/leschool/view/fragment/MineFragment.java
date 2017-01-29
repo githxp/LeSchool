@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.MineFmBinding;
-import com.hxp.leschool.viewmodel.ClassViewModel;
 import com.hxp.leschool.viewmodel.MineViewModel;
+
 
 /**
  * Created by hxp on 17-1-12.
  */
+
 
 public class MineFragment extends Fragment {
 
@@ -47,3 +48,4 @@ public class MineFragment extends Fragment {
         Log.d("Fragment生命周期管理", "onDestroy()触发-Mine");
     }
 }
+

@@ -10,16 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hxp.leschool.R;
-import com.hxp.leschool.databinding.ClassFmBinding;
-import com.hxp.leschool.databinding.ClassItemBinding;
 import com.hxp.leschool.databinding.DownloadcompletedFmBinding;
 import com.hxp.leschool.databinding.DownloadcompletedItemBinding;
-import com.hxp.leschool.viewmodel.ClassViewModel;
 import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
+
 
 /**
  * Created by hxp on 17-1-25.
  */
+
 
 public class DownloadCompletedFragment extends Fragment {
 

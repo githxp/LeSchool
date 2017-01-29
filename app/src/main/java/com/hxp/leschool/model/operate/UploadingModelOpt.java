@@ -1,21 +1,20 @@
+/*
 package com.hxp.leschool.model.operate;
 
 import android.util.Log;
 import android.widget.Toast;
 
-import com.hxp.leschool.databinding.UploadingFmBinding;
-import com.hxp.leschool.model.bean.UploadCompletedModel;
 import com.hxp.leschool.model.bean.UploadingModel;
-import com.hxp.leschool.view.fragment.UploadCompletedFragment;
 import com.hxp.leschool.view.fragment.UploadingFragment;
-import com.hxp.leschool.viewmodel.UploadCompletedViewModel;
 import com.hxp.leschool.viewmodel.UploadingViewModel;
 
 import java.util.ArrayList;
 
+*/
 /**
  * Created by hxp on 17-1-15.
- */
+ *//*
+
 
 public class UploadingModelOpt {
 
@@ -72,3 +71,4 @@ public class UploadingModelOpt {
         void uploadingRefreshdataFailedCompleted();
     }
 }
+*/

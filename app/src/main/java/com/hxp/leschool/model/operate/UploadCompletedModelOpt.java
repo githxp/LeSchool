@@ -1,27 +1,20 @@
+/*
 package com.hxp.leschool.model.operate;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.hxp.leschool.R;
-import com.hxp.leschool.model.bean.DownloadCompletedModel;
 import com.hxp.leschool.model.bean.UploadCompletedModel;
-import com.hxp.leschool.utils.MIMEHelper;
-import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.MyFileHelper;
-import com.hxp.leschool.view.fragment.DownloadCompletedFragment;
 import com.hxp.leschool.view.fragment.UploadCompletedFragment;
-import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
 import com.hxp.leschool.viewmodel.UploadCompletedViewModel;
 
-import java.io.File;
 import java.util.ArrayList;
 
+*/
 /**
  * Created by hxp on 17-1-15.
- */
+ *//*
+
 
 public class UploadCompletedModelOpt {
 
@@ -72,3 +65,4 @@ public class UploadCompletedModelOpt {
         void uploadCompletedRefreshdataFailedCompleted();
     }
 }
+*/

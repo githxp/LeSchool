@@ -9,9 +9,11 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.FriendchatAtBinding;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
+
 /**
  * Created by hxp on 17-1-22.
  */
+
 
 public class FriendChatActivity extends Activity {
 

@@ -13,9 +13,11 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
 import com.hxp.leschool.viewmodel.DownloadViewModel;
 
+
 /**
  * Created by hxp on 17-1-13.
  */
+
 
 public class DownloadCompletedAdapter extends RecyclerView.Adapter<DownloadCompletedAdapter.ViewHolder> {
 

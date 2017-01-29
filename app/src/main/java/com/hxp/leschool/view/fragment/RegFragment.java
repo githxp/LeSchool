@@ -14,9 +14,11 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.RegFmBinding;
 import com.hxp.leschool.viewmodel.RegViewModel;
 
+
 /**
  * Created by hxp on 17-1-12.
  */
+
 
 public class RegFragment extends Fragment {
 

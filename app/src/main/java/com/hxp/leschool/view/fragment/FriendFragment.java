@@ -14,9 +14,11 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.FriendFmBinding;
 import com.hxp.leschool.viewmodel.FriendViewModel;
 
+
 /**
  * Created by hxp on 17-1-12.
  */
+
 
 public class FriendFragment extends Fragment {
 

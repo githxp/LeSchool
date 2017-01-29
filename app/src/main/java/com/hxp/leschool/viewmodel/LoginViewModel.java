@@ -4,17 +4,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.LogInCallback;
-import com.avos.avoscloud.SignUpCallback;
+import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.LoginFmBinding;
-import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.model.bean.BmobUserModel;
 import com.hxp.leschool.view.fragment.LoginFragment;
+
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 
 /**
  * Created by hxp on 17-1-20.
  */
+
 
 public class LoginViewModel {
 
@@ -33,15 +36,16 @@ public class LoginViewModel {
         String userName = mLoginFmBinding.etLoginUserName.getText().toString();
         String userPassword = mLoginFmBinding.etLoginUserPassword.getText().toString();
         if ((!userName.equals("")) && (!userPassword.equals(""))) {
-            Toast.makeText(mLoginFragment.getActivity(), "正在登陆", Toast.LENGTH_SHORT).show();
-            AVUser user = new AVUser();
-            user.logInInBackground(userName, userPassword, new LogInCallback<AVUser>() {
+            Log.d("fragment:", "username" + userName + " password:" + userPassword);
+            BmobUserModel bmobUserModel = new BmobUserModel();
+            bmobUserModel.setUsername(userName);
+            bmobUserModel.setPassword(userPassword);
+            bmobUserModel.setUserPicture(R.mipmap.ic_launcher);
+            bmobUserModel.login(new SaveListener<BmobUserModel>() {
                 @Override
-                public void done(AVUser avUser, AVException e) {
+                public void done(BmobUserModel bmobUserModel, BmobException e) {
                     if (e == null) {
                         Toast.makeText(mLoginFragment.getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
-                        Log.d("fragment", "登陆成功回调发送方");
-                        MyApplication.getInstance().getLoginAndRegCallback().loginSucceedCallback();
                     } else {
                         Toast.makeText(mLoginFragment.getActivity(), "登陆失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -53,11 +57,12 @@ public class LoginViewModel {
     }
 
     public void onLogin_Layout_LogoutClicked(View view) {
-        if (AVUser.getCurrentUser() != null) {
-            AVUser.getCurrentUser().logOut();
-            MyApplication.getInstance().getLoginAndRegCallback().logoutSucceedCallback();
+        if (BmobUser.getCurrentUser() != null) {
+            BmobUser.logOut();
+            Toast.makeText(mLoginFragment.getActivity(), "注销成功", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(mLoginFragment.getActivity(), "暂时无用户登陆", Toast.LENGTH_SHORT).show();
         }
+
     }
 }

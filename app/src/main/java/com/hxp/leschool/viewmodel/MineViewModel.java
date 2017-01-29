@@ -7,9 +7,11 @@ import com.hxp.leschool.view.fragment.MineFragment;
 import com.hxp.leschool.view.fragment.MineFunctionFragment;
 import com.hxp.leschool.view.fragment.MineUserInfoFragment;
 
+
 /**
  * Created by hxp on 17-1-13.
  */
+
 
 public class MineViewModel {
 

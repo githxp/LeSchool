@@ -5,9 +5,11 @@ import android.databinding.Bindable;
 
 import com.hxp.leschool.BR;
 
+
 /**
  * Created by hxp on 17-1-24.
  */
+
 
 public class DownloadCompletedModel extends BaseObservable {
 

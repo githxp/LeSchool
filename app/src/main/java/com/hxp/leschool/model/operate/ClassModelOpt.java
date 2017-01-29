@@ -3,24 +3,21 @@ package com.hxp.leschool.model.operate;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
-import com.avos.avoscloud.GetDataCallback;
-import com.avos.avoscloud.SaveCallback;
 import com.hxp.leschool.R;
+import com.hxp.leschool.model.bean.BmobClassModel;
 import com.hxp.leschool.model.bean.ClassModel;
-import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.MyFileHelper;
 import com.hxp.leschool.viewmodel.ClassViewModel;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * Created by hxp on 17-1-15.
@@ -30,7 +27,6 @@ public class ClassModelOpt {
 
     public ClassModel mClassModel;
     public ArrayList<ClassModel> mData = new ArrayList<>();
-    private AVQuery<AVObject> avQuery = new AVQuery<>("TodoFolder");
     private ClassOptCallback mClassOptCallback;
 
     public ClassModelOpt(ClassViewModel classViewModel) {
@@ -39,30 +35,26 @@ public class ClassModelOpt {
 
     //获取数据
     public void getData() {
-        avQuery.selectKeys(Arrays.asList("name", "url"));
-        avQuery.orderByDescending("createdAt");
-        avQuery.findInBackground(new FindCallback<AVObject>() {
+        BmobQuery<BmobClassModel> bmobQuery = new BmobQuery<>();
+        bmobQuery.order("-createdAt");
+        bmobQuery.findObjects(new FindListener<BmobClassModel>() {
             @Override
-            public void done(List<AVObject> list, AVException e) {
+            public void done(List<BmobClassModel> list, BmobException e) {
                 if (e == null) {
+                    Log.d("fragment", "查询成功" + list.size());
                     mData.clear();
-                    Log.d("fragment", "mdata已清除-ClassModelOpt");
                     for (int i = 0; i < list.size(); i++) {
                         mClassModel = new ClassModel();
-                        mClassModel.setTitle(list.get(i).getString("name"));
-                        mClassModel.setUrl(list.get(i).getString("url"));
                         mClassModel.setPicture(R.mipmap.ic_launcher);
+                        mClassModel.setTitle(list.get(i).getTitle());
+                        mClassModel.setUrl(list.get(i).getUrl());
                         mData.add(mClassModel);
+                        Log.d("fragment", "查询成功" + list.get(i).getTitle());
                     }
-                    for (int i = 0; i < mData.size(); i++) {
-                        Log.d("fragment", "ClassModelOpt获得数据：" + mData.get(i).getTitle() + "url:" + mData.get(i).getUrl());
-                    }
-                    Log.d("fragment", "mdata.size:" + mData.size() + "ClassModelOpt");
-                    Log.d("fragment", "数据获取成功回调发送方-ClassModelOpt");
+                    Log.d("fragment", "ClassModelOpt数据获取成功回调发送方");
                     mClassOptCallback.classGetdataSucceedCompleted();
                 } else {
-                    Log.d("fragment", "数据获取失败回调发送方-ClassModelOpt");
-                    mClassOptCallback.classGetdataFailedCompleted();
+                    Log.d("fragment", "查询失败");
                 }
             }
         });
@@ -70,30 +62,26 @@ public class ClassModelOpt {
 
     //刷新数据
     public void refreshData() {
-        avQuery.selectKeys(Arrays.asList("name", "url"));
-        avQuery.orderByDescending("createdAt");
-        avQuery.findInBackground(new FindCallback<AVObject>() {
+        BmobQuery<BmobClassModel> bmobQuery = new BmobQuery<>();
+        bmobQuery.order("-createdAt");
+        bmobQuery.findObjects(new FindListener<BmobClassModel>() {
             @Override
-            public void done(List<AVObject> list, AVException e) {
+            public void done(List<BmobClassModel> list, BmobException e) {
                 if (e == null) {
+                    Log.d("fragment", "查询成功" + list.size());
                     mData.clear();
-                    Log.d("fragment", "mdata已清除-ClassModelOpt");
                     for (int i = 0; i < list.size(); i++) {
                         mClassModel = new ClassModel();
-                        mClassModel.setTitle(list.get(i).getString("name"));
-                        mClassModel.setUrl(list.get(i).getString("url"));
                         mClassModel.setPicture(R.mipmap.ic_launcher);
+                        mClassModel.setTitle(list.get(i).getTitle());
+                        mClassModel.setUrl(list.get(i).getUrl());
                         mData.add(mClassModel);
+                        Log.d("fragment", "查询成功" + list.get(i).getTitle());
                     }
-                    for (int i = 0; i < mData.size(); i++) {
-                        Log.d("fragment", "ClassModelOpt刷新数据：" + mData.get(i).getTitle() + "url:" + mData.get(i).getUrl());
-                    }
-                    Log.d("fragment", "mdata.size:" + mData.size() + "ClassModelOpt");
-                    Log.d("fragment", "数据刷新成功回调发送方-ClassModelOpt");
+                    Log.d("fragment", "ClassModelOpt数据刷新成功回调发送方");
                     mClassOptCallback.classRefreshdataSucceedCompleted();
                 } else {
-                    Log.d("fragment", "数据刷新失败回调发送方-ClassModelOpt");
-                    mClassOptCallback.classRefreshdataFailedCompleted();
+                    Log.d("fragment", "查询失败");
                 }
             }
         });
@@ -105,29 +93,33 @@ public class ClassModelOpt {
     }
 
     //上传数据到服务器
-    public void uploadData(String fileName, String filePath) throws FileNotFoundException {
-        final AVFile file = AVFile.withAbsoluteLocalPath(fileName, filePath);
-        file.saveInBackground(new SaveCallback() {
+    public void uploadData(String filePath) {
+        final BmobFile bmobFile = new BmobFile(new File(filePath));
+        bmobFile.uploadblock(new UploadFileListener() {
             @Override
-            public void done(AVException e) {
+            public void done(BmobException e) {
                 if (e == null) {
-                    AVObject avObject = new AVObject("TodoFolder");
-                    Log.d("fragment", "ClassModelOpt上传完成：" + file.getUrl());
-                    avObject.put("name", file.getOriginalName());
-                    avObject.put("url", file.getUrl());
-                    avObject.saveInBackground(new SaveCallback() {
+                    Log.d("fragment", "上传文件成功:" + bmobFile.getFileUrl());
+                    BmobClassModel bmobClassModel = new BmobClassModel();
+                    bmobClassModel.setTitle(bmobFile.getFilename());
+                    bmobClassModel.setUrl(bmobFile.getFileUrl());
+                    bmobClassModel.save(new SaveListener<String>() {
                         @Override
-                        public void done(AVException e) {
+                        public void done(String s, BmobException e) {
                             if (e == null) {
-                                Log.d("fragment", "ClassModelOpt创建对象完成" + file.getOriginalName());
+                                Log.d("fragment", "上传保存对象成功");
                             } else {
-                                Log.d("fragment", "ClassModelOpt创建对象失败" + e.getMessage());
+                                Log.d("fragment", "上传保存对象异常" + e.getMessage());
                             }
                         }
                     });
                 } else {
-                    Log.d("fragment", "上传失败" + e.getMessage());
+                    Log.d("fragment", "上传文件失败：" + e.getMessage());
                 }
+            }
+            @Override
+            public void onProgress(Integer value) {
+                Log.d("fragment", "上传进度：" + value);
             }
         });
     }

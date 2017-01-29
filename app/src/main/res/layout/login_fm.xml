@@ -10,8 +10,8 @@
             type="com.hxp.leschool.viewmodel.LoginViewModel" />
 
         <variable
-            name="mAVUser"
-            type="com.avos.avoscloud.AVUser" />
+            name="mBmobUser"
+            type="cn.bmob.v3.BmobUser" />
     </data>
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="@{(mAVUser.getCurrentUser() == null) ? View.VISIBLE : View.GONE}">
+            android:visibility="@{(mBmobUser.getCurrentUser() == null) ? View.VISIBLE : View.GONE}">
 
             <EditText
                 android:id="@+id/et_login_userName"
@@ -50,14 +50,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="@{(mBmobUser.getCurrentUser() == null) ? View.GONE : View.VISIBLE}">
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{mLoginViewModel.onLogin_Layout_LogoutClicked}"
-                android:text="注销"
-                android:visibility="@{(mAVUser.getCurrentUser() == null) ? View.GONE : View.VISIBLE}" />
+                android:text="注销" />
         </LinearLayout>
 
     </LinearLayout>

@@ -3,9 +3,11 @@ package com.hxp.leschool.model.bean;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
+
 /**
  * Created by hxp on 17-1-13.
  */
+
 
 public class MineFunctionModel {
 

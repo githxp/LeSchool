@@ -1,3 +1,4 @@
+/*
 package com.hxp.leschool.view.fragment;
 
 import android.app.Fragment;
@@ -10,16 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hxp.leschool.R;
-import com.hxp.leschool.databinding.DownloadcompletedFmBinding;
-import com.hxp.leschool.databinding.DownloadcompletedItemBinding;
 import com.hxp.leschool.databinding.DownloadingFmBinding;
 import com.hxp.leschool.databinding.DownloadingItemBinding;
-import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
 import com.hxp.leschool.viewmodel.DownloadingViewModel;
 
+*/
 /**
  * Created by hxp on 17-1-25.
- */
+ *//*
+
 
 public class DownloadingFragment extends Fragment {
 
@@ -51,3 +51,4 @@ public class DownloadingFragment extends Fragment {
         Log.d("Fragment生命周期管理", "onDestroy()触发-DownloadCompletedFragment");
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.hxp.leschool.model.bean;
 
 import android.databinding.BaseObservable;
@@ -5,9 +6,11 @@ import android.databinding.Bindable;
 
 import com.hxp.leschool.BR;
 
+*/
 /**
  * Created by hxp on 17-1-24.
- */
+ *//*
+
 
 public class DownloadingModel extends BaseObservable {
 
@@ -65,3 +68,4 @@ public class DownloadingModel extends BaseObservable {
         this.downloadstate = downloadstate;
     }
 }
+*/

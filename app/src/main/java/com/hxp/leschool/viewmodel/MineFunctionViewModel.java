@@ -12,12 +12,14 @@ import com.hxp.leschool.adapter.MineFunctionAdapter;
 import com.hxp.leschool.databinding.MinefunctionFmBinding;
 import com.hxp.leschool.model.operate.MineFunctionModelOpt;
 import com.hxp.leschool.view.activity.DownloadActivity;
-import com.hxp.leschool.view.fragment.MineFunctionFragment;
 import com.hxp.leschool.view.activity.MapActivity;
+import com.hxp.leschool.view.fragment.MineFunctionFragment;
+
 
 /**
  * Created by hxp on 17-1-13.
  */
+
 
 public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionGetdataCallback {
 
@@ -68,7 +70,7 @@ public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionG
                 switch (position) {
                     case 0:
                         mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), DownloadActivity.class));
-                        Toast.makeText(mMineFunctionFragment.getActivity(), "课件", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mMineFunctionFragment.getActivity(), "下载", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), MapActivity.class));

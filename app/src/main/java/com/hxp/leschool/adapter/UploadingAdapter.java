@@ -1,3 +1,4 @@
+/*
 package com.hxp.leschool.adapter;
 
 import android.databinding.DataBindingUtil;
@@ -13,9 +14,11 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.viewmodel.DownloadingViewModel;
 import com.hxp.leschool.viewmodel.UploadingViewModel;
 
+*/
 /**
  * Created by hxp on 17-1-13.
- */
+ *//*
+
 
 public class UploadingAdapter extends RecyclerView.Adapter<UploadingAdapter.ViewHolder> {
 
@@ -88,3 +91,4 @@ public class UploadingAdapter extends RecyclerView.Adapter<UploadingAdapter.View
         mOnItemClickListener = onItemClickListener;
     }
 }
+*/

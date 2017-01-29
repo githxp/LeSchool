@@ -4,18 +4,16 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.DownloadAtBinding;
 import com.hxp.leschool.viewmodel.DownloadViewModel;
 
+
 /**
  * Created by hxp on 17-1-24.
  */
+
 
 public class DownloadActivity extends Activity {
 
@@ -46,3 +44,4 @@ public class DownloadActivity extends Activity {
         Log.d("Fragment生命周期管理", "onDestroy()触发-DownloadActivity");
     }
 }
+

@@ -11,9 +11,11 @@ import com.amap.api.maps.TextureMapView;
 import com.hxp.leschool.R;
 import com.hxp.leschool.viewmodel.MapViewModel;
 
+
 /**
  * Created by hxp on 17-1-12.
  */
+
 
 public class MapActivity extends Activity {
 

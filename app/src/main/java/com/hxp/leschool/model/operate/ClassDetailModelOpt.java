@@ -2,30 +2,28 @@ package com.hxp.leschool.model.operate;
 
 import android.util.Log;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.GetDataCallback;
-import com.avos.avoscloud.ProgressCallback;
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.bean.ClassDetailModel;
 import com.hxp.leschool.model.bean.DownloadTaskModel;
-import com.hxp.leschool.model.bean.DownloadingModel;
+import com.hxp.leschool.utils.DownloadingPublish;
 import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.MyFileHelper;
 import com.hxp.leschool.view.activity.ClassDetailActivity;
 import com.hxp.leschool.viewmodel.ClassDetailViewModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.File;
+
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
 
 /**
  * Created by hxp on 17-1-25.
  */
 
+
 public class ClassDetailModelOpt {
 
     public ClassDetailModel mClassDetailModel;
-    private DownloadTaskModel mDownloadTaskModel;
     private ClassDetailOptCallback mClassDetailOptCallback;
     private ClassDetailActivity mClassDetailActivity;
     private String mClassTitle;
@@ -49,27 +47,26 @@ public class ClassDetailModelOpt {
 
     //添加下载任务
     public void download() {
-        mDownloadTaskModel = new DownloadTaskModel();
+        final DownloadTaskModel mDownloadTaskModel = new DownloadTaskModel();
         mDownloadTaskModel.setTitle(mClassTitle);
         mDownloadTaskModel.setPicture(R.mipmap.ic_launcher);
-        MyApplication.getInstance().addDownloadTask(mDownloadTaskModel);
-        final AVFile file = new AVFile(mClassTitle, mClassUrl, new HashMap<String, Object>());
-        Log.d("fragment", "下载的文件名：" + mClassTitle);
-        file.getDataInBackground(new GetDataCallback() {
+        DownloadingPublish.addDownloadTask(mDownloadTaskModel);
+        //下载文件
+        BmobFile bmobFile = new BmobFile(mClassTitle, "", mClassUrl);
+        bmobFile.download(new File(MyApplication.getInstance().getExternalFilesDir("download"),mClassTitle), new DownloadFileListener() {
             @Override
-            public void done(byte[] bytes, AVException e) {
-                mDownloadTaskModel.setIsDownloadCompleted(true);
-                Log.d("fragment", "ClassModelOpt下载完成");
-                MyFileHelper.saveFileToExternalStoragePrivateFileDir(bytes, "download", file.getName(), MyApplication.getInstance());
+            public void done(String s, BmobException e) {
+                Log.d("fragment", "下载路径：" + s);
             }
-        }, new ProgressCallback() {
+
             @Override
-            public void done(Integer integer) {
-                mDownloadTaskModel.setDownloadProcess(integer);
-                Log.d("fragment", "下载进度：" + integer);
+            public void onProgress(Integer integer, long l) {
+                Log.d("fragment", "进度：" + integer + "总大小:" + l);
             }
         });
+        Log.d("fragment", "下载的文件名：" + mClassTitle);
     }
+
 
     //获取数据成功回调
     //获取数据失败回调

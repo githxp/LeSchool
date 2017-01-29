@@ -14,9 +14,11 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.LoginFmBinding;
 import com.hxp.leschool.viewmodel.LoginViewModel;
 
+
 /**
  * Created by hxp on 17-1-12.
  */
+
 
 public class LoginFragment extends Fragment {
 

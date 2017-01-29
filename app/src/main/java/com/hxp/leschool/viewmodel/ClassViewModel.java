@@ -19,8 +19,6 @@ import com.hxp.leschool.view.activity.ClassDetailActivity;
 import com.hxp.leschool.view.activity.MainActivity.SelecteUploadFileCallback;
 import com.hxp.leschool.view.fragment.ClassFragment;
 
-import java.io.FileNotFoundException;
-
 /**
  * Created by hxp on 17-1-13.
  */
@@ -35,8 +33,8 @@ public class ClassViewModel implements ClassOptCallback, SelecteUploadFileCallba
 
     public ClassViewModel(ClassFragment classFragment, ClassFmBinding classFmBinding, ClassItemBinding classItemBinding) {
 
-        mClassFmBinding = classFmBinding;
         mClassFragment = classFragment;
+        mClassFmBinding = classFmBinding;
         mClassItemBinding = classItemBinding;
 
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -144,10 +142,10 @@ public class ClassViewModel implements ClassOptCallback, SelecteUploadFileCallba
     }
 
     @Override
-    public void selecteUploadFileCompleted(String fileName, String filePath) {
+    public void selecteUploadFileCompleted(String filePath) {
         try {
-            mClassModelOpt.uploadData(fileName, filePath);
-        } catch (FileNotFoundException e) {
+            mClassModelOpt.uploadData(filePath);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Log.d("fragment", "选择上传文件后回调接收方");

@@ -5,9 +5,12 @@ import android.databinding.Bindable;
 
 import com.hxp.leschool.BR;
 
+
+
 /**
  * Created by hxp on 17-1-19.
  */
+
 
 public class MineUserInfoModel extends BaseObservable{
 

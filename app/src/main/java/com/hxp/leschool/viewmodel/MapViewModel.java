@@ -11,16 +11,18 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.hxp.leschool.view.activity.MapActivity;
 
+
 /**
  * Created by hxp on 17-1-24.
  */
 
+
 public class MapViewModel implements LocationSource, AMapLocationListener {
 
+    public AMapLocationClient mAMapLocationClient;
     private AMap mAMap;
     private MapActivity mMapActivity;
     private OnLocationChangedListener mOnLocationChangedListener;
-    public AMapLocationClient mAMapLocationClient;
     private AMapLocationClientOption mAMapLocationClientOption;
 
     public MapViewModel(MapActivity mapFActivity) {

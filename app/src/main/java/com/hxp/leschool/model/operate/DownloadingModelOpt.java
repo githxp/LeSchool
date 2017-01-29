@@ -1,52 +1,47 @@
+/*
 package com.hxp.leschool.model.operate;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.hxp.leschool.R;
-import com.hxp.leschool.model.bean.DownloadCompletedModel;
 import com.hxp.leschool.model.bean.DownloadTaskModel;
 import com.hxp.leschool.model.bean.DownloadingModel;
-import com.hxp.leschool.utils.MIMEHelper;
-import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.MyFileHelper;
-import com.hxp.leschool.view.fragment.DownloadCompletedFragment;
+import com.hxp.leschool.utils.DownloadingPublish;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
-import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
 import com.hxp.leschool.viewmodel.DownloadingViewModel;
 
-import java.io.File;
 import java.util.ArrayList;
 
+*/
 /**
  * Created by hxp on 17-1-15.
- */
+ *//*
 
-public class DownloadingModelOpt {
+
+public class DownloadingModelOpt implements DownloadTaskModel.DownloadUpdateCallback {
 
     public DownloadingModel mDownloadingModel;
     public ArrayList<DownloadingModel> mData = new ArrayList<>();
     private DownloadingOptCallback mDownloadingOptCallback;
-    private ArrayList<File> fileNameList;
     private DownloadingFragment mDownloadingFragment;
 
     public DownloadingModelOpt(DownloadingViewModel downloadingViewModel, DownloadingFragment downloadingFragment) {
         mDownloadingOptCallback = downloadingViewModel;
         mDownloadingFragment = downloadingFragment;
+
+        DownloadTaskModel.setDownloadUpdateCallback(this);
     }
 
     //获取数据
     public void getData() {
         mData.clear();
         DownloadTaskModel downloadTaskModel;
-        for (int i = 0; i < MyApplication.getInstance().getDownloadTask().size(); i++) {
-            downloadTaskModel = MyApplication.getInstance().getDownloadTask().get(i);
+        for (int i = 0; i < DownloadingPublish.getDownloadTaskCount(); i++) {
+            downloadTaskModel = DownloadingPublish.getDownloadTask().get(i);
             mDownloadingModel = new DownloadingModel();
             mDownloadingModel.setTitle(downloadTaskModel.getTitle());
             mDownloadingModel.setPicture(downloadTaskModel.getPicture());
-            mDownloadingModel.setDownloadstate(downloadTaskModel.getIsDownloadCompleted());
+            mDownloadingModel.setDownloadstate(downloadTaskModel.getDownloadState());
             mDownloadingModel.setDownloadProcess(downloadTaskModel.getDownloadProcess());
             mData.add(mDownloadingModel);
         }
@@ -56,23 +51,24 @@ public class DownloadingModelOpt {
 
     //刷新数据
     public void refreshData() {
-        for (int i = 0; i < MyApplication.getInstance().getDownloadTask().size(); i++) {
-            if (!MyApplication.getInstance().getDownloadTask().get(i).getIsDownloadCompleted()) {
-                mData.clear();
-                DownloadTaskModel downloadTaskModel;
-                for (int j = 0; j < MyApplication.getInstance().getDownloadTask().size(); j++) {
-                    downloadTaskModel = MyApplication.getInstance().getDownloadTask().get(j);
-                    mDownloadingModel = new DownloadingModel();
-                    mDownloadingModel.setTitle(downloadTaskModel.getTitle());
-                    mDownloadingModel.setPicture(downloadTaskModel.getPicture());
-                    mDownloadingModel.setDownloadstate(downloadTaskModel.getIsDownloadCompleted());
-                    mDownloadingModel.setDownloadProcess(downloadTaskModel.getDownloadProcess());
-                    mData.add(mDownloadingModel);
-                }
-                Log.d("fragment", "DownloadModelOpt数据刷新成功回调发送方");
-                mDownloadingOptCallback.downloadingRefreshdataSucceedCompleted();
+        mData.clear();
+        DownloadTaskModel downloadTaskModel;
+        for (int i = 0; i < DownloadingPublish.getDownloadTaskCount(); i++) {
+            downloadTaskModel = DownloadingPublish.getDownloadTask().get(i);
+            if (mDownloadingModel == null) {
+                Log.d("fragment", "mDownloadingModel刷新时新建");
+                mDownloadingModel = new DownloadingModel();
+                mDownloadingModel.setTitle(downloadTaskModel.getTitle());
+                mDownloadingModel.setPicture(downloadTaskModel.getPicture());
+                mDownloadingModel.setDownloadstate(downloadTaskModel.getDownloadState());
+                mDownloadingModel.setDownloadProcess(downloadTaskModel.getDownloadProcess());
             }
+            Log.d("fragment", "mDownloadingModel刷新时未新建");
+            mDownloadingModel.setDownloadProcess(downloadTaskModel.getDownloadProcess());
+            mData.add(mDownloadingModel);
         }
+        Log.d("fragment", "DownloadModelOpt数据刷新成功回调发送方");
+        mDownloadingOptCallback.downloadingRefreshdataSucceedCompleted();
     }
 
     //获取数据数量
@@ -104,4 +100,17 @@ public class DownloadingModelOpt {
 
         void downloadingRefreshdataFailedCompleted();
     }
+
+    @Override
+    public void updateDownloadProcess() {
+        Log.d("fragment", "DownloadingModelOpt执行下载进度回调");
+        refreshData();
+    }
+
+    @Override
+    public void updateDownloadState() {
+        Log.d("fragment", "DownloadingModelOpt执行下载已完成回调");
+        refreshData();
+    }
 }
+*/

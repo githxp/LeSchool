@@ -9,9 +9,11 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.LoginandregAtBinding;
 import com.hxp.leschool.viewmodel.LoginAndRegViewModel;
 
+
 /**
  * Created by hxp on 17-1-19.
  */
+
 
 public class LoginAndRegActivity extends Activity {
 

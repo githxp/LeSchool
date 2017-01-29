@@ -1,8 +1,6 @@
 package com.hxp.leschool.model.operate;
 
-import android.databinding.BindingAdapter;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.bean.MineFunctionModel;
@@ -10,9 +8,11 @@ import com.hxp.leschool.viewmodel.MineFunctionViewModel;
 
 import java.util.ArrayList;
 
+
 /**
  * Created by hxp on 17-1-15.
  */
+
 
 public class MineFunctionModelOpt {
 

@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:name=".utils.MyApplication"
         android:allowBackup="true"
@@ -40,16 +42,8 @@
         <activity android:name=".view.activity.DownloadActivity" />
         <activity android:name=".view.activity.ClassDetailActivity" />
 
-        <service android:name="com.avos.avoscloud.PushService" />
-        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-
         <service android:name="com.amap.api.location.APSService"></service>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="ebd89a5493077064fb811342b41c1b89" />

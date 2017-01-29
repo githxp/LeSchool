@@ -5,12 +5,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.ClassdetailAtBinding;
-import com.hxp.leschool.databinding.DownloadingItemBinding;
 import com.hxp.leschool.model.operate.ClassDetailModelOpt;
 import com.hxp.leschool.model.operate.ClassDetailModelOpt.ClassDetailOptCallback;
-import com.hxp.leschool.model.operate.DownloadingModelOpt;
 import com.hxp.leschool.view.activity.ClassDetailActivity;
 
 /**

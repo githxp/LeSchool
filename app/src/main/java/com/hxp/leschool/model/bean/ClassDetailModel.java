@@ -5,9 +5,9 @@ import android.databinding.Bindable;
 
 import com.hxp.leschool.BR;
 
-/**
- * Created by hxp on 17-1-25.
- */
+/*Created by hxp on 17-1-25.*/
+
+
 
 public class ClassDetailModel extends BaseObservable {
 

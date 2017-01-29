@@ -9,9 +9,11 @@ import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.fragment.LoginFragment;
 import com.hxp.leschool.view.fragment.RegFragment;
 
+
 /**
  * Created by hxp on 17-1-20.
  */
+
 
 public class LoginAndRegViewModel {
 

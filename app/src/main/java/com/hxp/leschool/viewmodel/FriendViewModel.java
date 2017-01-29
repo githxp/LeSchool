@@ -1,5 +1,6 @@
 package com.hxp.leschool.viewmodel;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,16 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVUser;
 import com.hxp.leschool.adapter.FriendAdapter;
 import com.hxp.leschool.databinding.FriendFmBinding;
 import com.hxp.leschool.model.operate.FriendModelOpt;
 import com.hxp.leschool.model.operate.FriendModelOpt.FriendOptCallback;
+import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.fragment.FriendFragment;
+
 
 /**
  * Created by hxp on 17-1-21.
  */
+
 
 public class FriendViewModel implements FriendOptCallback {
 
@@ -51,7 +54,7 @@ public class FriendViewModel implements FriendOptCallback {
 
         mFriendFmBinding.swifreshFriendContent.setRefreshing(true);
 
-        mFriendModelOpt = new FriendModelOpt(this,mFriendFragment);
+        mFriendModelOpt = new FriendModelOpt(this, mFriendFragment);
         mFriendAdapter = new FriendAdapter(this);
 
         mFriendModelOpt.getData();
@@ -82,11 +85,8 @@ public class FriendViewModel implements FriendOptCallback {
             @Override
             public void onItemClick(View view, int position) {
                 //打开指定好友聊天界面
-                if (AVUser.getCurrentUser() != null) {
-                    mFriendModelOpt.chat(position);
-                } else {
-                    Toast.makeText(mFriendFragment.getActivity(), "请先登陆", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(mFriendFragment.getActivity(), FriendChatActivity.class);
+                mFriendFragment.getActivity().startActivity(intent);
             }
         });
     }

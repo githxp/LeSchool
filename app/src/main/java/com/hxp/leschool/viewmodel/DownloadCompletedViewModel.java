@@ -16,9 +16,11 @@ import com.hxp.leschool.model.operate.DownloadCompletedModelOpt.DownloadComplete
 import com.hxp.leschool.view.fragment.DownloadCompletedFragment;
 
 
+
 /**
  * Created by hxp on 17-1-13.
  */
+
 
 public class DownloadCompletedViewModel implements DownloadCompletedOptCallback {
 

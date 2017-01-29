@@ -12,11 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVAnalytics;
 import com.hxp.leschool.R;
 import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.FriendFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
+
+import cn.bmob.v3.Bmob;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
         Log.d("Fragment", "添加mClassFragment in1");
 
-        //跟踪统计应用的打开情况
-        AVAnalytics.trackAppOpened(getIntent());
+        Bmob.initialize(this, "377ebba633f1a6204e326755191bbc8d", "LeSchool");
     }
 
     public void onMain_Layout_ClassClicked(View view) {
@@ -150,16 +150,14 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
             String filePath = data.getData().getPath();
-            String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
             Log.d("fragment", data.getData().getPath());
-            Log.d("fragment", fileName);
             mSelecteUploadFileCallback = mClassFragment.mClassViewModel;
-            mSelecteUploadFileCallback.selecteUploadFileCompleted(fileName, filePath);
+            mSelecteUploadFileCallback.selecteUploadFileCompleted(filePath);
         }
     }
 
     public interface SelecteUploadFileCallback {
-        void selecteUploadFileCompleted(String fileName, String filePath);
+        void selecteUploadFileCompleted(String filePath);
     }
 
     @BindingAdapter("imageres")

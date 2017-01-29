@@ -12,9 +12,11 @@ import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
 import com.hxp.leschool.viewmodel.MineFunctionViewModel;
 
+
 /**
  * Created by hxp on 17-1-13.
  */
+
 
 public class MineFunctionAdapter extends RecyclerView.Adapter<MineFunctionAdapter.ViewHolder> {
 

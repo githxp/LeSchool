@@ -10,17 +10,17 @@ import com.hxp.leschool.model.bean.DownloadCompletedModel;
 import com.hxp.leschool.utils.MIMEHelper;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.utils.MyFileHelper;
-import com.hxp.leschool.view.activity.DownloadActivity;
 import com.hxp.leschool.view.fragment.DownloadCompletedFragment;
 import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
-import com.hxp.leschool.viewmodel.DownloadViewModel;
 
 import java.io.File;
 import java.util.ArrayList;
 
+
 /**
  * Created by hxp on 17-1-15.
  */
+
 
 public class DownloadCompletedModelOpt {
 

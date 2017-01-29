@@ -1,3 +1,4 @@
+/*
 package com.hxp.leschool.viewmodel;
 
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.hxp.leschool.adapter.DownloadingAdapter;
 import com.hxp.leschool.adapter.UploadingAdapter;
+
 import com.hxp.leschool.databinding.UploadingFmBinding;
 import com.hxp.leschool.databinding.UploadingItemBinding;
 import com.hxp.leschool.model.operate.UploadingModelOpt;
@@ -17,9 +18,11 @@ import com.hxp.leschool.model.operate.UploadingModelOpt.UploadingOptCallback;
 import com.hxp.leschool.view.fragment.UploadingFragment;
 
 
+*/
 /**
  * Created by hxp on 17-1-13.
- */
+ *//*
+
 
 public class UploadingViewModel implements UploadingOptCallback {
 
@@ -120,3 +123,4 @@ public class UploadingViewModel implements UploadingOptCallback {
         Log.d("fragment", "DownloadModelOpt数据刷新失败回调接收方");
     }
 }
+*/

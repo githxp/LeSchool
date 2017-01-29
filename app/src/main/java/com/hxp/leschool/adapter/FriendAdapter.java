@@ -12,9 +12,11 @@ import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
 import com.hxp.leschool.viewmodel.FriendViewModel;
 
+
 /**
  * Created by hxp on 17-1-13.
  */
+
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
 
