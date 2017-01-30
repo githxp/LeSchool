@@ -1,4 +1,3 @@
-/*
 package com.hxp.leschool.adapter;
 
 import android.databinding.DataBindingUtil;
@@ -11,18 +10,16 @@ import android.view.ViewGroup;
 
 import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
-import com.hxp.leschool.viewmodel.DownloadCompletedViewModel;
-import com.hxp.leschool.viewmodel.UploadCompletedViewModel;
+import com.hxp.leschool.viewmodel.ClassViewModel;
+import com.hxp.leschool.viewmodel.SearchFriendViewModel;
 
-*/
 /**
  * Created by hxp on 17-1-13.
- *//*
+ */
 
+public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapter.ViewHolder> {
 
-public class UploadCompletedAdapter extends RecyclerView.Adapter<UploadCompletedAdapter.ViewHolder> {
-
-    private UploadCompletedViewModel mUploadCompletedViewModel;
+    private SearchFriendViewModel mSearchFriendViewModel;
     private OnItemClickListener mOnItemClickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -41,13 +38,13 @@ public class UploadCompletedAdapter extends RecyclerView.Adapter<UploadCompleted
         }
     }
 
-    public UploadCompletedAdapter(UploadCompletedViewModel uploadCompletedViewModel) {
-        mUploadCompletedViewModel = uploadCompletedViewModel;
+    public SearchFriendAdapter(SearchFriendViewModel searchFriendViewModel) {
+        mSearchFriendViewModel = searchFriendViewModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.uploadcompleted_item, parent, false);
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.searchfriend_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(viewDataBinding.getRoot());
         viewHolder.setBinding(viewDataBinding);
         Log.d("fragment", "onCreateViewHolder()");
@@ -56,13 +53,13 @@ public class UploadCompletedAdapter extends RecyclerView.Adapter<UploadCompleted
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.getBinding().setVariable(BR.mUploadCompletedViewModel, mUploadCompletedViewModel);
+        holder.getBinding().setVariable(BR.mSearchFriendViewModel, mSearchFriendViewModel);
         holder.getBinding().setVariable(BR.mPosition, position);
         holder.getBinding().executePendingBindings();
-        holder.itemView.findViewById(R.id.ll_uploadCompleted_delRecord).setOnClickListener(new View.OnClickListener() {
+        holder.itemView.findViewById(R.id.btn_searchFriend_addFriend).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemDelRecordClick(holder.itemView, holder.getLayoutPosition());
+                mOnItemClickListener.onItemClick(holder.itemView, holder.getLayoutPosition());
             }
         });
         Log.d("fragment", "onBindViewHolder()");
@@ -70,17 +67,16 @@ public class UploadCompletedAdapter extends RecyclerView.Adapter<UploadCompleted
 
     @Override
     public int getItemCount() {
-        int itemCount = mUploadCompletedViewModel.mUploadCompletedModelOpt.getCount();
+        int itemCount = mSearchFriendViewModel.mSearchFriendModelOpt.getCount();
         Log.d("fragment", "getItemCount()" + itemCount);
         return itemCount;
     }
 
     public interface OnItemClickListener {
-        void onItemDelRecordClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 }
-*/

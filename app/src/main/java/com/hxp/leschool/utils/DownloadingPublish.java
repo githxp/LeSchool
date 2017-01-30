@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class DownloadingPublish {
 
     private static ArrayList<DownloadTaskModel> mData = new ArrayList<>();
-    private static DownloadTaskModel mDownloadTaskModel;
 
     public static void addDownloadTask(DownloadTaskModel downloadTaskModel) {
         mData.add(downloadTaskModel);

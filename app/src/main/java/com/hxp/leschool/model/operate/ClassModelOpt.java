@@ -1,11 +1,12 @@
 package com.hxp.leschool.model.operate;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.bean.BmobClassModel;
 import com.hxp.leschool.model.bean.ClassModel;
+import com.hxp.leschool.model.bean.UploadTaskModel;
+import com.hxp.leschool.utils.UploadingPublish;
 import com.hxp.leschool.viewmodel.ClassViewModel;
 
 import java.io.File;
@@ -28,6 +29,7 @@ public class ClassModelOpt {
     public ClassModel mClassModel;
     public ArrayList<ClassModel> mData = new ArrayList<>();
     private ClassOptCallback mClassOptCallback;
+    private int mFirstProcess = 0;
 
     public ClassModelOpt(ClassViewModel classViewModel) {
         mClassOptCallback = classViewModel;
@@ -93,7 +95,11 @@ public class ClassModelOpt {
     }
 
     //上传数据到服务器
-    public void uploadData(String filePath) {
+    public void uploadData(final String filePath) {
+        final UploadTaskModel mUploadTaskModel = new UploadTaskModel();
+        mUploadTaskModel.setTitle(filePath.substring(filePath.lastIndexOf("/") + 1));
+        mUploadTaskModel.setPicture(R.mipmap.ic_launcher);
+        UploadingPublish.addUploadTask(mUploadTaskModel);
         final BmobFile bmobFile = new BmobFile(new File(filePath));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override
@@ -113,13 +119,19 @@ public class ClassModelOpt {
                             }
                         }
                     });
+                    mUploadTaskModel.setUploadState(UploadingPublish.getUploadTask().indexOf(mUploadTaskModel), true);
                 } else {
                     Log.d("fragment", "上传文件失败：" + e.getMessage());
                 }
             }
+
             @Override
             public void onProgress(Integer value) {
-                Log.d("fragment", "上传进度：" + value);
+                if (value - mFirstProcess >= 1) {
+                    mFirstProcess = value;
+                    Log.d("fragment", "触发上传进度:" + value + filePath.substring(filePath.lastIndexOf("/") + 1));
+                    mUploadTaskModel.setUploadProcess(UploadingPublish.getUploadTask().indexOf(mUploadTaskModel), value);
+                }
             }
         });
     }

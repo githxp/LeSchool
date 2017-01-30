@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
             String filePath = data.getData().getPath();
             Log.d("fragment", data.getData().getPath());
             mSelecteUploadFileCallback = mClassFragment.mClassViewModel;

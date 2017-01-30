@@ -1,10 +1,12 @@
 package com.hxp.leschool.viewmodel;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.RegFmBinding;
+import com.hxp.leschool.model.bean.BmobAllUserModel;
 import com.hxp.leschool.model.bean.BmobUserModel;
 import com.hxp.leschool.view.fragment.RegFragment;
 
@@ -31,7 +33,7 @@ public class RegViewModel {
     }
 
     public void onReg_Layout_RegClicked(View view) {
-        String userName = mRegFmBinding.etRegUserName.getText().toString();
+        final String userName = mRegFmBinding.etRegUserName.getText().toString();
         String userPassword = mRegFmBinding.etRegUserPassword.getText().toString();
         if ((!userName.equals("")) && (!userPassword.equals(""))) {
             Toast.makeText(mRegFragment.getActivity(), "正在注册", Toast.LENGTH_SHORT).show();
@@ -44,6 +46,20 @@ public class RegViewModel {
                 public void done(BmobUserModel bmobUserModel, BmobException e) {
                     if (e == null) {
                         Toast.makeText(mRegFragment.getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
+                        //添加到用户表
+                        BmobAllUserModel bmobAllUserModel = new BmobAllUserModel();
+                        bmobAllUserModel.setUserName(userName);
+                        bmobAllUserModel.setUserPicture(R.mipmap.ic_launcher);
+                        bmobAllUserModel.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String objectId, BmobException e) {
+                                if (e == null) {
+                                    Log.d("fragment", "用户对象创建成功：");
+                                } else {
+                                    Log.d("fragment", "用户对象创建失败：" + e.getMessage());
+                                }
+                            }
+                        });
                     } else {
                         Toast.makeText(mRegFragment.getActivity(), "注册失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

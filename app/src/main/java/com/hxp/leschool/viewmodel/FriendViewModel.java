@@ -14,7 +14,10 @@ import com.hxp.leschool.databinding.FriendFmBinding;
 import com.hxp.leschool.model.operate.FriendModelOpt;
 import com.hxp.leschool.model.operate.FriendModelOpt.FriendOptCallback;
 import com.hxp.leschool.view.activity.FriendChatActivity;
+import com.hxp.leschool.view.activity.SearchFriendActivity;
 import com.hxp.leschool.view.fragment.FriendFragment;
+
+import cn.bmob.v3.BmobUser;
 
 
 /**
@@ -77,7 +80,11 @@ public class FriendViewModel implements FriendOptCallback {
         mFriendFmBinding.fabFriendAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mFriendFragment.getActivity(), "添加好友", Toast.LENGTH_SHORT).show();
+                if (BmobUser.getCurrentUser() == null) {
+                    Toast.makeText(mFriendFragment.getActivity(), "请先登陆", Toast.LENGTH_SHORT).show();
+                }else {
+                    mFriendFragment.getActivity().startActivity(new Intent(mFriendFragment.getActivity(), SearchFriendActivity.class));
+                }
             }
         });
 

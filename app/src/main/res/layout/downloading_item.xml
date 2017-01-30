@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="mDownloadingViewModel"
             type="com.hxp.leschool.viewmodel.DownloadingViewModel" />
@@ -18,15 +20,13 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:weightSum="6">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="center">
 
                 <ImageView
@@ -56,35 +56,20 @@
                     android:progress="@{mDownloadingViewModel.mDownloadingModelOpt.mData.get(mPosition).downloadProcess}" />
 
             </LinearLayout>
-        </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-        <LinearLayout
-            android:id="@+id/ll_downloading_pauseDownload"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_delfile" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_downloading_delDownload"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_delfile" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_complete"
+                    android:visibility="@{(mDownloadingViewModel.mDownloadingModelOpt.mData.get(mPosition).downloadstate) ? View.VISIBLE : View.INVISIBLE}" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

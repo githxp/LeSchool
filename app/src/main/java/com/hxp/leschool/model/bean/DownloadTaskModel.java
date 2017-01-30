@@ -43,12 +43,12 @@ public class DownloadTaskModel {
         return mDownloadProcess;
     }
 
-    public void setDownloadProcess(int downloadProcess) {
+    public void setDownloadProcess(int position,int downloadProcess) {
         mDownloadProcess = downloadProcess;
         //更新订阅者状态
         if (mDownloadUpdateCallback != null) {
             Log.d("fragment", "DownloadTaskModel发送下载进度回调");
-            mDownloadUpdateCallback.updateDownloadProcess();
+            mDownloadUpdateCallback.updateDownloadProcess(position,downloadProcess);
         }
     }
 
@@ -56,19 +56,19 @@ public class DownloadTaskModel {
         return mDownloadState;
     }
 
-    public void setDownloadState(boolean downloadState) {
+    public void setDownloadState(int position,boolean downloadState) {
         mDownloadState = downloadState;
         //更新订阅者状态
         if (mDownloadUpdateCallback != null) {
             Log.d("fragment", "DownloadTaskModel发送下载已完成回调");
-            mDownloadUpdateCallback.updateDownloadState();
+            mDownloadUpdateCallback.updateDownloadState(position,downloadState);
         }
     }
 
     public interface DownloadUpdateCallback {
-        void updateDownloadProcess();
+        void updateDownloadProcess(int position,int downloadProcess);
 
-        void updateDownloadState();
+        void updateDownloadState(int position,boolean downloadState);
     }
 
     public static void setDownloadUpdateCallback(DownloadUpdateCallback downloadUpdateCallback) {

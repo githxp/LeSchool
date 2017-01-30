@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.LoginFmBinding;
 import com.hxp.leschool.model.bean.BmobUserModel;
+import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.fragment.LoginFragment;
 
 import cn.bmob.v3.BmobUser;
@@ -46,6 +47,7 @@ public class LoginViewModel {
                 public void done(BmobUserModel bmobUserModel, BmobException e) {
                     if (e == null) {
                         Toast.makeText(mLoginFragment.getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
+                        MyApplication.getInstance().getLoginAndRegCallback().loginSucceedCallback();
                     } else {
                         Toast.makeText(mLoginFragment.getActivity(), "登陆失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -60,6 +62,7 @@ public class LoginViewModel {
         if (BmobUser.getCurrentUser() != null) {
             BmobUser.logOut();
             Toast.makeText(mLoginFragment.getActivity(), "注销成功", Toast.LENGTH_SHORT).show();
+            MyApplication.getInstance().getLoginAndRegCallback().logoutSucceedCallback();
         } else {
             Toast.makeText(mLoginFragment.getActivity(), "暂时无用户登陆", Toast.LENGTH_SHORT).show();
         }

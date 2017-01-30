@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="mUploadCompletedViewModel"
-            type="com.hxp.leschool.viewmodel.UploadCompletedViewModel" />
+            name="mSearchFriendViewModel"
+            type="com.hxp.leschool.viewmodel.SearchFriendViewModel" />
 
         <variable
             name="mPosition"
@@ -18,19 +18,17 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:weightSum="8">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="center">
 
                 <ImageView
-                    imageres="@{mUploadCompletedViewModel.mUploadCompletedModelOpt.mData.get(mPosition).picture}"
+                    imageres="@{mSearchFriendViewModel.mSearchFriendModelOpt.mData.get(mPosition).userPicture}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true" />
@@ -39,30 +37,30 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:gravity="center">
+                android:layout_weight="4"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@{mUploadCompletedViewModel.mUploadCompletedModelOpt.mData.get(mPosition).title}" />
+                    android:text="@{mSearchFriendViewModel.mSearchFriendModelOpt.mData.get(mPosition).userName}" />
+
             </LinearLayout>
-        </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-        <LinearLayout
-            android:id="@+id/ll_uploadCompleted_delRecord"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_delfile" />
+                <Button
+                    android:id="@+id/btn_searchFriend_addFriend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="添加" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

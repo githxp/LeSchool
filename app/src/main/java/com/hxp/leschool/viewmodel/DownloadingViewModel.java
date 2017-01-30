@@ -1,4 +1,3 @@
-/*
 package com.hxp.leschool.viewmodel;
 
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,13 +14,13 @@ import com.hxp.leschool.model.operate.DownloadingModelOpt.DownloadingOptCallback
 import com.hxp.leschool.model.operate.DownloadingModelOpt;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
 
-*/
+
 /**
  * Created by hxp on 17-1-13.
- *//*
+ */
 
 
-public class DownloadingViewModel implements DownloadingOptCallback{
+public class DownloadingViewModel implements DownloadingOptCallback {
 
     public DownloadingModelOpt mDownloadingModelOpt;
     private DownloadingFragment mDownloadingFragment;
@@ -59,20 +58,6 @@ public class DownloadingViewModel implements DownloadingOptCallback{
         mDownloadingItemBinding.setMDownloadingViewModel(this);
 
         mDownloadingModelOpt.getData();
-
-        mDownloadingAdapter.setOnItemClickListener(new DownloadingAdapter.OnItemClickListener() {
-            @Override
-            public void onItemPauseDownloadClick(View view, int position) {
-                //暂停下载
-                mDownloadingModelOpt.pauseDownload(position);
-            }
-
-            @Override
-            public void onItemDelDownloadClick(View view, int position) {
-                //删除下载
-                mDownloadingModelOpt.delDownload(position);
-            }
-        });
     }
 
     @Override
@@ -97,5 +82,17 @@ public class DownloadingViewModel implements DownloadingOptCallback{
     public void downloadingRefreshdataFailedCompleted() {
         Log.d("fragment", "DownloadingModelOpt数据刷新失败回调接收方");
     }
+
+    @Override
+    public void downloadingRefreshStateSucceedCompleted() {
+        mDownloadingAdapter.notifyDataSetChanged();
+        Log.d("fragment", "DownloadingModelOpt状态刷新成功回调接收方");
+    }
+
+    @Override
+    public void downloadingRefreshStateFailedCompleted() {
+        Log.d("fragment", "DownloadingModelOpt状态刷新成功回调接收方");
+    }
+
+
 }
-*/

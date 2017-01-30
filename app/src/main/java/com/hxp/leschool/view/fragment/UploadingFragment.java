@@ -1,4 +1,3 @@
-/*
 package com.hxp.leschool.view.fragment;
 
 import android.app.Fragment;
@@ -15,10 +14,10 @@ import com.hxp.leschool.databinding.UploadingFmBinding;
 import com.hxp.leschool.databinding.UploadingItemBinding;
 import com.hxp.leschool.viewmodel.UploadingViewModel;
 
-*/
+
 /**
  * Created by hxp on 17-1-25.
- *//*
+ */
 
 
 public class UploadingFragment extends Fragment {
@@ -51,4 +50,3 @@ public class UploadingFragment extends Fragment {
         Log.d("Fragment生命周期管理", "onDestroy()触发-DownloadCompletedFragment");
     }
 }
-*/
