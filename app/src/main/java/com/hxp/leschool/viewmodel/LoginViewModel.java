@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.LoginFmBinding;
-import com.hxp.leschool.model.bean.BmobUserModel;
+import com.hxp.leschool.model.server.user.MyUser;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.fragment.LoginFragment;
 
@@ -38,19 +38,20 @@ public class LoginViewModel {
         String userPassword = mLoginFmBinding.etLoginUserPassword.getText().toString();
         if ((!userName.equals("")) && (!userPassword.equals(""))) {
             Log.d("fragment:", "username" + userName + " password:" + userPassword);
-            BmobUserModel bmobUserModel = new BmobUserModel();
-            bmobUserModel.setUsername(userName);
-            bmobUserModel.setPassword(userPassword);
-            bmobUserModel.setUserPicture(R.mipmap.ic_launcher);
-            bmobUserModel.login(new SaveListener<BmobUserModel>() {
+            MyUser myUser = new MyUser();
+            myUser.setUsername(userName);
+            myUser.setPassword(userPassword);
+            //myUser.setAvatar(R.mipmap.ic_launcher);
+            myUser.login(MyApplication.getInstance(), new SaveListener() {
                 @Override
-                public void done(BmobUserModel bmobUserModel, BmobException e) {
-                    if (e == null) {
-                        Toast.makeText(mLoginFragment.getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
-                        MyApplication.getInstance().getLoginAndRegCallback().loginSucceedCallback();
-                    } else {
-                        Toast.makeText(mLoginFragment.getActivity(), "登陆失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                public void onSuccess() {
+                    Toast.makeText(mLoginFragment.getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
+                    MyApplication.getInstance().getLoginAndRegCallback().loginSucceedCallback();
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Toast.makeText(mLoginFragment.getActivity(), "登陆失败" + s, Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -59,8 +60,8 @@ public class LoginViewModel {
     }
 
     public void onLogin_Layout_LogoutClicked(View view) {
-        if (BmobUser.getCurrentUser() != null) {
-            BmobUser.logOut();
+        if (BmobUser.getCurrentUser(MyApplication.getInstance(), MyUser.class) != null) {
+            BmobUser.logOut(MyApplication.getInstance());
             Toast.makeText(mLoginFragment.getActivity(), "注销成功", Toast.LENGTH_SHORT).show();
             MyApplication.getInstance().getLoginAndRegCallback().logoutSucceedCallback();
         } else {

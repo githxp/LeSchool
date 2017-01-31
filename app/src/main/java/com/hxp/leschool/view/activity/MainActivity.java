@@ -13,11 +13,22 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hxp.leschool.R;
+import com.hxp.leschool.model.server.user.MyUser;
+import com.hxp.leschool.utils.IMMLeaks;
+import com.hxp.leschool.utils.RefreshEvent;
 import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.FriendFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.core.ConnectionStatus;
+import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
         }
         getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
         Log.d("Fragment", "添加mClassFragment in1");
-
-        Bmob.initialize(this, "377ebba633f1a6204e326755191bbc8d", "LeSchool");
     }
 
     public void onMain_Layout_ClassClicked(View view) {

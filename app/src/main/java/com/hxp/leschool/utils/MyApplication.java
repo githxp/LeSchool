@@ -1,8 +1,8 @@
 package com.hxp.leschool.utils;
 
 import android.app.Application;
+import android.util.Log;
 
-import com.hxp.leschool.viewmodel.MineUserInfoViewModel;
 import com.hxp.leschool.viewmodel.MineUserInfoViewModel;
 
 import java.io.BufferedReader;
@@ -31,11 +31,12 @@ public class MyApplication extends Application {
         app = this;
 
         //只有主进程运行的时候才需要初始化
-        if (getApplicationInfo().packageName.equals(getMyProcessName())){
+        if (getApplicationInfo().packageName.equals(getMyProcessName())) {
             //NewIM初始化
             BmobIM.init(this);
+            Log.d("fragment", "BmobIm初始化");
             //注册消息接收器
-            BmobIM.registerDefaultMessageHandler(new BmobMsgHandler(this));
+            BmobIM.registerDefaultMessageHandler(new MyMsgHandler(this));
         }
     }
 
@@ -55,6 +56,7 @@ public class MyApplication extends Application {
 
     /**
      * 获取当前运行的进程名
+     *
      * @return
      */
     public static String getMyProcessName() {

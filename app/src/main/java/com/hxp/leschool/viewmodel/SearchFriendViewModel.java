@@ -1,5 +1,7 @@
 package com.hxp.leschool.viewmodel;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -8,9 +10,11 @@ import android.widget.Toast;
 
 import com.hxp.leschool.adapter.SearchFriendAdapter;
 import com.hxp.leschool.databinding.SearchfriendAtBinding;
+import com.hxp.leschool.model.bean.SearchFriendModel;
 import com.hxp.leschool.model.operate.SearchFriendModelOpt;
 import com.hxp.leschool.model.operate.SearchFriendModelOpt.SearchFriendOptCallback;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
+import com.hxp.leschool.view.activity.SendAddReqActivity;
 
 
 /**
@@ -63,7 +67,12 @@ public class SearchFriendViewModel implements SearchFriendOptCallback {
         mSearchFriendAdapter.setOnItemClickListener(new SearchFriendAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(mSearchFriendActivity, "添加好友", Toast.LENGTH_SHORT).show();
+                SearchFriendModel searchFriendModel = mSearchFriendModelOpt.mData.get(position);
+                Intent intent = new Intent(mSearchFriendActivity, SendAddReqActivity.class);
+                intent.putExtra("userID", searchFriendModel.getUserID());
+                intent.putExtra("userName", searchFriendModel.getUserName());
+                intent.putExtra("avatar", searchFriendModel.getAvatar());
+                mSearchFriendActivity.startActivity(intent);
             }
         });
     }

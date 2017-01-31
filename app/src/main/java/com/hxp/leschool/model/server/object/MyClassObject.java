@@ -1,4 +1,4 @@
-package com.hxp.leschool.model.bean;
+package com.hxp.leschool.model.server.object;
 
 import cn.bmob.v3.BmobObject;
 
@@ -6,7 +6,7 @@ import cn.bmob.v3.BmobObject;
  * Created by hxp on 17-1-29.
  */
 
-public class BmobClassModel extends BmobObject {
+public class MyClassObject extends BmobObject {
 
     private String title;
     private String url;

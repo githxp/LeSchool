@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.common.eventbus.EventBus;
+import com.hxp.leschool.R;
+import com.hxp.leschool.model.server.user.MyUser;
 import com.hxp.leschool.view.activity.MainActivity;
 
 import java.util.List;
@@ -28,11 +30,11 @@ import cn.bmob.v3.listener.SaveListener;
  * Created by hxp on 17-1-30.
  */
 
-public class BmobMsgHandler extends BmobIMMessageHandler {
+public class MyMsgHandler extends BmobIMMessageHandler {
 
     private Context context;
 
-    public BmobMsgHandler(Context context) {
+    public MyMsgHandler(Context context) {
         this.context = context;
     }
 
@@ -41,5 +43,21 @@ public class BmobMsgHandler extends BmobIMMessageHandler {
         //当接收到服务器发来的消息时，此方法被调用
         //Logger.i(event.getConversation().getConversationTitle() + "," + event.getMessage().getMsgType() + "," + event.getMessage().getContent());
         //excuteMessage(event);
+        Log.d("fragment", "收到服务器消息通知");
+    }
+
+    @Override
+    public void onOfflineReceive(final OfflineMessageEvent event) {
+        //每次调用connect方法时会查询一次离线消息，如果有，此方法会被调用
+        Map<String, List<MessageEvent>> map = event.getEventMap();
+        Log.d("fragment", "离线消息属于" + map.size() + "个用户");
+        //挨个检测下离线消息所属的用户的信息是否需要更新
+        for (Map.Entry<String, List<MessageEvent>> entry : map.entrySet()) {
+            List<MessageEvent> list = entry.getValue();
+            int size = list.size();
+            for (int i = 0; i < size; i++) {
+                Log.d("fragment", "" + list.get(i));
+            }
+        }
     }
 }

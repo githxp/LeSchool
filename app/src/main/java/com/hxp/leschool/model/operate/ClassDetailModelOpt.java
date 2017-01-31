@@ -53,13 +53,7 @@ public class ClassDetailModelOpt {
         mDownloadTaskModel.setPicture(R.mipmap.ic_launcher);
         DownloadingPublish.addDownloadTask(mDownloadTaskModel);
         BmobFile bmobFile = new BmobFile(mClassTitle, "", mClassUrl);
-        bmobFile.download(new File(MyApplication.getInstance().getExternalFilesDir("download"), mClassTitle), new DownloadFileListener() {
-            @Override
-            public void done(String s, BmobException e) {
-                Log.d("fragment", "下载路径：" + s);
-                mDownloadTaskModel.setDownloadState(DownloadingPublish.getDownloadTask().indexOf(mDownloadTaskModel), true);
-            }
-
+        bmobFile.download(MyApplication.getInstance(), new File(MyApplication.getInstance().getExternalFilesDir("download"), mClassTitle), new DownloadFileListener() {
             @Override
             public void onProgress(Integer integer, long l) {
                 if (integer - mFirstProcess >= 1) {
@@ -67,6 +61,17 @@ public class ClassDetailModelOpt {
                     Log.d("fragment", "触发更新进度:" + integer + mClassTitle);
                     mDownloadTaskModel.setDownloadProcess(DownloadingPublish.getDownloadTask().indexOf(mDownloadTaskModel), integer);
                 }
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.d("fragment", "下载路径：" + s);
+                mDownloadTaskModel.setDownloadState(DownloadingPublish.getDownloadTask().indexOf(mDownloadTaskModel), true);
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
             }
         });
         Log.d("fragment", "下载的文件名：" + mClassTitle);

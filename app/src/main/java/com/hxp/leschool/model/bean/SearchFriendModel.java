@@ -12,14 +12,16 @@ import com.android.databinding.library.baseAdapters.BR;
 public class SearchFriendModel extends BaseObservable {
 
     private String userName;
-    private int userPicture;
+    private String userID;
+    private String avatar;
 
     public SearchFriendModel() {
     }
 
-    public SearchFriendModel(String userName, int userPicture) {
+    public SearchFriendModel(String userName, String userID, String avatar) {
         this.userName = userName;
-        this.userPicture = userPicture;
+        this.userID = userID;
+        this.avatar = avatar;
     }
 
     @Bindable
@@ -33,12 +35,22 @@ public class SearchFriendModel extends BaseObservable {
     }
 
     @Bindable
-    public int getUserPicture() {
-        return userPicture;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUserPicture(int userPicture) {
-        this.userPicture = userPicture;
-        notifyPropertyChanged(BR.userPicture);
+    public void setUserID(String userID) {
+        this.userID = userID;
+        notifyPropertyChanged(BR.userID);
+    }
+
+    @Bindable
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
     }
 }

@@ -6,8 +6,9 @@ import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.RegFmBinding;
-import com.hxp.leschool.model.bean.BmobAllUserModel;
-import com.hxp.leschool.model.bean.BmobUserModel;
+import com.hxp.leschool.model.server.object.MyUserObject;
+import com.hxp.leschool.model.server.user.MyUser;
+import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.fragment.RegFragment;
 
 import cn.bmob.v3.exception.BmobException;
@@ -37,32 +38,33 @@ public class RegViewModel {
         String userPassword = mRegFmBinding.etRegUserPassword.getText().toString();
         if ((!userName.equals("")) && (!userPassword.equals(""))) {
             Toast.makeText(mRegFragment.getActivity(), "正在注册", Toast.LENGTH_SHORT).show();
-            BmobUserModel bmobUserModel = new BmobUserModel();
-            bmobUserModel.setUsername(userName);
-            bmobUserModel.setPassword(userPassword);
-            bmobUserModel.setUserPicture(R.mipmap.ic_launcher);
-            bmobUserModel.signUp(new SaveListener<BmobUserModel>() {
+            final MyUser myUser = new MyUser();
+            myUser.setUsername(userName);
+            myUser.setPassword(userPassword);
+            myUser.setAvatar("默认头像");
+            myUser.signUp(MyApplication.getInstance(),new SaveListener() {
                 @Override
-                public void done(BmobUserModel bmobUserModel, BmobException e) {
-                    if (e == null) {
-                        Toast.makeText(mRegFragment.getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
-                        //添加到用户表
-                        BmobAllUserModel bmobAllUserModel = new BmobAllUserModel();
-                        bmobAllUserModel.setUserName(userName);
-                        bmobAllUserModel.setUserPicture(R.mipmap.ic_launcher);
-                        bmobAllUserModel.save(new SaveListener<String>() {
-                            @Override
-                            public void done(String objectId, BmobException e) {
-                                if (e == null) {
-                                    Log.d("fragment", "用户对象创建成功：");
-                                } else {
-                                    Log.d("fragment", "用户对象创建失败：" + e.getMessage());
-                                }
-                            }
-                        });
-                    } else {
-                        Toast.makeText(mRegFragment.getActivity(), "注册失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                public void onSuccess() {
+                    Toast.makeText(mRegFragment.getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
+                    MyUserObject myUserObject = new MyUserObject();
+                    myUserObject.setUserName(myUser.getUsername());
+                    myUserObject.setAvatar(myUser.getAvatar());
+                    myUserObject.setUserID(myUser.getObjectId());
+                    myUserObject.save(MyApplication.getInstance(),new SaveListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d("fragment", "用户对象创建成功：");
+                        }
+
+                        @Override
+                        public void onFailure(int i, String s) {
+                            Log.d("fragment", "用户对象创建失败：" + s);
+                        }
+                    });
+                }
+                @Override
+                public void onFailure(int i, String s) {
+                    Toast.makeText(mRegFragment.getActivity(), "注册失败" + s, Toast.LENGTH_SHORT).show();
                 }
             });
         } else {

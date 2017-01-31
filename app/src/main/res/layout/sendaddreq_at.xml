@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="mSendAddReqViewModel"
+            type="com.hxp.leschool.viewmodel.SendAddReqViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.hxp.leschool.widget.Navbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_sendAddReq_reqMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入请求消息" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{mSendAddReqViewModel.onSendAddReq_Layout_SendAddReqClicked}"
+            android:text="发送" />
+    </LinearLayout>
+</layout>

@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="@{(mBmobUser.getCurrentUser() == null) ? View.VISIBLE : View.GONE}">
+            >
 
             <EditText
                 android:id="@+id/et_login_userName"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="@{(mBmobUser.getCurrentUser() == null) ? View.GONE : View.VISIBLE}">
+            >
 
             <Button
                 android:layout_width="match_parent"
