@@ -6,8 +6,7 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.model.server.object.MyClassObject;
 import com.hxp.leschool.model.bean.ClassModel;
 import com.hxp.leschool.model.bean.UploadTaskModel;
-import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.UploadingPublish;
+import com.hxp.leschool.utils.publish.UploadingPublish;
 import com.hxp.leschool.viewmodel.ClassViewModel;
 
 import java.io.File;
@@ -40,9 +39,9 @@ public class ClassModelOpt {
     public void getData() {
         BmobQuery<MyClassObject> bmobQuery = new BmobQuery<>();
         bmobQuery.order("-createdAt");
-        bmobQuery.findObjects(MyApplication.getInstance(), new FindListener<MyClassObject>() {
+        bmobQuery.findObjects(new FindListener<MyClassObject>() {
             @Override
-            public void onSuccess(List<MyClassObject> list) {
+            public void done(List<MyClassObject> list, BmobException e) {
                 Log.d("fragment", "查询成功" + list.size());
                 mData.clear();
                 for (int i = 0; i < list.size(); i++) {
@@ -56,11 +55,6 @@ public class ClassModelOpt {
                 Log.d("fragment", "ClassModelOpt数据获取成功回调发送方");
                 mClassOptCallback.classGetdataSucceedCompleted();
             }
-
-            @Override
-            public void onError(int i, String s) {
-                Log.d("fragment", s);
-            }
         });
     }
 
@@ -68,9 +62,9 @@ public class ClassModelOpt {
     public void refreshData() {
         BmobQuery<MyClassObject> bmobQuery = new BmobQuery<>();
         bmobQuery.order("-createdAt");
-        bmobQuery.findObjects(MyApplication.getInstance(), new FindListener<MyClassObject>() {
+        bmobQuery.findObjects(new FindListener<MyClassObject>() {
             @Override
-            public void onSuccess(List<MyClassObject> list) {
+            public void done(List<MyClassObject> list, BmobException e) {
                 Log.d("fragment", "查询成功" + list.size());
                 mData.clear();
                 for (int i = 0; i < list.size(); i++) {
@@ -83,11 +77,6 @@ public class ClassModelOpt {
                 }
                 Log.d("fragment", "ClassModelOpt数据刷新成功回调发送方");
                 mClassOptCallback.classRefreshdataSucceedCompleted();
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
             }
         });
     }
@@ -104,7 +93,26 @@ public class ClassModelOpt {
         mUploadTaskModel.setPicture(R.mipmap.ic_launcher);
         UploadingPublish.addUploadTask(mUploadTaskModel);
         final BmobFile bmobFile = new BmobFile(new File(filePath));
-        bmobFile.uploadblock(MyApplication.getInstance(), new UploadFileListener() {
+        bmobFile.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                Log.d("fragment", "上传文件成功:" + bmobFile.getFileUrl());
+                MyClassObject myClassObject = new MyClassObject();
+                myClassObject.setTitle(bmobFile.getFilename());
+                myClassObject.setUrl(bmobFile.getFileUrl());
+                myClassObject.save(new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        if (e == null) {
+                            Log.d("fragment", "上传保存对象成功");
+                        } else {
+                            Log.d("fragment", "上传保存对象异常" + e.getMessage());
+                        }
+                    }
+                });
+                mUploadTaskModel.setUploadState(UploadingPublish.getUploadTask().indexOf(mUploadTaskModel), true);
+            }
+
             @Override
             public void onProgress(Integer value) {
                 if (value - mFirstProcess >= 1) {
@@ -112,31 +120,6 @@ public class ClassModelOpt {
                     Log.d("fragment", "触发上传进度:" + value + filePath.substring(filePath.lastIndexOf("/") + 1));
                     mUploadTaskModel.setUploadProcess(UploadingPublish.getUploadTask().indexOf(mUploadTaskModel), value);
                 }
-            }
-
-            @Override
-            public void onSuccess() {
-                Log.d("fragment", "上传文件成功:" + bmobFile.getFileUrl(MyApplication.getInstance()));
-                MyClassObject myClassObject = new MyClassObject();
-                myClassObject.setTitle(bmobFile.getFilename());
-                myClassObject.setUrl(bmobFile.getFileUrl(MyApplication.getInstance()));
-                myClassObject.save(MyApplication.getInstance(), new SaveListener() {
-                    @Override
-                    public void onSuccess() {
-                        Log.d("fragment", "上传保存对象成功");
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Log.d("fragment", "上传保存对象异常" + s);
-                    }
-                });
-                mUploadTaskModel.setUploadState(UploadingPublish.getUploadTask().indexOf(mUploadTaskModel), true);
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-
             }
         });
     }

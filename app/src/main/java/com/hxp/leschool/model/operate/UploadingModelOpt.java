@@ -5,7 +5,7 @@ import android.util.Log;
 import com.hxp.leschool.model.bean.UploadTaskModel;
 import com.hxp.leschool.model.bean.UploadingModel;
 import com.hxp.leschool.model.bean.UploadTaskModel.UploadUpdateCallback;
-import com.hxp.leschool.utils.UploadingPublish;
+import com.hxp.leschool.utils.publish.UploadingPublish;
 import com.hxp.leschool.view.fragment.UploadingFragment;
 import com.hxp.leschool.viewmodel.UploadingViewModel;
 

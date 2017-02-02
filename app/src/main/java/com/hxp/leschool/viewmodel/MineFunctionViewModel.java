@@ -8,10 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.hxp.leschool.adapter.MineFunctionAdapter;
 import com.hxp.leschool.databinding.MinefunctionFmBinding;
 import com.hxp.leschool.model.operate.MineFunctionModelOpt;
+import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.DownloadActivity;
+import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.activity.MapActivity;
 import com.hxp.leschool.view.fragment.MineFunctionFragment;
 
@@ -29,7 +35,7 @@ public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionG
     private MineFunctionAdapter mMineFunctionAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
-    public MineFunctionViewModel(MineFunctionFragment mineFunctionFragment, MinefunctionFmBinding minefunctionFmBinding) {
+    public MineFunctionViewModel(final MineFunctionFragment mineFunctionFragment, MinefunctionFmBinding minefunctionFmBinding) {
 
         mMineFunctionFragment = mineFunctionFragment;
         mMinefunctionFmBinding = minefunctionFmBinding;
@@ -75,6 +81,21 @@ public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionG
                     case 1:
                         mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), MapActivity.class));
                         Toast.makeText(mMineFunctionFragment.getActivity(), "地图", Toast.LENGTH_SHORT).show();
+                    case 2:
+                        AVUser.getCurrentUser().logOut();
+                        if (AVUser.getCurrentUser() == null) {
+                            Toast.makeText(mMineFunctionFragment.getActivity(), "退出登陆成功", Toast.LENGTH_SHORT).show();
+                            MyApplication.getInstance().getAVIMClient().close(new AVIMClientCallback() {
+                                @Override
+                                public void done(AVIMClient avimClient, AVIMException e) {
+                                    Toast.makeText(mineFunctionFragment.getActivity(), "当前用户已与服务器断开连接", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), LoginAndRegActivity.class));
+                            mMineFunctionFragment.getActivity().finish();
+                        } else {
+                            Toast.makeText(mMineFunctionFragment.getActivity(), "退出登陆失败", Toast.LENGTH_SHORT).show();
+                        }
                     default:
                         break;
                 }

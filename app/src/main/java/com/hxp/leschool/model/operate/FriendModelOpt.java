@@ -3,7 +3,12 @@ package com.hxp.leschool.model.operate;
 import android.content.Intent;
 import android.util.Log;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.hxp.leschool.R;
+import com.hxp.leschool.model.bean.ConversationModel;
 import com.hxp.leschool.model.bean.FriendModel;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.fragment.FriendFragment;
@@ -11,6 +16,7 @@ import com.hxp.leschool.viewmodel.FriendViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -24,6 +30,7 @@ public class FriendModelOpt {
     public ArrayList<FriendModel> mData = new ArrayList<>();
     private FriendOptCallback mFriendOptCallback;
     private FriendFragment mFriendFragment;
+    private AVQuery<AVObject> avQuery = new AVQuery<>("UserInfo");
 
     public FriendModelOpt(FriendViewModel microblogViewModel, FriendFragment friendFragment) {
         mFriendOptCallback = microblogViewModel;
@@ -32,25 +39,62 @@ public class FriendModelOpt {
 
     //获取数据
     public void getData() {
-        mFriendModel = new FriendModel();
-        mFriendModel.setUserPicture(R.mipmap.ic_launcher);
-        mFriendModel.setUserName("测试");
-        mData.add(mFriendModel);
-        mFriendOptCallback.friendGetdataSucceedCompleted();
+        avQuery.selectKeys(Arrays.asList("userName", "userPassword"));
+        avQuery.orderByDescending("createdAt");
+        avQuery.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e == null) {
+                    mData.clear();
+                    Log.d("fragment", "mdata已清除-FriendModelOpt");
+                    for (int i = 0; i < list.size(); i++) {
+                        mFriendModel = new FriendModel();
+                        mFriendModel.setAvatar(R.mipmap.ic_launcher);
+                        mFriendModel.setUserName(list.get(i).getString("userName"));
+                        mData.add(mFriendModel);
+                    }
+                    for (int i = 0; i < mData.size(); i++) {
+                        Log.d("fragment", "FriendModelOpt获得数据：" + mData.get(i).getUserName());
+                    }
+                    Log.d("fragment", "mdata.size:" + mData.size() + "FriendModelOpt");
+                    Log.d("fragment", "数据获取成功回调发送方-FriendModelOpt");
+                    mFriendOptCallback.friendGetdataSucceedCompleted();
+                } else {
+                    Log.d("fragment", "数据获取失败回调发送方-FriendModelOpt");
+                    mFriendOptCallback.friendGetdataFailedCompleted();
+                }
+            }
+        });
     }
 
     //刷新数据
     public void refreshData() {
-
-    }
-
-    //打开聊天
-    public void chat(int position) {
-        String chatFriend = mData.get(position).getUserName();
-        Log.d("fragment", "聊天好友是：" + chatFriend);
-        Intent intent = new Intent(mFriendFragment.getActivity(), FriendChatActivity.class);
-        intent.putExtra("chatFriend", chatFriend);
-        mFriendFragment.getActivity().startActivity(intent);
+        avQuery.selectKeys(Arrays.asList("userName", "userPassword"));
+        avQuery.orderByDescending("createdAt");
+        avQuery.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e == null) {
+                    mData.clear();
+                    Log.d("fragment", "mdata已清除-FriendModelOpt");
+                    for (int i = 0; i < list.size(); i++) {
+                        mFriendModel = new FriendModel();
+                        mFriendModel.setAvatar(R.mipmap.ic_launcher);
+                        mFriendModel.setUserName(list.get(i).getString("userName"));
+                        mData.add(mFriendModel);
+                    }
+                    for (int i = 0; i < mData.size(); i++) {
+                        Log.d("fragment", "FriendModelOpt获得数据：" + mData.get(i).getUserName());
+                    }
+                    Log.d("fragment", "mdata.size:" + mData.size() + "FriendModelOpt");
+                    Log.d("fragment", "数据刷新成功回调发送方-FriendModelOpt");
+                    mFriendOptCallback.friendRefreshdataSucceedCompleted();
+                } else {
+                    Log.d("fragment", "数据刷新失败回调发送方-FriendModelOpt");
+                    mFriendOptCallback.friendRefreshdataFailedCompleted();
+                }
+            }
+        });
     }
 
     //获取数据数量

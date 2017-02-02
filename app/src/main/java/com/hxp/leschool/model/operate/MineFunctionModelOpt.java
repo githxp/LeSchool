@@ -28,6 +28,7 @@ public class MineFunctionModelOpt {
         mData.clear();
         mData.add(new MineFunctionModel("课件", R.mipmap.ic_launcher));
         mData.add(new MineFunctionModel("地图", R.mipmap.ic_launcher));
+        mData.add(new MineFunctionModel("退出登陆", R.mipmap.ic_launcher));
         Log.d("fragment", "数据获取回调发送方-MineFunction");
         mMineFunctionGetdataCallback.mineFuncionGetdataCompleted();
     }

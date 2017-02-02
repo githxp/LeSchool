@@ -1,15 +1,15 @@
 package com.hxp.leschool.utils;
 
 import android.app.Application;
-import android.util.Log;
+import android.widget.Toast;
 
-import com.hxp.leschool.viewmodel.MineUserInfoViewModel;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-
-import cn.bmob.newim.BmobIM;
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.hxp.leschool.utils.MyNormalMsgHandler.MyNormalMsgHandlerCallback;
 
 /**
  * Created by hxp on 17-1-12.
@@ -18,8 +18,7 @@ import cn.bmob.newim.BmobIM;
 public class MyApplication extends Application {
 
     private static MyApplication app;
-
-    private LoginAndRegCallback mLoginAndRegCallback;
+    private AVIMClient mAVIMClient;
 
     public static MyApplication getInstance() {
         return app;
@@ -30,45 +29,34 @@ public class MyApplication extends Application {
         super.onCreate();
         app = this;
 
-        //只有主进程运行的时候才需要初始化
-        if (getApplicationInfo().packageName.equals(getMyProcessName())) {
-            //NewIM初始化
-            BmobIM.init(this);
-            Log.d("fragment", "BmobIm初始化");
-            //注册消息接收器
-            BmobIM.registerDefaultMessageHandler(new MyMsgHandler(this));
+        AVOSCloud.initialize(this, "JXors33cW6wDujTiVDgfJh5x-gzGzoHsz", "AgN648cOdXpbA0HHdBJPBXEc");
+        AVIMMessageManager.registerDefaultMessageHandler(new MyDefaultMsgHandler());
+
+        connectToServer();
+    }
+
+
+
+    public AVIMClient getAVIMClient() {
+        if (mAVIMClient == null) {
+            return null;
+        } else {
+            return mAVIMClient;
         }
     }
 
-    public void setMineUserInfoViewModel(MineUserInfoViewModel mineUserInfoViewModel) {
-        mLoginAndRegCallback = mineUserInfoViewModel;
-    }
-
-    public interface LoginAndRegCallback {
-        void loginSucceedCallback();
-
-        void logoutSucceedCallback();
-    }
-
-    public LoginAndRegCallback getLoginAndRegCallback() {
-        return mLoginAndRegCallback;
-    }
-
-    /**
-     * 获取当前运行的进程名
-     *
-     * @return
-     */
-    public static String getMyProcessName() {
-        try {
-            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
-            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
-            String processName = mBufferedReader.readLine().trim();
-            mBufferedReader.close();
-            return processName;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    public void connectToServer() {
+        if (AVUser.getCurrentUser() != null) {
+            AVIMClient avimClient = AVIMClient.getInstance(AVUser.getCurrentUser().getUsername());
+            avimClient.open(new AVIMClientCallback() {
+                @Override
+                public void done(AVIMClient client, AVIMException e) {
+                    if (e == null) {
+                        mAVIMClient = client;
+                        Toast.makeText(MyApplication.this, AVUser.getCurrentUser().getUsername() + "已连接到服务器", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 }

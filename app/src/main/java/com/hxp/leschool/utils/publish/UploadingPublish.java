@@ -1,4 +1,4 @@
-package com.hxp.leschool.utils;
+package com.hxp.leschool.utils.publish;
 
 import com.hxp.leschool.model.bean.DownloadTaskModel;
 import com.hxp.leschool.model.bean.UploadTaskModel;

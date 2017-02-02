@@ -3,15 +3,10 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="mLoginViewModel"
             type="com.hxp.leschool.viewmodel.LoginViewModel" />
 
-        <variable
-            name="mBmobUser"
-            type="cn.bmob.v3.BmobUser" />
     </data>
 
     <LinearLayout
@@ -25,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/et_login_userName"
@@ -44,20 +38,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="@{mLoginViewModel.onLogin_Layout_LoginClicked}"
                 android:text="登陆" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            >
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{mLoginViewModel.onLogin_Layout_LogoutClicked}"
-                android:text="注销" />
         </LinearLayout>
 
     </LinearLayout>

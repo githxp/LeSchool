@@ -5,7 +5,7 @@ import android.util.Log;
 import com.hxp.leschool.model.bean.DownloadTaskModel;
 import com.hxp.leschool.model.bean.DownloadTaskModel.DownloadUpdateCallback;
 import com.hxp.leschool.model.bean.DownloadingModel;
-import com.hxp.leschool.utils.DownloadingPublish;
+import com.hxp.leschool.utils.publish.DownloadingPublish;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
 import com.hxp.leschool.viewmodel.DownloadingViewModel;
 

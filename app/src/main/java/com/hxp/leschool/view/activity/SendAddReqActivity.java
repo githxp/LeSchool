@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.hxp.leschool.R;
-import com.hxp.leschool.databinding.SearchfriendAtBinding;
 import com.hxp.leschool.databinding.SendaddreqAtBinding;
-import com.hxp.leschool.viewmodel.SearchFriendViewModel;
 import com.hxp.leschool.viewmodel.SendAddReqViewModel;
 
 

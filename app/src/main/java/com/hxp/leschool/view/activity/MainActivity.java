@@ -13,26 +13,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hxp.leschool.R;
-import com.hxp.leschool.model.server.user.MyUser;
-import com.hxp.leschool.utils.IMMLeaks;
-import com.hxp.leschool.utils.RefreshEvent;
 import com.hxp.leschool.view.fragment.ClassFragment;
+import com.hxp.leschool.view.fragment.ConversationFragment;
 import com.hxp.leschool.view.fragment.FriendFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
-
-import org.greenrobot.eventbus.EventBus;
-
-import cn.bmob.newim.BmobIM;
-import cn.bmob.newim.core.ConnectionStatus;
-import cn.bmob.newim.listener.ConnectListener;
-import cn.bmob.newim.listener.ConnectStatusChangeListener;
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
 
 public class MainActivity extends AppCompatActivity {
 
     private ClassFragment mClassFragment;
+    private ConversationFragment mConversationFragment;
     private FriendFragment mFriendFragment;
     private MineFragment mMineFragment;
     private SelecteUploadFileCallback mSelecteUploadFileCallback;
@@ -43,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_toolbar);
         setSupportActionBar(toolbar);
+
+        Log.d("fragment", "创建了MainActivity");
 
         if (mClassFragment == null) {
             mClassFragment = new ClassFragment();
@@ -58,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Fragment", "创建mClassFragment in2");
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
             Log.d("Fragment", "添加mClassFragment in2");
+            if (mConversationFragment != null){
+                getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
+                Log.d("Fragment", "隐藏mConversationFragment in");
+            }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment in");
@@ -67,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Fragment", "隐藏mMineFragment in");
             }
         } else if (!mClassFragment.isVisible()) {
+            if (mConversationFragment != null){
+                getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
+                Log.d("Fragment", "隐藏mConversationFragment in");
+            }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment on");
@@ -80,6 +79,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void onMain_Layout_ConversationClicked(View view){
+        if (mConversationFragment == null) {
+            mConversationFragment = new ConversationFragment();
+            Log.d("Fragment", "创建mConversationFragment in");
+            getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mConversationFragment).commit();
+            Log.d("Fragment", "添加mConversationFragment in");
+            if (mClassFragment != null) {
+                getFragmentManager().beginTransaction().hide(mClassFragment).commit();
+                Log.d("Fragment", "隐藏mClassFragment in");
+            }
+            if (mFriendFragment != null){
+                getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
+                Log.d("Fragment", "隐藏mFriendFragment in");
+            }
+            if (mMineFragment != null) {
+                getFragmentManager().beginTransaction().hide(mMineFragment).commit();
+                Log.d("Fragment", "隐藏mMineFragment in");
+            }
+        } else if (!mConversationFragment.isVisible()) {
+            if (mClassFragment != null) {
+                getFragmentManager().beginTransaction().hide(mClassFragment).commit();
+                Log.d("Fragment", "隐藏mClassFragment in");
+            }
+            if (mFriendFragment != null){
+                getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
+                Log.d("Fragment", "隐藏mFriendFragment in");
+            }
+            if (mMineFragment != null) {
+                getFragmentManager().beginTransaction().hide(mMineFragment).commit();
+                Log.d("Fragment", "隐藏mMineFragment in");
+            }
+            getFragmentManager().beginTransaction().show(mConversationFragment).commit();
+            Log.d("Fragment", "显示mConversationFragment on");
+        }
+    }
+
     public void onMain_Layout_FriendClicked(View view) {
         if (mFriendFragment == null) {
             mFriendFragment = new FriendFragment();
@@ -90,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
             }
+            if (mConversationFragment != null){
+                getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
+                Log.d("Fragment", "隐藏mConversationFragment in");
+            }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
                 Log.d("Fragment", "隐藏mMineFragment in");
@@ -98,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment on");
+            }
+            if (mConversationFragment != null){
+                getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
+                Log.d("Fragment", "隐藏mConversationFragment in");
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
@@ -118,6 +161,10 @@ public class MainActivity extends AppCompatActivity {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
             }
+            if (mConversationFragment != null){
+                getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
+                Log.d("Fragment", "隐藏mConversationFragment in");
+            }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment in");
@@ -127,6 +174,10 @@ public class MainActivity extends AppCompatActivity {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment on");
             }
+            if (mConversationFragment != null){
+                getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
+                Log.d("Fragment", "隐藏mConversationFragment in");
+            }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment on");
@@ -134,6 +185,24 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().show(mMineFragment).commit();
             Log.d("Fragment", "显示mMineFragment on");
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("Fragment生命周期管理", "onPause()触发-MainActivity");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("Fragment生命周期管理", "onResume()触发-MainActivity");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Fragment生命周期管理", "onDestroy()触发-MainActivity");
     }
 
     @Override

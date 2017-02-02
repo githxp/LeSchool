@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
 import com.hxp.leschool.adapter.FriendAdapter;
 import com.hxp.leschool.databinding.FriendFmBinding;
 import com.hxp.leschool.model.operate.FriendModelOpt;
 import com.hxp.leschool.model.operate.FriendModelOpt.FriendOptCallback;
-import com.hxp.leschool.model.server.user.MyUser;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
@@ -82,11 +82,7 @@ public class FriendViewModel implements FriendOptCallback {
         mFriendFmBinding.fabFriendAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (BmobUser.getCurrentUser(MyApplication.getInstance(), MyUser.class) == null) {
-                    Toast.makeText(mFriendFragment.getActivity(), "请先登陆", Toast.LENGTH_SHORT).show();
-                }else {
-                    mFriendFragment.getActivity().startActivity(new Intent(mFriendFragment.getActivity(), SearchFriendActivity.class));
-                }
+                mFriendFragment.getActivity().startActivity(new Intent(mFriendFragment.getActivity(), SearchFriendActivity.class));
             }
         });
 
@@ -95,6 +91,7 @@ public class FriendViewModel implements FriendOptCallback {
             public void onItemClick(View view, int position) {
                 //打开指定好友聊天界面
                 Intent intent = new Intent(mFriendFragment.getActivity(), FriendChatActivity.class);
+                intent.putExtra("userName", mFriendModelOpt.mData.get(position).getUserName());
                 mFriendFragment.getActivity().startActivity(intent);
             }
         });

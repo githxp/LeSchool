@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    imageres="@{mFriendViewModel.mFriendModelOpt.mData.get(mPosition).userPicture}" />
+                    imageres="@{mFriendViewModel.mFriendModelOpt.mData.get(mPosition).avatar}" />
             </RelativeLayout>
 
         </LinearLayout>

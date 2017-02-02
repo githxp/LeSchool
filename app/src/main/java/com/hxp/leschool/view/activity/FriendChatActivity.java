@@ -4,9 +4,18 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
+import com.avos.avoscloud.im.v2.AVIMTypedMessageHandler;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.FriendchatAtBinding;
+import com.hxp.leschool.utils.MyNormalMsgHandler;
+import com.hxp.leschool.utils.publish.ChatMsgPublish;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
 
@@ -16,6 +25,8 @@ import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
 
 public class FriendChatActivity extends Activity {
+
+    private MyNormalMsgHandler mMyNormalMsgHandler = new MyNormalMsgHandler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,12 +39,19 @@ public class FriendChatActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
+
+        AVIMMessageManager.unregisterMessageHandler(AVIMTextMessage.class, mMyNormalMsgHandler);
+        ChatMsgPublish.removeMyNormalMsgHandlerCallback();
+
         Log.d("Fragment生命周期管理", "onPause()触发-FriendChatActivity");
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, mMyNormalMsgHandler);
+
         Log.d("Fragment生命周期管理", "onResume()触发-FriendChatActivity");
     }
 

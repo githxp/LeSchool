@@ -69,9 +69,7 @@ public class SearchFriendViewModel implements SearchFriendOptCallback {
             public void onItemClick(View view, int position) {
                 SearchFriendModel searchFriendModel = mSearchFriendModelOpt.mData.get(position);
                 Intent intent = new Intent(mSearchFriendActivity, SendAddReqActivity.class);
-                intent.putExtra("userID", searchFriendModel.getUserID());
                 intent.putExtra("userName", searchFriendModel.getUserName());
-                intent.putExtra("avatar", searchFriendModel.getAvatar());
                 mSearchFriendActivity.startActivity(intent);
             }
         });

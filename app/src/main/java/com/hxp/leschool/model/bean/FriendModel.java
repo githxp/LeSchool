@@ -14,14 +14,14 @@ import com.hxp.leschool.BR;
 public class FriendModel extends BaseObservable{
 
     private String userName;
-    private int userPicture;
+    private int avatar;
 
     public FriendModel() {
     }
 
     public FriendModel(String userName, int userPicture) {
         this.userName = userName;
-        this.userPicture = userPicture;
+        this.avatar = userPicture;
     }
 
     @Bindable
@@ -35,12 +35,12 @@ public class FriendModel extends BaseObservable{
     }
 
     @Bindable
-    public int getUserPicture() {
-        return userPicture;
+    public int getAvatar() {
+        return avatar;
     }
 
-    public void setUserPicture(int userPicture) {
-        this.userPicture = userPicture;
+    public void setAvatar(int userPicture) {
+        this.avatar = userPicture;
         notifyPropertyChanged(BR.userPicture);
     }
 }
