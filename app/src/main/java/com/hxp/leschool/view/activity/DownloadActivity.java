@@ -29,7 +29,7 @@ public class DownloadActivity extends Activity {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("Fragment生命周期管理", "onPause()触发-DownloadActivity");
+        Log.d("Fragment", "onPause()触发-DownloadActivity");
     }
 
     @Override

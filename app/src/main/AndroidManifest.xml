@@ -50,6 +50,7 @@
         <activity android:name=".view.activity.ClassDetailActivity" />
         <activity android:name=".view.activity.SearchFriendActivity" />
         <activity android:name=".view.activity.SendAddReqActivity" />
+        <activity android:name=".view.activity.FriendReqActivity" />
         <activity
             android:name=".view.activity.LoginAndRegActivity"
             android:launchMode="singleTask" />

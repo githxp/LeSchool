@@ -5,10 +5,13 @@ import android.util.Log;
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.bean.ClassDetailModel;
 import com.hxp.leschool.model.bean.DownloadTaskModel;
+import com.hxp.leschool.utils.event.DownloadEvent;
 import com.hxp.leschool.utils.publish.DownloadingPublish;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.ClassDetailActivity;
 import com.hxp.leschool.viewmodel.ClassDetailViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -29,6 +32,7 @@ public class ClassDetailModelOpt {
     private String mClassTitle;
     private String mClassUrl;
     private int mFirstProcess = 0;
+    private int mDownloadNum = 0;
 
     public ClassDetailModelOpt(ClassDetailActivity classDetailActivity, ClassDetailViewModel classDetailViewModel) {
         mClassDetailActivity = classDetailActivity;
@@ -48,16 +52,22 @@ public class ClassDetailModelOpt {
 
     //添加下载任务
     public void download() {
+        mDownloadNum++;
         final DownloadTaskModel mDownloadTaskModel = new DownloadTaskModel();
         mDownloadTaskModel.setTitle(mClassTitle);
         mDownloadTaskModel.setPicture(R.mipmap.ic_launcher);
         DownloadingPublish.addDownloadTask(mDownloadTaskModel);
+
+        EventBus.getDefault().post(new DownloadEvent(mClassTitle, R.mipmap.ic_launcher, 0, mDownloadNum, false));
+
         BmobFile bmobFile = new BmobFile(mClassTitle, "", mClassUrl);
         bmobFile.download(new File(MyApplication.getInstance().getExternalFilesDir("download"), mClassTitle), new DownloadFileListener() {
             @Override
             public void done(String s, BmobException e) {
                 Log.d("fragment", "下载完成 下载路径：" + s);
                 mDownloadTaskModel.setDownloadState(DownloadingPublish.getDownloadTask().indexOf(mDownloadTaskModel), true);
+
+                EventBus.getDefault().post(new DownloadEvent(mClassTitle, R.mipmap.ic_launcher, 100, mDownloadNum, true));
             }
 
             @Override
@@ -66,6 +76,7 @@ public class ClassDetailModelOpt {
                     mFirstProcess = integer;
                     Log.d("fragment", "触发更新进度:" + integer + mClassTitle);
                     mDownloadTaskModel.setDownloadProcess(DownloadingPublish.getDownloadTask().indexOf(mDownloadTaskModel), integer);
+                    EventBus.getDefault().post(new DownloadEvent(mClassTitle, R.mipmap.ic_launcher, integer, mDownloadNum, false));
                 }
             }
         });

@@ -44,5 +44,6 @@ dependencies {
     compile 'cn.bmob.android:http-legacy:1.0'
     compile ('cn.leancloud.android:avoscloud-sdk:v3.15.7')
     compile ('cn.leancloud.android:avoscloud-push:v3.15.7@aar'){transitive = true}
-
+    compile 'com.makeramen:roundedimageview:2.3.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

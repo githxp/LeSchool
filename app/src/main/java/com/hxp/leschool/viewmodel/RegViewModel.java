@@ -39,7 +39,7 @@ public class RegViewModel {
         final String userPassword = mRegFmBinding.etRegUserPassword.getText().toString();
         if ((!userName.equals("")) && (!userPassword.equals(""))) {
             Toast.makeText(mRegFragment.getActivity(), "正在注册", Toast.LENGTH_SHORT).show();
-            AVUser user = new AVUser();
+            final AVUser user = new AVUser();
             user.setUsername(userName);
             user.setPassword(userPassword);
             user.signUpInBackground(new SignUpCallback() {
@@ -49,6 +49,7 @@ public class RegViewModel {
                         AVObject avObject = new AVObject("UserInfo");
                         avObject.put("userName", userName);
                         avObject.put("userPassword", userPassword);
+                        avObject.put("userObjectID", user.getObjectId());
                         avObject.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(AVException e) {

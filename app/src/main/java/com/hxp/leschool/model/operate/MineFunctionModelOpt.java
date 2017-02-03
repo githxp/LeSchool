@@ -26,9 +26,10 @@ public class MineFunctionModelOpt {
     //获取数据
     public void getData() {
         mData.clear();
-        mData.add(new MineFunctionModel("课件", R.mipmap.ic_launcher));
-        mData.add(new MineFunctionModel("地图", R.mipmap.ic_launcher));
-        mData.add(new MineFunctionModel("退出登陆", R.mipmap.ic_launcher));
+        mData.add(new MineFunctionModel("下载", R.drawable.ic_file));
+        mData.add(new MineFunctionModel("地图", R.drawable.ic_map));
+        mData.add(new MineFunctionModel("成绩", R.drawable.ic_score));
+        mData.add(new MineFunctionModel("设置", R.drawable.ic_settings));
         Log.d("fragment", "数据获取回调发送方-MineFunction");
         mMineFunctionGetdataCallback.mineFuncionGetdataCompleted();
     }

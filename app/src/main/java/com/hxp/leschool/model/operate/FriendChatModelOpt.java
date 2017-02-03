@@ -3,7 +3,6 @@ package com.hxp.leschool.model.operate;
 import android.util.Log;
 
 import com.hxp.leschool.model.bean.FriendChatModel;
-import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.utils.MyNormalMsgHandler.MyNormalMsgHandlerCallback;
 import com.hxp.leschool.utils.publish.ChatMsgPublish;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;

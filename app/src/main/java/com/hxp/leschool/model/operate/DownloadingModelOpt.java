@@ -5,6 +5,7 @@ import android.util.Log;
 import com.hxp.leschool.model.bean.DownloadTaskModel;
 import com.hxp.leschool.model.bean.DownloadTaskModel.DownloadUpdateCallback;
 import com.hxp.leschool.model.bean.DownloadingModel;
+import com.hxp.leschool.utils.event.DownloadEvent;
 import com.hxp.leschool.utils.publish.DownloadingPublish;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
 import com.hxp.leschool.viewmodel.DownloadingViewModel;
@@ -109,5 +110,17 @@ public class DownloadingModelOpt implements DownloadUpdateCallback {
     public void updateDownloadState(int position, boolean downloadState) {
         Log.d("fragment", "DownloadingModelOpt执行下载已完成回调");
         refreshData(position, downloadState);
+    }
+
+    //处理下载事件
+    public void handleDownloadEvent(DownloadEvent downloadEvent) {
+        if (downloadEvent.getNum() > mData.size()) {//属于新增下载任务
+            mDownloadingModel = new DownloadingModel();
+            mDownloadingModel.setTitle(downloadEvent.getTitle());
+            mDownloadingModel.setPicture(downloadEvent.getAvatar());
+            mDownloadingModel.setDownloadProcess(downloadEvent.getProcess());
+            mDownloadingModel.setDownloadstate(downloadEvent.getStatus());
+            mData.add(mDownloadingModel);
+        }
     }
 }

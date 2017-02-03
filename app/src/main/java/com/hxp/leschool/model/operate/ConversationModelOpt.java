@@ -43,6 +43,7 @@ public class ConversationModelOpt {
     //添加消息
     public static void addConversation(ConversationModel conversationModel) {
         String userName = conversationModel.getUserName();
+
         boolean isExist = false;
         for (int i = 0; i < mData.size(); i++) {
             if (userName.equals(mData.get(i).getUserName())) {

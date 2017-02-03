@@ -1,10 +1,8 @@
 package com.hxp.leschool.viewmodel;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.hxp.leschool.adapter.DownloadingAdapter;
@@ -12,6 +10,7 @@ import com.hxp.leschool.databinding.DownloadingFmBinding;
 import com.hxp.leschool.databinding.DownloadingItemBinding;
 import com.hxp.leschool.model.operate.DownloadingModelOpt.DownloadingOptCallback;
 import com.hxp.leschool.model.operate.DownloadingModelOpt;
+import com.hxp.leschool.utils.event.DownloadEvent;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
 
 
@@ -94,5 +93,8 @@ public class DownloadingViewModel implements DownloadingOptCallback {
         Log.d("fragment", "DownloadingModelOpt状态刷新成功回调接收方");
     }
 
-
+    //处理下载事件
+    public void handleDownloadEvent(DownloadEvent downloadEvent){
+        mDownloadingModelOpt.handleDownloadEvent(downloadEvent);
+    }
 }

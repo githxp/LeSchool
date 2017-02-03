@@ -15,6 +15,7 @@ import com.hxp.leschool.model.bean.ConversationModel;
 import com.hxp.leschool.model.operate.ConversationModelOpt;
 import com.hxp.leschool.model.operate.ConversationModelOpt.ConversationOptCallback;
 import com.hxp.leschool.view.activity.FriendChatActivity;
+import com.hxp.leschool.view.activity.FriendReqActivity;
 import com.hxp.leschool.view.fragment.ConversationFragment;
 
 
@@ -69,6 +70,10 @@ public class ConversationViewModel implements ConversationOptCallback {
                 //打开指定好友聊天界面
                 if (type == 1) {
                     //打开处理好友请求页面
+                    Intent intent = new Intent(mConversationFragment.getActivity(), FriendReqActivity.class);
+                    intent.putExtra("userName", mConversationModelOpt.mData.get(position).getUserName());
+                    intent.putExtra("avatar", mConversationModelOpt.mData.get(position).getAvatar());
+                    mConversationFragment.getActivity().startActivity(intent);
                     Toast.makeText(mConversationFragment.getActivity(), "处理好友请求", Toast.LENGTH_SHORT).show();
                 } else if (type == 2) {
                     Intent intent = new Intent(mConversationFragment.getActivity(), FriendChatActivity.class);

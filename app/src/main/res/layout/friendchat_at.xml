@@ -38,11 +38,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <Button
-                android:onClick="@{mFriendChatViewModel.onFriendChat_Layout_SendMsgClicked}"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发送" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{mFriendChatViewModel.onFriendChat_Layout_SendMsgClicked}"
+                    android:src="@drawable/ic_send" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

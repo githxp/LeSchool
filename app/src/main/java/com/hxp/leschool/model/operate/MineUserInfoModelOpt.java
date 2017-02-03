@@ -22,7 +22,7 @@ public class MineUserInfoModelOpt {
 
     //获取数据
     public void getData() {
-        mData.setUserPicture(R.mipmap.ic_launcher);
+        mData.setUserPicture(R.drawable.ic_avatar);
         mData.setUserName(AVUser.getCurrentUser().getUsername());
     }
 }

@@ -21,10 +21,22 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <!--<ImageView-->
+                <!--imageres="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userPicture}"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 imageres="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userPicture}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                app:riv_border_color="#000000"
+                app:riv_border_width="1dip"
+                app:riv_corner_radius="30dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                app:riv_tile_mode="repeat" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -39,7 +39,7 @@ public class SearchFriendModelOpt {
     //获取数据
     public void getData(String userName) {
         Log.d("fragment", "获取搜索用户名2" + userName);
-        avQuery.selectKeys(Arrays.asList("userName", "userPassword"));
+        avQuery.selectKeys(Arrays.asList("userName", "userObjectID"));
         avQuery.orderByDescending("createdAt");
         avQuery.whereNotEqualTo("userName", AVUser.getCurrentUser().getUsername());
         avQuery.findInBackground(new FindCallback<AVObject>() {
