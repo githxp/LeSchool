@@ -5,14 +5,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.avos.avoscloud.im.v2.AVIMMessageManager;
-import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hxp.leschool.R;
-import com.hxp.leschool.databinding.FriendchatAtBinding;
 import com.hxp.leschool.databinding.FriendreqAtBinding;
-import com.hxp.leschool.utils.MyNormalMsgHandler;
-import com.hxp.leschool.utils.publish.ChatMsgPublish;
-import com.hxp.leschool.viewmodel.FriendChatViewModel;
 import com.hxp.leschool.viewmodel.FriendReqViewModel;
 
 

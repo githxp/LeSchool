@@ -9,7 +9,6 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.hxp.leschool.utils.MyNormalMsgHandler.MyNormalMsgHandlerCallback;
 
 /**
  * Created by hxp on 17-1-12.
@@ -34,7 +33,6 @@ public class MyApplication extends Application {
 
         connectToServer();
     }
-
 
 
     public AVIMClient getAVIMClient() {

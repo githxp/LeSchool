@@ -32,7 +32,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{mSendAddReqViewModel.onSendAddReq_Layout_SendAddReqClicked}"
+            android:onClick="@{mSendAddReqViewModel.btn_SendAddReq_send}"
             android:text="发送" />
     </LinearLayout>
 </layout>

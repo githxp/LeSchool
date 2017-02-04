@@ -25,13 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:background="@drawable/friendchat_item_left_bg"
-            android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isToSend ? View.GONE : View.VISIBLE}">
+            android:gravity="center"
+            android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.GONE : View.VISIBLE}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).message}" />
+                android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).msg}" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,13 +39,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@drawable/friendchat_item_right_bg"
-            android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isToSend ? View.VISIBLE : View.GONE}">
+            android:gravity="center"
+            android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.VISIBLE : View.GONE}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).message}" />
+                android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).msg}" />
         </LinearLayout>
     </LinearLayout>
 </layout>

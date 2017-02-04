@@ -6,10 +6,6 @@
         <variable
             name="mSearchFriendViewModel"
             type="com.hxp.leschool.viewmodel.SearchFriendViewModel" />
-
-        <variable
-            name="mPosition"
-            type="int" />
     </data>
 
     <LinearLayout
@@ -35,7 +31,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{mSearchFriendViewModel.onSearchFriend_Layout_SearchClicked}"
+                android:onClick="@{mSearchFriendViewModel.btn_SearchFriend_search}"
                 android:text="搜索" />
         </LinearLayout>
 

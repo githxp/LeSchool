@@ -2,11 +2,8 @@ package com.hxp.leschool.model.operate;
 
 import android.util.Log;
 
-import com.hxp.leschool.model.bean.UploadTaskModel;
 import com.hxp.leschool.model.bean.UploadingModel;
-import com.hxp.leschool.model.bean.UploadTaskModel.UploadUpdateCallback;
-import com.hxp.leschool.utils.publish.UploadingPublish;
-import com.hxp.leschool.view.fragment.UploadingFragment;
+import com.hxp.leschool.utils.event.UploadEvent;
 import com.hxp.leschool.viewmodel.UploadingViewModel;
 
 import java.util.ArrayList;
@@ -17,66 +14,47 @@ import java.util.ArrayList;
  */
 
 
-public class UploadingModelOpt implements UploadUpdateCallback {
+public class UploadingModelOpt {
 
     public UploadingModel mUploadingModel;
     public ArrayList<UploadingModel> mData = new ArrayList<>();
-    private UploadingOptCallback mUploadingOptCallback;
-    private UploadingFragment mUploadingFragment;
+    private UploadCallback mUploadCallback;
 
-    public UploadingModelOpt(UploadingViewModel uploadingViewModel, UploadingFragment uploadingFragment) {
-        mUploadingOptCallback = uploadingViewModel;
-        mUploadingFragment = uploadingFragment;
+    public UploadingModelOpt(UploadingViewModel uploadingViewModel) {
+        mUploadCallback = uploadingViewModel;
     }
 
-    //获取数据
-    public void getData() {
-        mData.clear();
-        UploadTaskModel downloadTaskModel;
-        for (int i = 0; i < UploadingPublish.getUploadTaskCount(); i++) {
-            downloadTaskModel = UploadingPublish.getUploadTask().get(i);
-            mUploadingModel = new UploadingModel();
-            mUploadingModel.setTitle(downloadTaskModel.getTitle());
-            mUploadingModel.setPicture(downloadTaskModel.getPicture());
-            mUploadingModel.setUploadstate(downloadTaskModel.getUploadState());
-            mUploadingModel.setUploadProcess(downloadTaskModel.getUploadProcess());
-            mData.add(mUploadingModel);
-        }
-        Log.d("fragment", "DownloadModelOpt数据获取成功回调发送方");
-        UploadTaskModel.setUploadUpdateCallback(this);
-        mUploadingOptCallback.uploadingGetdataSucceedCompleted();
-    }
-
-    //刷新数据
-    public void refreshData(int position, int downloadProcess) {
-        if (position >= mData.size()) {
-            mData.clear();
-            UploadTaskModel uploadTaskModel;
-            for (int i = 0; i < UploadingPublish.getUploadTaskCount(); i++) {
-                uploadTaskModel = UploadingPublish.getUploadTask().get(i);
-                mUploadingModel = new UploadingModel();
-                mUploadingModel.setTitle(uploadTaskModel.getTitle());
-                mUploadingModel.setPicture(uploadTaskModel.getPicture());
-                mUploadingModel.setUploadstate(uploadTaskModel.getUploadState());
-                mUploadingModel.setUploadProcess(uploadTaskModel.getUploadProcess());
-                mData.add(mUploadingModel);
+    //处理上传事件
+    public void handleUploadEvent(UploadEvent uploadEvent) {
+        boolean isNewDownload = true;
+        Log.d("fragment", "UploadingModelOpt正在处理" + uploadEvent.getTitle() + uploadEvent.getProcess());
+        if (mData.size() != 0) {
+            for (int i = 0; i < mData.size(); i++) {//轮询消息
+                if (uploadEvent.getTitle().equals(mData.get(i).getTitle())) {//已有下载
+                    Log.d("fragment", "更新下载进度");
+                    mData.get(i).setProcess(uploadEvent.getProcess());
+                    isNewDownload = false;
+                    break;
+                }
             }
-            Log.d("fragment", "DownloadModelOpt进度新增");
-            mUploadingOptCallback.uploadingRefreshdataSucceedCompleted();
-        } else {
-            mData.get(position).setUploadProcess(downloadProcess);
-            Log.d("fragment", "DownloadModelOpt下载进度刷新成功回调发送方" + position);
-            mUploadingOptCallback.uploadingRefreshdataSucceedCompleted();
+            if (isNewDownload) {
+                Log.d("fragment", "新的下载任务" + uploadEvent.getTitle());
+                mUploadingModel = new UploadingModel();
+                mUploadingModel.setTitle(uploadEvent.getTitle());
+                mUploadingModel.setAvatar(uploadEvent.getAvatar());
+                mUploadingModel.setProcess(uploadEvent.getProcess());
+                mData.add(mUploadingModel);
+                mUploadCallback.refresh();//刷新进度(需要event替换)
+            }
+        } else {//初始下载任务
+            Log.d("fragment", "新的下载任务0" + uploadEvent.getTitle());
+            mUploadingModel = new UploadingModel();
+            mUploadingModel.setTitle(uploadEvent.getTitle());
+            mUploadingModel.setAvatar(uploadEvent.getAvatar());
+            mUploadingModel.setProcess(uploadEvent.getProcess());
+            mData.add(mUploadingModel);
+            mUploadCallback.refresh();//刷新进度(需要event替换)
         }
-        Log.d("fragment", "DownloadModelOpt数据刷新成功回调发送方");
-        mUploadingOptCallback.uploadingRefreshdataSucceedCompleted();
-    }
-
-    //刷新数据-状态
-    public void refreshData(int position, boolean downloadState) {
-        mData.get(position).setUploadstate(downloadState);
-        Log.d("fragment", "DownloadModelOpt下载状态刷新成功回调发送方" + position);
-        mUploadingOptCallback.uploadingRefreshStateSucceedCompleted();
     }
 
     //获取数据数量
@@ -84,31 +62,8 @@ public class UploadingModelOpt implements UploadUpdateCallback {
         return mData.size();
     }
 
-    //获取数据成功回调
-    //获取数据失败回调
-    public interface UploadingOptCallback {
-        void uploadingGetdataSucceedCompleted();
-
-        void uploadingGetdataFailedCompleted();
-
-        void uploadingRefreshdataSucceedCompleted();
-
-        void uploadingRefreshdataFailedCompleted();
-
-        void uploadingRefreshStateSucceedCompleted();
-
-        void uploadingRefreshStateFailedCompleted();
-    }
-
-    @Override
-    public void updateUploadProcess(int position, int downloadProcess) {
-        Log.d("fragment", "UploadingModelOpt执行上传进度回调");
-        refreshData(position, downloadProcess);
-    }
-
-    @Override
-    public void updateUploadState(int position, boolean downloadState) {
-        Log.d("fragment", "UploadingModelOpt执行上传已完成回调");
-        refreshData(position, downloadState);
+    //刷新进度回调
+    public interface UploadCallback {
+        void refresh();
     }
 }

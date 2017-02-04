@@ -7,9 +7,6 @@
             name="mFriendChatViewModel"
             type="com.hxp.leschool.viewmodel.FriendChatViewModel" />
 
-        <variable
-            name="mPosition"
-            type="int" />
     </data>
 
     <LinearLayout
@@ -47,7 +44,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{mFriendChatViewModel.onFriendChat_Layout_SendMsgClicked}"
+                    android:onClick="@{mFriendChatViewModel.img_FriendChat_sendMsg}"
                     android:src="@drawable/ic_send" />
             </LinearLayout>
 

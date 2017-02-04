@@ -1,20 +1,20 @@
 package com.hxp.leschool.utils.event;
 
 /**
- * 下载消息
+ * 上传消息
  * Created by hxp on 17-2-3.
  */
 
-public class DownloadEvent {
+public class UploadEvent {
 
-    private String title;//下载文件的标题
-    private int avatar;//下载文件的图标
-    private int process;//下载进度
+    private String title;//上传文件的标题
+    private int avatar;//上传文件的图标
+    private int process;//上传进度
 
-    public DownloadEvent() {
+    public UploadEvent() {
     }
 
-    public DownloadEvent(String title, int avatar, int process) {
+    public UploadEvent(String title, int avatar, int process) {
         this.title = title;
         this.avatar = avatar;
         this.process = process;

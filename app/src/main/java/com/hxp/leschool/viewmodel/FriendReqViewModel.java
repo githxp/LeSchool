@@ -12,13 +12,10 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.FollowCallback;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
-import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.FriendreqAtBinding;
 import com.hxp.leschool.model.bean.FriendReqModel;
-import com.hxp.leschool.model.operate.FriendChatModelOpt.FriendChatSendMsgCallback;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.FriendReqActivity;
 
@@ -27,11 +24,12 @@ import java.util.List;
 
 
 /**
+ * 加好友请求处理
  * Created by hxp on 17-1-22.
  */
 
 
-public class FriendReqViewModel implements FriendChatSendMsgCallback {
+public class FriendReqViewModel{
 
     public FriendReqModel mFriendReqModel = new FriendReqModel();
     private FriendReqActivity mFriendReqActivity;
@@ -94,16 +92,10 @@ public class FriendReqViewModel implements FriendChatSendMsgCallback {
                     });
                 } else {
                     for (int i = 0; i < list.size(); i++) {
-                        Toast.makeText(mFriendReqActivity, "账号ID异常", Toast.LENGTH_SHORT).show();
                         Log.d("fragment", "id is:" + list.get(i).getString("userObjectID") + " size is" + list.size());
                     }
                 }
             }
         });
-    }
-
-    @Override
-    public void friendChatSendMsgCompleted() {
-
     }
 }

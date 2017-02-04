@@ -75,8 +75,8 @@ public class DownloadingFragment extends Fragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onStartDownload(DownloadEvent downloadEvent) {
-        Log.d("fragment", "下载事件处理" + downloadEvent.getTitle() + " num:" + downloadEvent.getNum() + "process:" + downloadEvent.getProcess());
+    public void handleDownloadEvent(DownloadEvent downloadEvent) {
+        Log.d("fragment", "下载事件处理" + downloadEvent.getTitle() + "process:" + downloadEvent.getProcess());
         //处理下载事件
         mDownloadingViewModel.handleDownloadEvent(downloadEvent);
     }

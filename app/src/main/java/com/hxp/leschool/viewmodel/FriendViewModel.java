@@ -3,23 +3,16 @@ package com.hxp.leschool.viewmodel;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.avos.avoscloud.AVUser;
 import com.hxp.leschool.adapter.FriendAdapter;
 import com.hxp.leschool.databinding.FriendFmBinding;
 import com.hxp.leschool.model.operate.FriendModelOpt;
-import com.hxp.leschool.model.operate.FriendModelOpt.FriendOptCallback;
-import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.model.operate.FriendModelOpt.FriendCallback;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
 import com.hxp.leschool.view.fragment.FriendFragment;
-
-import cn.bmob.v3.BmobUser;
 
 
 /**
@@ -27,7 +20,7 @@ import cn.bmob.v3.BmobUser;
  */
 
 
-public class FriendViewModel implements FriendOptCallback {
+public class FriendViewModel implements FriendCallback {
 
     public FriendModelOpt mFriendModelOpt;
     private FriendFragment mFriendFragment;
@@ -40,29 +33,15 @@ public class FriendViewModel implements FriendOptCallback {
 
         mFriendFmBinding.setMFriendViewModel(this);
 
-        mFriendFmBinding.rvFriendContent.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
-        mFriendFmBinding.rvFriendContent.setAdapter(new RecyclerView.Adapter() {
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return null;
-            }
-
-            @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            }
-
-            @Override
-            public int getItemCount() {
-                return 0;
-            }
-        });
-
-        mFriendFmBinding.swifreshFriendContent.setRefreshing(true);
-
         mFriendModelOpt = new FriendModelOpt(this, mFriendFragment);
         mFriendAdapter = new FriendAdapter(this);
 
-        mFriendModelOpt.getData();
+        mFriendFmBinding.rvFriendContent.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
+        mFriendFmBinding.rvFriendContent.setAdapter(mFriendAdapter);
+
+        mFriendFmBinding.swifreshFriendContent.setRefreshing(true);
+
+        mFriendModelOpt.refresh();
 
         mFriendFmBinding.swifreshFriendContent.setProgressViewOffset(true, 0, 50);
         mFriendFmBinding.swifreshFriendContent.setColorSchemeResources(
@@ -74,7 +53,7 @@ public class FriendViewModel implements FriendOptCallback {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        mFriendModelOpt.refreshData();
+                        mFriendModelOpt.refresh();
                     }
                 }
         );
@@ -98,28 +77,14 @@ public class FriendViewModel implements FriendOptCallback {
     }
 
     @Override
-    public void friendGetdataSucceedCompleted() {
-        mFriendFmBinding.rvFriendContent.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
-        mFriendFmBinding.rvFriendContent.setAdapter(mFriendAdapter);
-        mFriendFmBinding.swifreshFriendContent.setRefreshing(false);
-        Log.d("fragment", "数据获取成功回调接收方-FriendModelOpt");
-    }
-
-    @Override
-    public void friendGetdataFailedCompleted() {
-        Log.d("fragment", "数据获取失败回调接收方-FriendModelOpt");
-    }
-
-    @Override
-    public void friendRefreshdataSucceedCompleted() {
+    public void refresh() {
         mFriendFmBinding.swifreshFriendContent.setRefreshing(false);
         mFriendAdapter.notifyDataSetChanged();
-        Toast.makeText(mFriendFragment.getActivity(), "刷新", Toast.LENGTH_SHORT).show();
         Log.d("fragment", "数据刷新成功回调接收方-FriendModelOpt");
     }
 
     @Override
-    public void friendRefreshdataFailedCompleted() {
+    public void refreshErr() {
         Log.d("fragment", "数据刷新失败回调接收方-FriendModelOpt");
     }
 }

@@ -11,8 +11,6 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hxp.leschool.databinding.SendaddreqAtBinding;
-import com.hxp.leschool.model.operate.SendAddReqModelOpt;
-import com.hxp.leschool.model.operate.SendAddReqModelOpt.SendAddReqOptCallback;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.SendAddReqActivity;
 
@@ -24,9 +22,8 @@ import java.util.Map;
  * Created by hxp on 17-1-22.
  */
 
-public class SendAddReqViewModel implements SendAddReqOptCallback {
+public class SendAddReqViewModel {
 
-    private SendAddReqModelOpt mSendAddReqModelOpt;
     private SendAddReqActivity mSendAddReqActivity;
     private SendaddreqAtBinding mSendaddreqAtBinding;
 
@@ -36,12 +33,10 @@ public class SendAddReqViewModel implements SendAddReqOptCallback {
         mSendAddReqActivity = sendAddReqActivity;
         mSendaddreqAtBinding = sendaddreqAtBinding;
 
-        mSendAddReqModelOpt = new SendAddReqModelOpt(this);
-
         mSendaddreqAtBinding.setMSendAddReqViewModel(this);
     }
 
-    public void onSendAddReq_Layout_SendAddReqClicked(View view) {
+    public void btn_SendAddReq_send(View view) {
         final String reqMsg = mSendaddreqAtBinding.etSendAddReqReqMsg.getText().toString();
         if (reqMsg.equals("")) {
             Toast.makeText(mSendAddReqActivity, "请输入请求消息", Toast.LENGTH_SHORT).show();
@@ -71,16 +66,5 @@ public class SendAddReqViewModel implements SendAddReqOptCallback {
                 }
             });
         }
-    }
-
-    @Override
-    public void sendAddReqSucceedCompleted() {
-        Log.d("fragment", "SearchFriendModelOpt获取数据回调接收方");
-
-    }
-
-    @Override
-    public void sendAddReqFailedCompleted() {
-
     }
 }

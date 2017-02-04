@@ -5,9 +5,10 @@ import android.util.Log;
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.server.object.MyClassObject;
 import com.hxp.leschool.model.bean.ClassModel;
-import com.hxp.leschool.model.bean.UploadTaskModel;
-import com.hxp.leschool.utils.publish.UploadingPublish;
+import com.hxp.leschool.utils.event.UploadEvent;
 import com.hxp.leschool.viewmodel.ClassViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,55 +29,37 @@ public class ClassModelOpt {
 
     public ClassModel mClassModel;
     public ArrayList<ClassModel> mData = new ArrayList<>();
-    private ClassOptCallback mClassOptCallback;
+    private ClassCallback mClassCallback;
     private int mFirstProcess = 0;
 
     public ClassModelOpt(ClassViewModel classViewModel) {
-        mClassOptCallback = classViewModel;
-    }
-
-    //获取数据
-    public void getData() {
-        BmobQuery<MyClassObject> bmobQuery = new BmobQuery<>();
-        bmobQuery.order("-createdAt");
-        bmobQuery.findObjects(new FindListener<MyClassObject>() {
-            @Override
-            public void done(List<MyClassObject> list, BmobException e) {
-                Log.d("fragment", "查询成功" + list.size());
-                mData.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    mClassModel = new ClassModel();
-                    mClassModel.setPicture(R.mipmap.ic_launcher);
-                    mClassModel.setTitle(list.get(i).getTitle());
-                    mClassModel.setUrl(list.get(i).getUrl());
-                    mData.add(mClassModel);
-                    Log.d("fragment", "查询成功" + list.get(i).getTitle());
-                }
-                Log.d("fragment", "ClassModelOpt数据获取成功回调发送方");
-                mClassOptCallback.classGetdataSucceedCompleted();
-            }
-        });
+        mClassCallback = classViewModel;
     }
 
     //刷新数据
-    public void refreshData() {
+    public void refresh() {
         BmobQuery<MyClassObject> bmobQuery = new BmobQuery<>();
         bmobQuery.order("-createdAt");
         bmobQuery.findObjects(new FindListener<MyClassObject>() {
             @Override
             public void done(List<MyClassObject> list, BmobException e) {
-                Log.d("fragment", "查询成功" + list.size());
-                mData.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    mClassModel = new ClassModel();
-                    mClassModel.setPicture(R.mipmap.ic_launcher);
-                    mClassModel.setTitle(list.get(i).getTitle());
-                    mClassModel.setUrl(list.get(i).getUrl());
-                    mData.add(mClassModel);
-                    Log.d("fragment", "查询成功" + list.get(i).getTitle());
+                if (e == null) {
+                    Log.d("fragment", "查询成功" + list.size());
+                    mData.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        mClassModel = new ClassModel();
+                        mClassModel.setAvatar(R.mipmap.ic_launcher);
+                        mClassModel.setTitle(list.get(i).getTitle());
+                        mClassModel.setUrl(list.get(i).getUrl());
+                        mData.add(mClassModel);
+                        Log.d("fragment", "查询成功" + list.get(i).getTitle());
+                    }
+                    Log.d("fragment", "ClassModelOpt数据刷新成功回调发送方");
+                    mClassCallback.refresh();
+                } else {
+                    Log.d("fragment", "ClassModelOpt数据刷新失败回调发送方");
+                    mClassCallback.refreshErr();
                 }
-                Log.d("fragment", "ClassModelOpt数据刷新成功回调发送方");
-                mClassOptCallback.classRefreshdataSucceedCompleted();
             }
         });
     }
@@ -87,11 +70,8 @@ public class ClassModelOpt {
     }
 
     //上传数据到服务器
-    public void uploadData(final String filePath) {
-        final UploadTaskModel mUploadTaskModel = new UploadTaskModel();
-        mUploadTaskModel.setTitle(filePath.substring(filePath.lastIndexOf("/") + 1));
-        mUploadTaskModel.setPicture(R.mipmap.ic_launcher);
-        UploadingPublish.addUploadTask(mUploadTaskModel);
+    public void uploadData(String filePath) {
+        final String uploadTitle = filePath.substring(filePath.lastIndexOf("/") + 1);
         final BmobFile bmobFile = new BmobFile(new File(filePath));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override
@@ -110,31 +90,25 @@ public class ClassModelOpt {
                         }
                     }
                 });
-                mUploadTaskModel.setUploadState(UploadingPublish.getUploadTask().indexOf(mUploadTaskModel), true);
+
             }
 
             @Override
             public void onProgress(Integer value) {
                 if (value - mFirstProcess >= 1) {
                     mFirstProcess = value;
-                    Log.d("fragment", "触发上传进度:" + value + filePath.substring(filePath.lastIndexOf("/") + 1));
-                    mUploadTaskModel.setUploadProcess(UploadingPublish.getUploadTask().indexOf(mUploadTaskModel), value);
+                    Log.d("fragment", "触发上传进度:" + value + uploadTitle);
+                    EventBus.getDefault().post(new UploadEvent(uploadTitle, R.mipmap.ic_launcher, value));
                 }
             }
         });
     }
 
-    //获取数据成功回调
-    //获取数据失败回调
     //刷新数据成功回调
     //刷新数据失败回调
-    public interface ClassOptCallback {
-        void classGetdataSucceedCompleted();
+    public interface ClassCallback {
+        void refresh();
 
-        void classGetdataFailedCompleted();
-
-        void classRefreshdataSucceedCompleted();
-
-        void classRefreshdataFailedCompleted();
+        void refreshErr();
     }
 }

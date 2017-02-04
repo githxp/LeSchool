@@ -13,32 +13,32 @@ import com.hxp.leschool.BR;
 
 public class FriendChatModel extends BaseObservable {
 
-    private String message;
-    private boolean isToSend;//t为发送，f为接收
+    private String msg;
+    private boolean isSend;//t为发送，f为接收
 
     public FriendChatModel() {
     }
 
-    public FriendChatModel(String message, boolean isToSend) {
-        this.message = message;
-        this.isToSend = isToSend;
+    public FriendChatModel(String msg, boolean isSend) {
+        this.msg = msg;
+        this.isSend = isSend;
     }
 
     @Bindable
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-        notifyPropertyChanged(BR.message);
+    public void setMsg(String msg) {
+        this.msg = msg;
+        notifyPropertyChanged(BR.msg);
     }
 
-    public boolean isToSend() {
-        return isToSend;
+    public boolean isSend() {
+        return isSend;
     }
 
-    public void setToSend(boolean toSend) {
-        isToSend = toSend;
+    public void setSend(boolean isSend) {
+        this.isSend = isSend;
     }
 }

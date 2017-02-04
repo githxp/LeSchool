@@ -3,6 +3,7 @@ package com.hxp.leschool.viewmodel;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -14,8 +15,9 @@ import com.hxp.leschool.adapter.FriendChatAdapter;
 import com.hxp.leschool.databinding.FriendchatAtBinding;
 import com.hxp.leschool.model.operate.FriendChatModelOpt;
 import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.utils.event.NewMsgEvent;
 import com.hxp.leschool.view.activity.FriendChatActivity;
-import com.hxp.leschool.model.operate.FriendChatModelOpt.FriendChatSendMsgCallback;
+import com.hxp.leschool.model.operate.FriendChatModelOpt.ChatCallback;
 
 import java.util.Arrays;
 
@@ -25,7 +27,7 @@ import java.util.Arrays;
  */
 
 
-public class FriendChatViewModel implements FriendChatSendMsgCallback {
+public class FriendChatViewModel implements ChatCallback {
 
     public FriendChatModelOpt mFriendChatModelOpt;
     private FriendChatActivity mFriendChatActivity;
@@ -58,17 +60,22 @@ public class FriendChatViewModel implements FriendChatSendMsgCallback {
     }
 
     public void initChat() {
-        String userName = mFriendChatActivity.getIntent().getStringExtra("userName");
+        final String userName = mFriendChatActivity.getIntent().getStringExtra("userName");
         Log.d("fragment", "与" + userName + "建立了会话");
         MyApplication.getInstance().getAVIMClient().createConversation(Arrays.asList(userName), userName + "&" + AVUser.getCurrentUser().getUsername(), null, new AVIMConversationCreatedCallback() {
             @Override
             public void done(AVIMConversation avimConversation, AVIMException e) {
-                mAvimConversation = avimConversation;
+                if (e == null) {
+                    mAvimConversation = avimConversation;
+                    Toast.makeText(mFriendChatActivity, "已和" + userName + "建立会话", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mFriendChatActivity, "请检查网络连接", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    public void onFriendChat_Layout_SendMsgClicked(View view) {
+    public void img_FriendChat_sendMsg(View view) {
         final AVIMTextMessage msg = new AVIMTextMessage();
         msg.setText(mFriendchatAtBinding.etFriendChatMsg.getText().toString());
         mAvimConversation.sendMessage(msg, new AVIMConversationCallback() {
@@ -80,8 +87,15 @@ public class FriendChatViewModel implements FriendChatSendMsgCallback {
     }
 
     @Override
-    public void friendChatSendMsgCompleted() {
+    public void refresh() {
         mFriendChatAdapter.notifyDataSetChanged();
         Log.d("fragment", "FriendChatModelOpt消息发送成功回调接收方");
+    }
+
+
+    //处理新消息
+    public void handleNewMsgEvent(NewMsgEvent newMsgEvent) {
+        Log.d("fragment", "交给mFriendChatModelOpt处理" + newMsgEvent.getMsg());
+        mFriendChatModelOpt.handleNewMsgEvent(newMsgEvent);
     }
 }

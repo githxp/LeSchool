@@ -13,14 +13,15 @@ import com.hxp.leschool.BR;
 public class ClassModel extends BaseObservable {
 
     private String title;
+    private int avatar;
     private String url;
-    private int picture;
 
     public ClassModel() {
     }
 
-    public ClassModel(String title, String url) {
+    public ClassModel(String title, int avatar, String url) {
         this.title = title;
+        this.avatar = avatar;
         this.url = url;
     }
 
@@ -35,6 +36,16 @@ public class ClassModel extends BaseObservable {
     }
 
     @Bindable
+    public int getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
+    }
+
+    @Bindable
     public String getUrl() {
         return url;
     }
@@ -42,15 +53,5 @@ public class ClassModel extends BaseObservable {
     public void setUrl(String url) {
         this.url = url;
         notifyPropertyChanged(BR.url);
-    }
-
-    @Bindable
-    public int getPicture() {
-        return picture;
-    }
-
-    public void setPicture(int picture) {
-        this.picture = picture;
-        notifyPropertyChanged(BR.picture);
     }
 }

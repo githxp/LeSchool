@@ -14,18 +14,16 @@ import com.hxp.leschool.BR;
 public class DownloadingModel extends BaseObservable {
 
     private String title;
-    private int picture;
-    private int downloadProcess = 0;
-    private boolean downloadstate = false;
+    private int avatar;
+    private int process = 0;
 
     public DownloadingModel() {
     }
 
-    public DownloadingModel(String title, int picture, int downloadProcess, boolean downloadstate) {
+    public DownloadingModel(String title, int avatar, int process) {
         this.title = title;
-        this.picture = picture;
-        this.downloadProcess = downloadProcess;
-        this.downloadstate = downloadstate;
+        this.avatar = avatar;
+        this.process = process;
     }
 
     @Bindable
@@ -39,31 +37,22 @@ public class DownloadingModel extends BaseObservable {
     }
 
     @Bindable
-    public int getPicture() {
-        return picture;
+    public int getAvatar() {
+        return avatar;
     }
 
-    public void setPicture(int picture) {
-        this.picture = picture;
-        notifyPropertyChanged(BR.picture);
-    }
-
-    @Bindable
-    public int getDownloadProcess() {
-        return downloadProcess;
-    }
-
-    public void setDownloadProcess(int downloadProcess) {
-        this.downloadProcess = downloadProcess;
-        notifyPropertyChanged(BR.downloadProcess);
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
     }
 
     @Bindable
-    public boolean getDownloadstate() {
-        return downloadstate;
+    public int getProcess() {
+        return process;
     }
 
-    public void setDownloadstate(boolean downloadstate) {
-        this.downloadstate = downloadstate;
+    public void setProcess(int process) {
+        this.process = process;
+        notifyPropertyChanged(BR.process);
     }
 }

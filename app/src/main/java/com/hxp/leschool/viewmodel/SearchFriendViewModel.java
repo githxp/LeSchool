@@ -1,7 +1,6 @@
 package com.hxp.leschool.viewmodel;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -12,7 +11,7 @@ import com.hxp.leschool.adapter.SearchFriendAdapter;
 import com.hxp.leschool.databinding.SearchfriendAtBinding;
 import com.hxp.leschool.model.bean.SearchFriendModel;
 import com.hxp.leschool.model.operate.SearchFriendModelOpt;
-import com.hxp.leschool.model.operate.SearchFriendModelOpt.SearchFriendOptCallback;
+import com.hxp.leschool.model.operate.SearchFriendModelOpt.SearchFriendallback;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
 import com.hxp.leschool.view.activity.SendAddReqActivity;
 
@@ -22,7 +21,7 @@ import com.hxp.leschool.view.activity.SendAddReqActivity;
  */
 
 
-public class SearchFriendViewModel implements SearchFriendOptCallback {
+public class SearchFriendViewModel implements SearchFriendallback {
 
     public SearchFriendModelOpt mSearchFriendModelOpt;
     private SearchFriendActivity mSearchFriendActivity;
@@ -55,7 +54,7 @@ public class SearchFriendViewModel implements SearchFriendOptCallback {
                     public void onRefresh() {
                         String userName = mSearchfriendAtBinding.etSearchFriendUserName.getText().toString();
                         if (!userName.equals("")) {
-                            mSearchFriendModelOpt.refreshData(userName);
+                            mSearchFriendModelOpt.refresh(userName);
                         } else {
                             mSearchfriendAtBinding.swifreshSearchFriendContent.setRefreshing(false);
                             Toast.makeText(mSearchFriendActivity, "请输入用户名", Toast.LENGTH_SHORT).show();
@@ -75,10 +74,10 @@ public class SearchFriendViewModel implements SearchFriendOptCallback {
         });
     }
 
-    public void onSearchFriend_Layout_SearchClicked(View view) {
+    public void btn_SearchFriend_search(View view) {
         String userName = mSearchfriendAtBinding.etSearchFriendUserName.getText().toString();
         if (!userName.equals("")) {
-            mSearchFriendModelOpt.getData(userName);
+            mSearchFriendModelOpt.refresh(userName);
             Log.d("fragment", "搜索用户名：" + userName);
         } else {
             Toast.makeText(mSearchFriendActivity, "请输入用户名", Toast.LENGTH_SHORT).show();
@@ -86,26 +85,14 @@ public class SearchFriendViewModel implements SearchFriendOptCallback {
     }
 
     @Override
-    public void searchFriendSearchdataSucceedCompleted() {
-        Log.d("fragment", "SearchFriendModelOpt获取数据回调接收方");
-        mSearchFriendAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void searchFriendSearchdataFailedCompleted() {
-
-    }
-
-    @Override
-    public void searchFriendRefreshdataSucceedCompleted() {
-        Log.d("fragment", "SearchFriendModelOpt刷新数据回调接收方");
-        Toast.makeText(mSearchFriendActivity, "刷新成功", Toast.LENGTH_SHORT).show();
+    public void refresh() {
+        Log.d("fragment", "SearchFriendModelOpt刷新数据回调成功接收方");
         mSearchfriendAtBinding.swifreshSearchFriendContent.setRefreshing(false);
         mSearchFriendAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void searchFriendRefreshdataFailedCompleted() {
-
+    public void refreshErr() {
+        Log.d("fragment", "SearchFriendModelOpt刷新数据回调失败接收方");
     }
 }

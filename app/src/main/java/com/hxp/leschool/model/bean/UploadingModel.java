@@ -14,18 +14,16 @@ import com.hxp.leschool.BR;
 public class UploadingModel extends BaseObservable {
 
     private String title;
-    private int picture;
-    private int uploadProcess = 0;
-    private boolean uploadstate = false;
+    private int avatar;
+    private int process = 0;
 
     public UploadingModel() {
     }
 
-    public UploadingModel(String title, int picture,int uploadProcess,boolean uploadstate) {
+    public UploadingModel(String title, int avatar,int process) {
         this.title = title;
-        this.picture = picture;
-        this.uploadProcess = uploadProcess;
-        this.uploadstate = uploadstate;
+        this.avatar = avatar;
+        this.process = process;
     }
 
     @Bindable
@@ -39,32 +37,22 @@ public class UploadingModel extends BaseObservable {
     }
 
     @Bindable
-    public int getPicture() {
-        return picture;
+    public int getAvatar() {
+        return avatar;
     }
 
-    public void setPicture(int picture) {
-        this.picture = picture;
-        notifyPropertyChanged(BR.picture);
-    }
-
-    @Bindable
-    public int getUploadProcess() {
-        return uploadProcess;
-    }
-
-    public void setUploadProcess(int uploadProcess) {
-        this.uploadProcess = uploadProcess;
-        notifyPropertyChanged(BR.uploadProcess);
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
     }
 
     @Bindable
-    public boolean getUploadstate() {
-        return uploadstate;
+    public int getProcess() {
+        return process;
     }
 
-    public void setUploadstate(boolean uploadstate) {
-        this.uploadstate = uploadstate;
-        notifyPropertyChanged(BR.uploadstate);
+    public void setProcess(int process) {
+        this.process = process;
+        notifyPropertyChanged(BR.process);
     }
 }

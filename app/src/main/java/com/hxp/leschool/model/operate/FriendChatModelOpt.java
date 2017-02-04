@@ -3,8 +3,7 @@ package com.hxp.leschool.model.operate;
 import android.util.Log;
 
 import com.hxp.leschool.model.bean.FriendChatModel;
-import com.hxp.leschool.utils.MyNormalMsgHandler.MyNormalMsgHandlerCallback;
-import com.hxp.leschool.utils.publish.ChatMsgPublish;
+import com.hxp.leschool.utils.event.NewMsgEvent;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
 import java.util.ArrayList;
@@ -15,27 +14,25 @@ import java.util.ArrayList;
  */
 
 
-public class FriendChatModelOpt implements MyNormalMsgHandlerCallback {
+public class FriendChatModelOpt{
 
     public ArrayList<FriendChatModel> mData = new ArrayList<>();
     private FriendChatModel mFriendChatModel;
-    private FriendChatSendMsgCallback mFriendChatSendMsgCallback;
+    private ChatCallback mChatCallback;
 
     public FriendChatModelOpt(FriendChatViewModel friendChatViewModel) {
-        mFriendChatSendMsgCallback = friendChatViewModel;
-
-        ChatMsgPublish.addMyNormalMsgHandlerCallback(this);
+        mChatCallback = friendChatViewModel;
         Log.d("fragment", "mMyNormalMsgHandlerCallback添加内存地址：" + this.toString());
     }
 
-    public void setMsg(String message, boolean isToSend) {
+    public void setMsg(String msg, boolean isSend) {
         mFriendChatModel = new FriendChatModel();
-        mFriendChatModel.setMessage(message);
-        mFriendChatModel.setToSend(isToSend);
+        mFriendChatModel.setMsg(msg);
+        mFriendChatModel.setSend(isSend);
         mData.add(mFriendChatModel);
         Log.d("fragment", "MicroblogSingleChatModelOpt消息发送成功回调发送方");
         Log.d("fragment", "MicroblogSingleChatModelOpt消息发送数量为：" + mData.size());
-        mFriendChatSendMsgCallback.friendChatSendMsgCompleted();
+        mChatCallback.refresh();
     }
 
     //获取聊天历史
@@ -47,16 +44,13 @@ public class FriendChatModelOpt implements MyNormalMsgHandlerCallback {
         return mData.size();
     }
 
-    @Override
-    public void receNewMsg(String msg) {
-        setMsg(msg, false);
+    public interface ChatCallback {
+        void refresh();
     }
 
-    @Override
-    public void sendMsgSucceed() {
-    }
-
-    public interface FriendChatSendMsgCallback {
-        void friendChatSendMsgCompleted();
+    //处理新消息
+    public void handleNewMsgEvent(NewMsgEvent newMsgEvent) {
+        Log.d("fragment", "mFriendChatModelOpt正在处理" + newMsgEvent.getMsg());
+        setMsg(newMsgEvent.getMsg(),false);
     }
 }

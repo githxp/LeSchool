@@ -6,10 +6,6 @@
         <variable
             name="mClassDetailViewModel"
             type="com.hxp.leschool.viewmodel.ClassDetailViewModel" />
-
-        <variable
-            name="mPosition"
-            type="int" />
     </data>
 
     <LinearLayout
@@ -26,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{mClassDetailViewModel.mClassDetailModelOpt.mClassDetailModel.title}" />
+                android:id="@+id/tv_ClassDetail_title"/>
         </LinearLayout>
 
         <LinearLayout
@@ -36,7 +32,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{mClassDetailViewModel.onClassDetail_Btn_downloadClicked}"
+                android:onClick="@{mClassDetailViewModel.btn_ClassDetail_download}"
                 android:text="下载" />
         </LinearLayout>
 

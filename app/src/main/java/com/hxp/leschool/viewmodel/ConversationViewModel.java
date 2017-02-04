@@ -3,17 +3,14 @@ package com.hxp.leschool.viewmodel;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hxp.leschool.adapter.ConversationAdapter;
 import com.hxp.leschool.databinding.ConversationFmBinding;
-import com.hxp.leschool.model.bean.ConversationModel;
 import com.hxp.leschool.model.operate.ConversationModelOpt;
-import com.hxp.leschool.model.operate.ConversationModelOpt.ConversationOptCallback;
+import com.hxp.leschool.model.operate.ConversationModelOpt.ConversationCallback;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.activity.FriendReqActivity;
 import com.hxp.leschool.view.fragment.ConversationFragment;
@@ -24,7 +21,7 @@ import com.hxp.leschool.view.fragment.ConversationFragment;
  */
 
 
-public class ConversationViewModel implements ConversationOptCallback {
+public class ConversationViewModel implements ConversationCallback {
 
     public ConversationModelOpt mConversationModelOpt;
     private ConversationFragment mConversationFragment;
@@ -58,7 +55,7 @@ public class ConversationViewModel implements ConversationOptCallback {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        mConversationModelOpt.refreshData();
+                        mConversationModelOpt.refresh();
                     }
                 }
         );
@@ -86,26 +83,9 @@ public class ConversationViewModel implements ConversationOptCallback {
     }
 
     @Override
-    public void conversationGetdataSucceedCompleted() {
-        mConversationFmBinding.swifreshConversationContent.setRefreshing(false);
-        mConversationAdapter.notifyDataSetChanged();
-        Log.d("fragment", "数据获取成功回调接收方-ConversationModelOpt");
-    }
-
-    @Override
-    public void conversationGetdataFailedCompleted() {
-        Log.d("fragment", "数据获取失败回调接收方-ConversationModelOpt");
-    }
-
-    @Override
-    public void conversationRefreshdataSucceedCompleted() {
+    public void refresh() {
         mConversationFmBinding.swifreshConversationContent.setRefreshing(false);
         mConversationAdapter.notifyDataSetChanged();
         Log.d("fragment", "数据刷新成功回调接收方-ConversationModelOpt");
-    }
-
-    @Override
-    public void conversationRefreshdataFailedCompleted() {
-        Log.d("fragment", "数据刷新失败回调接收方-ConversationModelOpt");
     }
 }
