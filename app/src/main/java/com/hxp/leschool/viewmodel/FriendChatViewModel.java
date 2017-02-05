@@ -13,13 +13,18 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hxp.leschool.adapter.FriendChatAdapter;
 import com.hxp.leschool.databinding.FriendchatAtBinding;
-import com.hxp.leschool.model.operate.FriendChatModelOpt;
+import com.hxp.leschool.model.db.bean.opt.ConversationBeanOpt;
+import com.hxp.leschool.model.opt.FriendChatModelOpt;
+import com.hxp.leschool.model.opt.FriendChatModelOpt.ChatCallback;
 import com.hxp.leschool.utils.MyApplication;
-import com.hxp.leschool.utils.event.NewMsgEvent;
+import com.hxp.leschool.utils.event.ChatMsgEvent;
 import com.hxp.leschool.view.activity.FriendChatActivity;
-import com.hxp.leschool.model.operate.FriendChatModelOpt.ChatCallback;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 
 /**
@@ -34,6 +39,7 @@ public class FriendChatViewModel implements ChatCallback {
     private FriendchatAtBinding mFriendchatAtBinding;
     private FriendChatAdapter mFriendChatAdapter;
     private AVIMConversation mAvimConversation;
+    private String userName;
 
     public FriendChatViewModel(FriendChatActivity friendChatActivity, FriendchatAtBinding friendchatAtBinding) {
 
@@ -60,8 +66,9 @@ public class FriendChatViewModel implements ChatCallback {
     }
 
     public void initChat() {
-        final String userName = mFriendChatActivity.getIntent().getStringExtra("userName");
+        userName = mFriendChatActivity.getIntent().getStringExtra("userName");
         Log.d("fragment", "与" + userName + "建立了会话");
+        MyApplication.getInstance().setCurrentChatFriend(userName);
         MyApplication.getInstance().getAVIMClient().createConversation(Arrays.asList(userName), userName + "&" + AVUser.getCurrentUser().getUsername(), null, new AVIMConversationCreatedCallback() {
             @Override
             public void done(AVIMConversation avimConversation, AVIMException e) {
@@ -77,11 +84,15 @@ public class FriendChatViewModel implements ChatCallback {
 
     public void img_FriendChat_sendMsg(View view) {
         final AVIMTextMessage msg = new AVIMTextMessage();
-        msg.setText(mFriendchatAtBinding.etFriendChatMsg.getText().toString());
+        final String msgContent = mFriendchatAtBinding.etFriendChatMsg.getText().toString();
+        msg.setText(msgContent);
         mAvimConversation.sendMessage(msg, new AVIMConversationCallback() {
             @Override
             public void done(AVIMException e) {
                 mFriendChatModelOpt.setMsg(msg.getText(), true);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                String lastTime = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+                ConversationBeanOpt.getInstance().changeORadd(userName, "头像URL", msgContent, lastTime, 1, 2);
             }
         });
     }
@@ -94,8 +105,8 @@ public class FriendChatViewModel implements ChatCallback {
 
 
     //处理新消息
-    public void handleNewMsgEvent(NewMsgEvent newMsgEvent) {
-        Log.d("fragment", "交给mFriendChatModelOpt处理" + newMsgEvent.getMsg());
-        mFriendChatModelOpt.handleNewMsgEvent(newMsgEvent);
+    public void handleChatMsgEvent(ChatMsgEvent chatMsgEvent) {
+        Log.d("fragment", "交给mFriendChatModelOpt处理" + chatMsgEvent.getMsg());
+        mFriendChatModelOpt.handleChatMsgEvent(chatMsgEvent);
     }
 }

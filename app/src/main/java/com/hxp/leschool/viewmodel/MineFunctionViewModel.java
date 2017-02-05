@@ -14,7 +14,7 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.hxp.leschool.adapter.MineFunctionAdapter;
 import com.hxp.leschool.databinding.MinefunctionFmBinding;
-import com.hxp.leschool.model.operate.MineFunctionModelOpt;
+import com.hxp.leschool.model.opt.MineFunctionModelOpt;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.DownloadActivity;
 import com.hxp.leschool.view.activity.LoginAndRegActivity;

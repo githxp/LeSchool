@@ -5,8 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.hxp.leschool.databinding.MineuserinfoFmBinding;
-import com.hxp.leschool.model.operate.MineUserInfoModelOpt;
-import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.model.opt.MineUserInfoModelOpt;
 import com.hxp.leschool.view.fragment.MineUserInfoFragment;
 
 

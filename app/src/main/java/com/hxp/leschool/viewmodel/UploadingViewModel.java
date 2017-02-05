@@ -6,8 +6,8 @@ import android.util.Log;
 import com.hxp.leschool.adapter.UploadingAdapter;
 import com.hxp.leschool.databinding.UploadingFmBinding;
 import com.hxp.leschool.databinding.UploadingItemBinding;
-import com.hxp.leschool.model.operate.UploadingModelOpt;
-import com.hxp.leschool.model.operate.UploadingModelOpt.UploadCallback;
+import com.hxp.leschool.model.opt.UploadingModelOpt;
+import com.hxp.leschool.model.opt.UploadingModelOpt.UploadCallback;
 import com.hxp.leschool.utils.event.UploadEvent;
 import com.hxp.leschool.view.fragment.UploadingFragment;
 

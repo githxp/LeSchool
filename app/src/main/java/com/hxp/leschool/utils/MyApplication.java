@@ -18,6 +18,7 @@ public class MyApplication extends Application {
 
     private static MyApplication app;
     private AVIMClient mAVIMClient;
+    private String mCurrentChatFriend;
 
     public static MyApplication getInstance() {
         return app;
@@ -56,5 +57,13 @@ public class MyApplication extends Application {
                 }
             });
         }
+    }
+
+    public void setCurrentChatFriend(String currentChatFriend){
+        mCurrentChatFriend = currentChatFriend;
+    }
+
+    public String getCurrentChatFriend(){
+        return mCurrentChatFriend;
     }
 }

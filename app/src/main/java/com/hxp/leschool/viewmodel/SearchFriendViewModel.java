@@ -10,8 +10,8 @@ import android.widget.Toast;
 import com.hxp.leschool.adapter.SearchFriendAdapter;
 import com.hxp.leschool.databinding.SearchfriendAtBinding;
 import com.hxp.leschool.model.bean.SearchFriendModel;
-import com.hxp.leschool.model.operate.SearchFriendModelOpt;
-import com.hxp.leschool.model.operate.SearchFriendModelOpt.SearchFriendallback;
+import com.hxp.leschool.model.opt.SearchFriendModelOpt;
+import com.hxp.leschool.model.opt.SearchFriendModelOpt.SearchFriendallback;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
 import com.hxp.leschool.view.activity.SendAddReqActivity;
 

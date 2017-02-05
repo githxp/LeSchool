@@ -5,14 +5,14 @@ package com.hxp.leschool.utils.event;
  * Created by hxp on 17-2-3.
  */
 
-public class NewMsgEvent {
+public class ChatMsgEvent {
 
     private String msg;
 
-    public NewMsgEvent() {
+    public ChatMsgEvent() {
     }
 
-    public NewMsgEvent(String msg) {
+    public ChatMsgEvent(String msg) {
         this.msg = msg;
     }
 

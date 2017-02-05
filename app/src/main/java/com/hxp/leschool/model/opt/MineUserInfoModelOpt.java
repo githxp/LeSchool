@@ -1,11 +1,8 @@
-package com.hxp.leschool.model.operate;
+package com.hxp.leschool.model.opt;
 
 import com.avos.avoscloud.AVUser;
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.bean.MineUserInfoModel;
-import com.hxp.leschool.utils.MyApplication;
-
-import cn.bmob.v3.BmobUser;
 
 
 /**

@@ -9,8 +9,10 @@ import android.widget.Toast;
 
 import com.hxp.leschool.adapter.ConversationAdapter;
 import com.hxp.leschool.databinding.ConversationFmBinding;
-import com.hxp.leschool.model.operate.ConversationModelOpt;
-import com.hxp.leschool.model.operate.ConversationModelOpt.ConversationCallback;
+import com.hxp.leschool.model.opt.ConversationModelOpt;
+import com.hxp.leschool.model.opt.ConversationModelOpt.ConversationCallback;
+import com.hxp.leschool.utils.event.AddConversationEvent;
+import com.hxp.leschool.utils.event.ChangeConversationEvent;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.activity.FriendReqActivity;
 import com.hxp.leschool.view.fragment.ConversationFragment;
@@ -43,7 +45,7 @@ public class ConversationViewModel implements ConversationCallback {
 
         mConversationModelOpt = new ConversationModelOpt(this, mConversationFragment);
 
-        mConversationModelOpt.getData();
+        mConversationModelOpt.get();
 
         mConversationFmBinding.swifreshConversationContent.setProgressViewOffset(true, 0, 50);
         mConversationFmBinding.swifreshConversationContent.setColorSchemeResources(
@@ -55,7 +57,7 @@ public class ConversationViewModel implements ConversationCallback {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        mConversationModelOpt.refresh();
+                        mConversationModelOpt.get();
                     }
                 }
         );
@@ -83,9 +85,19 @@ public class ConversationViewModel implements ConversationCallback {
     }
 
     @Override
-    public void refresh() {
+    public void get() {
         mConversationFmBinding.swifreshConversationContent.setRefreshing(false);
         mConversationAdapter.notifyDataSetChanged();
         Log.d("fragment", "数据刷新成功回调接收方-ConversationModelOpt");
+    }
+
+    public void handleAddConversationEvent(AddConversationEvent addConversationEvent) {
+        Log.d("fragment", "ConversationViewModel正在处理");
+        mConversationModelOpt.handleAddConversationEvent(addConversationEvent);
+    }
+
+    public void handleChangeConversationEvent(ChangeConversationEvent changeConversationEvent) {
+        Log.d("fragment", "ConversationViewModel正在处理");
+        mConversationModelOpt.handleChangeConversationEvent(changeConversationEvent);
     }
 }

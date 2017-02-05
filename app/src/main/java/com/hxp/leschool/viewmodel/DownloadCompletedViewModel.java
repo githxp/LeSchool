@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.hxp.leschool.adapter.DownloadCompletedAdapter;
 import com.hxp.leschool.databinding.DownloadcompletedFmBinding;
 import com.hxp.leschool.databinding.DownloadcompletedItemBinding;
-import com.hxp.leschool.model.operate.DownloadCompletedModelOpt;
-import com.hxp.leschool.model.operate.DownloadCompletedModelOpt.DownloadCompletedOptCallback;
+import com.hxp.leschool.model.opt.DownloadCompletedModelOpt;
+import com.hxp.leschool.model.opt.DownloadCompletedModelOpt.DownloadCompletedOptCallback;
 import com.hxp.leschool.view.fragment.DownloadCompletedFragment;
 
 

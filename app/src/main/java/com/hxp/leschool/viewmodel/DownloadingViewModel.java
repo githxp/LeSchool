@@ -6,8 +6,8 @@ import android.util.Log;
 import com.hxp.leschool.adapter.DownloadingAdapter;
 import com.hxp.leschool.databinding.DownloadingFmBinding;
 import com.hxp.leschool.databinding.DownloadingItemBinding;
-import com.hxp.leschool.model.operate.DownloadingModelOpt;
-import com.hxp.leschool.model.operate.DownloadingModelOpt.DownloadCallback;
+import com.hxp.leschool.model.opt.DownloadingModelOpt;
+import com.hxp.leschool.model.opt.DownloadingModelOpt.DownloadCallback;
 import com.hxp.leschool.utils.event.DownloadEvent;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
 

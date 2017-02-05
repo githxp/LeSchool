@@ -18,13 +18,19 @@ public class ConversationModel extends BaseObservable {
     private String msg;//消息内容
     private int avatar;////对话创建者的头像
     private int type;//消息类型，1为添加好友请求，2为聊天消息
+    private String lastTime;//最近一次会话时间
+    private int num;//未读消息数量
 
     public ConversationModel() {
     }
 
-    public ConversationModel(String msg, int avatar) {
-        this.msg = msg;
+    public ConversationModel(String userName, int avatar, String msg, String lastTime, int num, int type) {
+        this.userName = userName;
         this.avatar = avatar;
+        this.msg = msg;
+        this.lastTime = lastTime;
+        this.num = num;
+        this.type = type;
     }
 
     @Bindable
@@ -58,6 +64,26 @@ public class ConversationModel extends BaseObservable {
     }
 
     @Bindable
+    public String getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(String lastTime) {
+        this.lastTime = lastTime;
+        notifyPropertyChanged(BR.lastTime);
+    }
+
+    @Bindable
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+        notifyPropertyChanged(BR.num);
+    }
+
+    @Bindable
     public int getType() {
         return type;
     }
@@ -66,4 +92,6 @@ public class ConversationModel extends BaseObservable {
         this.type = type;
         notifyPropertyChanged(BR.type);
     }
+
+
 }

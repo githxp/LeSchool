@@ -10,7 +10,7 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.FriendchatAtBinding;
 import com.hxp.leschool.utils.MyNormalMsgHandler;
-import com.hxp.leschool.utils.event.NewMsgEvent;
+import com.hxp.leschool.utils.event.ChatMsgEvent;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -73,9 +73,9 @@ public class FriendChatActivity extends Activity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleNewMsgEvent(NewMsgEvent newMsgEvent) {
-        Log.d("fragment", "新消息处理" + newMsgEvent.getMsg());
+    public void handleChatMsgEvent(ChatMsgEvent chatMsgEvent) {
+        Log.d("fragment", "新消息处理" + chatMsgEvent.getMsg());
         //处理新消息
-        mFriendChatViewModel.handleNewMsgEvent(newMsgEvent);
+        mFriendChatViewModel.handleChatMsgEvent(chatMsgEvent);
     }
 }

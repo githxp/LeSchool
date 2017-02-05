@@ -8,8 +8,8 @@ import android.view.View;
 
 import com.hxp.leschool.adapter.FriendAdapter;
 import com.hxp.leschool.databinding.FriendFmBinding;
-import com.hxp.leschool.model.operate.FriendModelOpt;
-import com.hxp.leschool.model.operate.FriendModelOpt.FriendCallback;
+import com.hxp.leschool.model.opt.FriendModelOpt;
+import com.hxp.leschool.model.opt.FriendModelOpt.FriendCallback;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
 import com.hxp.leschool.view.fragment.FriendFragment;

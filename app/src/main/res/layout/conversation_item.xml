@@ -49,5 +49,22 @@
                 android:text="@{mConversationViewModel.mConversationModelOpt.mData.get(mPosition).msg}" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mConversationViewModel.mConversationModelOpt.mData.get(mPosition).lastTime}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(mConversationViewModel.mConversationModelOpt.mData.get(mPosition).num)}" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

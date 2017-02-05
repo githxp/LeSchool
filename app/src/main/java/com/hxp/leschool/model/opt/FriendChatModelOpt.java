@@ -1,9 +1,9 @@
-package com.hxp.leschool.model.operate;
+package com.hxp.leschool.model.opt;
 
 import android.util.Log;
 
 import com.hxp.leschool.model.bean.FriendChatModel;
-import com.hxp.leschool.utils.event.NewMsgEvent;
+import com.hxp.leschool.utils.event.ChatMsgEvent;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
 import java.util.ArrayList;
@@ -49,8 +49,8 @@ public class FriendChatModelOpt{
     }
 
     //处理新消息
-    public void handleNewMsgEvent(NewMsgEvent newMsgEvent) {
-        Log.d("fragment", "mFriendChatModelOpt正在处理" + newMsgEvent.getMsg());
-        setMsg(newMsgEvent.getMsg(),false);
+    public void handleChatMsgEvent(ChatMsgEvent chatMsgEvent) {
+        Log.d("fragment", "mFriendChatModelOpt正在处理" + chatMsgEvent.getMsg());
+        setMsg(chatMsgEvent.getMsg(),false);
     }
 }

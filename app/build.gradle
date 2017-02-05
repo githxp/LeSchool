@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -20,12 +21,16 @@ android {
     dataBinding {
         enabled true
     }
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
     lintOptions {
         abortOnError false
+    }
+    greendao {
+        schemaVersion 1
+        targetGenDir 'src/main/java'
     }
 }
 
@@ -42,8 +47,9 @@ dependencies {
     compile files('libs/AMap_Location_V3.3.0_20170118.jar')
     compile 'cn.bmob.android:bmob-sdk:3.5.3'
     compile 'cn.bmob.android:http-legacy:1.0'
-    compile ('cn.leancloud.android:avoscloud-sdk:v3.15.7')
-    compile ('cn.leancloud.android:avoscloud-push:v3.15.7@aar'){transitive = true}
+    compile('cn.leancloud.android:avoscloud-sdk:v3.15.7')
+    compile('cn.leancloud.android:avoscloud-push:v3.15.7@aar') { transitive = true }
     compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'org.greenrobot:greendao:3.2.0'
 }
