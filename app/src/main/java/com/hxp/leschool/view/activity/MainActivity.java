@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.db.bean.opt.ConversationBeanOpt;
+import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.ConversationFragment;
 import com.hxp.leschool.view.fragment.FriendFragment;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_toolbar);
         setSupportActionBar(toolbar);
+
+        MyApplication.getInstance().setMainActivity(this);
 
         Log.d("fragment", "创建了MainActivity");
 

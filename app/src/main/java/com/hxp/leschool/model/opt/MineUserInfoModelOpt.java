@@ -18,8 +18,8 @@ public class MineUserInfoModelOpt {
     }
 
     //获取数据
-    public void getData() {
-        mData.setUserPicture(R.drawable.ic_avatar);
+    public void get() {
+        mData.setAvatar(R.drawable.ic_avatar);
         mData.setUserName(AVUser.getCurrentUser().getUsername());
     }
 }

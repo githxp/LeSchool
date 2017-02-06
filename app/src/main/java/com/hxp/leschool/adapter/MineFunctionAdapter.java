@@ -68,7 +68,7 @@ public class MineFunctionAdapter extends RecyclerView.Adapter<MineFunctionAdapte
 
     @Override
     public int getItemCount() {
-        int itemCount = mMineFunctionViewModel.mMineFunctionModelOpt.getCount();
+        int itemCount = mMineFunctionViewModel.mData.size();
         Log.d("fragment", "getItemCount()" + itemCount);
         return itemCount;
     }

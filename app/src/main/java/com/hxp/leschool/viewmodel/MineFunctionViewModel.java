@@ -2,24 +2,20 @@ package com.hxp.leschool.viewmodel;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.hxp.leschool.R;
 import com.hxp.leschool.adapter.MineFunctionAdapter;
 import com.hxp.leschool.databinding.MinefunctionFmBinding;
-import com.hxp.leschool.model.opt.MineFunctionModelOpt;
-import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.model.bean.MineFunctionModel;
 import com.hxp.leschool.view.activity.DownloadActivity;
-import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.activity.MapActivity;
+import com.hxp.leschool.view.activity.ScoreActivity;
 import com.hxp.leschool.view.fragment.MineFunctionFragment;
+
+import java.util.ArrayList;
 
 
 /**
@@ -27,9 +23,9 @@ import com.hxp.leschool.view.fragment.MineFunctionFragment;
  */
 
 
-public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionGetdataCallback {
+public class MineFunctionViewModel{
 
-    public MineFunctionModelOpt mMineFunctionModelOpt;
+    public ArrayList<MineFunctionModel> mData = new ArrayList<>();
     private MineFunctionFragment mMineFunctionFragment;
     private MinefunctionFmBinding mMinefunctionFmBinding;
     private MineFunctionAdapter mMineFunctionAdapter;
@@ -40,33 +36,16 @@ public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionG
         mMineFunctionFragment = mineFunctionFragment;
         mMinefunctionFmBinding = minefunctionFmBinding;
 
-        mMineFunctionModelOpt = new MineFunctionModelOpt(this);
-
         mMineFunctionAdapter = new MineFunctionAdapter(this);
 
         mMinefunctionFmBinding.setMMineFunctionViewModel(this);
 
+        get();
+        Log.d("fragment", "用户功能opt获取数据");
+
         mLinearLayoutManager = new LinearLayoutManager(mMineFunctionFragment.getActivity(), LinearLayoutManager.VERTICAL, false);
         mMinefunctionFmBinding.rvMineFunction.setLayoutManager(mLinearLayoutManager);
-        mMinefunctionFmBinding.rvMineFunction.setAdapter(new RecyclerView.Adapter() {
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return null;
-            }
-
-            @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-            }
-
-            @Override
-            public int getItemCount() {
-                return 0;
-            }
-        });
-
-        mMineFunctionModelOpt.getData();
-        Log.d("fragment", "用户功能opt获取数据");
+        mMinefunctionFmBinding.rvMineFunction.setAdapter(mMineFunctionAdapter);
 
         minefunctionFmBinding.setMMineFunctionViewModel(this);
 
@@ -81,21 +60,17 @@ public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionG
                     case 1:
                         mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), MapActivity.class));
                         Toast.makeText(mMineFunctionFragment.getActivity(), "地图", Toast.LENGTH_SHORT).show();
+                        break;
                     case 2:
-                        AVUser.getCurrentUser().logOut();
-                        if (AVUser.getCurrentUser() == null) {
-                            Toast.makeText(mMineFunctionFragment.getActivity(), "退出登陆成功", Toast.LENGTH_SHORT).show();
-                            MyApplication.getInstance().getAVIMClient().close(new AVIMClientCallback() {
-                                @Override
-                                public void done(AVIMClient avimClient, AVIMException e) {
-                                    Toast.makeText(mineFunctionFragment.getActivity(), "当前用户已与服务器断开连接", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), LoginAndRegActivity.class));
-                            mMineFunctionFragment.getActivity().finish();
-                        } else {
-                            Toast.makeText(mMineFunctionFragment.getActivity(), "退出登陆失败", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(mMineFunctionFragment.getActivity(), "附近", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), ScoreActivity.class));
+                        Toast.makeText(mMineFunctionFragment.getActivity(), "成绩", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(mMineFunctionFragment.getActivity(), "设置", Toast.LENGTH_SHORT).show();
+                        break;
                     default:
                         break;
                 }
@@ -103,10 +78,13 @@ public class MineFunctionViewModel implements MineFunctionModelOpt.MineFunctionG
         });
     }
 
-    @Override
-    public void mineFuncionGetdataCompleted() {
-        mMinefunctionFmBinding.rvMineFunction.setLayoutManager(mLinearLayoutManager);
-        mMinefunctionFmBinding.rvMineFunction.setAdapter(mMineFunctionAdapter);
-        Log.d("fragment", "数据获取回调接收方-MineFunction");
+    //设置数据
+    private void get(){
+        mData.clear();
+        mData.add(new MineFunctionModel("下载", R.drawable.ic_file));
+        mData.add(new MineFunctionModel("地图", R.drawable.ic_map));
+        mData.add(new MineFunctionModel("附近", R.drawable.ic_around));
+        mData.add(new MineFunctionModel("成绩", R.drawable.ic_score));
+        mData.add(new MineFunctionModel("设置", R.drawable.ic_settings));
     }
 }

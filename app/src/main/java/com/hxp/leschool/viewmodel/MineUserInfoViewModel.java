@@ -1,11 +1,12 @@
 package com.hxp.leschool.viewmodel;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hxp.leschool.databinding.MineuserinfoFmBinding;
 import com.hxp.leschool.model.opt.MineUserInfoModelOpt;
+import com.hxp.leschool.view.activity.UserCenterActivity;
 import com.hxp.leschool.view.fragment.MineUserInfoFragment;
 
 
@@ -26,16 +27,13 @@ public class MineUserInfoViewModel {
         mMineuserinfoFmBinding = mineuserinfoFmBinding;
 
         mMineUserInfoModelOpt = new MineUserInfoModelOpt();
-        mMineUserInfoModelOpt.getData();
+        mMineUserInfoModelOpt.get();
         Log.d("fragment", "用户信息数据opt获取数据");
 
         mMineuserinfoFmBinding.setMMineUserInfoViewModel(this);
+    }
 
-        mMineuserinfoFmBinding.llMineUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mineUserInfoFragment.getActivity(), "用户中心", Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void ll_MineUserInfo_userCenterClicked(View view) {
+        mMineUserInfoFragment.getActivity().startActivity(new Intent(mMineUserInfoFragment.getActivity(), UserCenterActivity.class));
     }
 }

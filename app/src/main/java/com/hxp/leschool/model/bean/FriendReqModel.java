@@ -20,9 +20,9 @@ public class FriendReqModel extends BaseObservable {
     public FriendReqModel() {
     }
 
-    public FriendReqModel(String userName, int userPicture) {
+    public FriendReqModel(String userName, int avatar) {
         this.userName = userName;
-        this.avatar = userPicture;
+        this.avatar = avatar;
     }
 
     @Bindable
@@ -40,9 +40,9 @@ public class FriendReqModel extends BaseObservable {
         return avatar;
     }
 
-    public void setAvatar(int userPicture) {
-        this.avatar = userPicture;
-        notifyPropertyChanged(BR.userPicture);
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
     }
 
     @Bindable

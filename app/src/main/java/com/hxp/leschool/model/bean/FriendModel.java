@@ -19,9 +19,9 @@ public class FriendModel extends BaseObservable{
     public FriendModel() {
     }
 
-    public FriendModel(String userName, int userPicture) {
+    public FriendModel(String userName, int avatar) {
         this.userName = userName;
-        this.avatar = userPicture;
+        this.avatar = avatar;
     }
 
     @Bindable
@@ -39,8 +39,8 @@ public class FriendModel extends BaseObservable{
         return avatar;
     }
 
-    public void setAvatar(int userPicture) {
-        this.avatar = userPicture;
-        notifyPropertyChanged(BR.userPicture);
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
     }
 }

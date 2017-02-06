@@ -8,41 +8,29 @@
             type="com.hxp.leschool.viewmodel.MineUserInfoViewModel" />
     </data>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:onClick="@{mMineUserInfoViewModel.ll_MineUserInfo_userCenterClicked}"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_mine_user"
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            imageres="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.avatar}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:scaleType="fitCenter"
+            app:riv_border_color="#000000"
+            app:riv_border_width="1dip"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"
+            app:riv_tile_mode="repeat" />
 
-            <!--<ImageView-->
-                <!--imageres="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userPicture}"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-
-            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                imageres="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userPicture}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitCenter"
-                app:riv_border_color="#000000"
-                app:riv_border_width="1dip"
-                app:riv_corner_radius="30dip"
-                app:riv_mutate_background="true"
-                app:riv_oval="true"
-                app:riv_tile_mode="repeat" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userName}" />
-        </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userName}" />
     </LinearLayout>
 </layout>

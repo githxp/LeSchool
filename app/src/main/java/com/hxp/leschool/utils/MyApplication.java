@@ -9,6 +9,7 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.hxp.leschool.view.activity.MainActivity;
 
 /**
  * Created by hxp on 17-1-12.
@@ -19,6 +20,7 @@ public class MyApplication extends Application {
     private static MyApplication app;
     private AVIMClient mAVIMClient;
     private String mCurrentChatFriend;
+    private MainActivity mMainActivity;
 
     public static MyApplication getInstance() {
         return app;
@@ -59,11 +61,19 @@ public class MyApplication extends Application {
         }
     }
 
-    public void setCurrentChatFriend(String currentChatFriend){
+    public void setCurrentChatFriend(String currentChatFriend) {
         mCurrentChatFriend = currentChatFriend;
     }
 
-    public String getCurrentChatFriend(){
+    public String getCurrentChatFriend() {
         return mCurrentChatFriend;
+    }
+
+    public void setMainActivity(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
+    }
+
+    public MainActivity getMainActivity() {
+        return mMainActivity;
     }
 }

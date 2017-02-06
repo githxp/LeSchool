@@ -51,6 +51,8 @@
         <activity android:name=".view.activity.SearchFriendActivity" />
         <activity android:name=".view.activity.SendAddReqActivity" />
         <activity android:name=".view.activity.FriendReqActivity" />
+        <activity android:name=".view.activity.UserCenterActivity" />
+        <activity android:name=".view.activity.ScoreActivity" />
         <activity
             android:name=".view.activity.LoginAndRegActivity"
             android:launchMode="singleTask" />

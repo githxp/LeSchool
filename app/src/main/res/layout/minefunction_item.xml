@@ -25,7 +25,7 @@
             android:gravity="center">
 
             <ImageView
-                imageres="@{mMineFunctionViewModel.mMineFunctionModelOpt.mData.get(mPosition).functionPicture}"
+                imageres="@{mMineFunctionViewModel.mData.get(mPosition).avatar}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="@{mMineFunctionViewModel.mMineFunctionModelOpt.mData.get(mPosition).functionTitle}" />
+                    android:text="@{mMineFunctionViewModel.mData.get(mPosition).title}" />
             </RelativeLayout>
 
         </LinearLayout>

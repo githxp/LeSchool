@@ -1,9 +1,5 @@
 package com.hxp.leschool.model.bean;
 
-import android.databinding.BindingAdapter;
-import android.widget.ImageView;
-
-
 /**
  * Created by hxp on 17-1-13.
  */
@@ -11,27 +7,27 @@ import android.widget.ImageView;
 
 public class MineFunctionModel {
 
-    private String functionTitle;
-    private int functionPicture;
+    private String title;
+    private int avatar;
 
-    public MineFunctionModel(String functionTitle, int functionPicture) {
-        this.functionTitle = functionTitle;
-        this.functionPicture = functionPicture;
+    public MineFunctionModel(String title, int avatar) {
+        this.title = title;
+        this.avatar = avatar;
     }
 
-    public int getFunctionPicture() {
-        return functionPicture;
+    public String getTitle() {
+        return title;
     }
 
-    public void setFunctionPicture(int functionPicture) {
-        this.functionPicture = functionPicture;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getFunctionTitle() {
-        return functionTitle;
+    public int getAvatar() {
+        return avatar;
     }
 
-    public void setFunctionTitle(String functionTitle) {
-        this.functionTitle = functionTitle;
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
     }
 }
