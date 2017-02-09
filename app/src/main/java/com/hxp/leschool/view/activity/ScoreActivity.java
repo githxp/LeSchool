@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.ScoreAtBinding;
@@ -45,13 +44,4 @@ public class ScoreActivity extends Activity {
         super.onDestroy();
         Log.d("Fragment生命周期管理", "onDestroy()触发-ScoreActivity");
     }
-
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if ((keyCode == KeyEvent.KEYCODE_BACK) && scoreAtBinding.wvScoreContent.canGoBack()) {
-//            scoreAtBinding.wvScoreContent.goBack();
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 }
