@@ -12,6 +12,7 @@ import com.hxp.leschool.databinding.MinefunctionFmBinding;
 import com.hxp.leschool.model.bean.MineFunctionModel;
 import com.hxp.leschool.view.activity.DownloadActivity;
 import com.hxp.leschool.view.activity.MapActivity;
+import com.hxp.leschool.view.activity.RoundActivity;
 import com.hxp.leschool.view.activity.ScoreActivity;
 import com.hxp.leschool.view.fragment.MineFunctionFragment;
 
@@ -62,6 +63,7 @@ public class MineFunctionViewModel{
                         Toast.makeText(mMineFunctionFragment.getActivity(), "地图", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
+                        mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), RoundActivity.class));
                         Toast.makeText(mMineFunctionFragment.getActivity(), "附近", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:

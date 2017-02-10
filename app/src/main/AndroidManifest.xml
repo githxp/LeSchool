@@ -53,6 +53,8 @@
         <activity android:name=".view.activity.FriendReqActivity" />
         <activity android:name=".view.activity.UserCenterActivity" />
         <activity android:name=".view.activity.ScoreActivity" />
+        <activity android:name=".view.activity.RoundActivity" />
+        <activity android:name=".view.activity.NavActivity" />
         <activity
             android:name=".view.activity.LoginAndRegActivity"
             android:launchMode="singleTask" />

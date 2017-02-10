@@ -8,22 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.amap.api.maps.TextureMapView
-        android:id="@+id/TeMap_Round_map"
+    <com.amap.api.navi.AMapNaviView
+        android:id="@+id/nav_Nav_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_Round_switchResultPage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="下一页" />
-    </LinearLayout>
 
 </LinearLayout>
 

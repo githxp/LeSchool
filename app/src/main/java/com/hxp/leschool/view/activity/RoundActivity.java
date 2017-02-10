@@ -62,6 +62,9 @@ public class RoundActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        if (null != mRoundViewModel.mAMapLocationClient) {
+            mRoundViewModel.mAMapLocationClient.onDestroy();
+        }
         Log.d("Fragment生命周期管理", "onDestroy()触发-RoundActivity");
     }
 
