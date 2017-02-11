@@ -3,8 +3,10 @@ package com.hxp.leschool.viewmodel;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hxp.leschool.adapter.ClassAdapter;
@@ -36,7 +38,7 @@ public class ClassViewModel implements ClassCallback, SelecteUploadFileCallback 
         mClassItemBinding = classItemBinding;
 
         mClassModelOpt = new ClassModelOpt(this);
-        mClassAdapter = new ClassAdapter(this);
+        mClassAdapter = new ClassAdapter(this, mClassFragment);
 
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mClassFmBinding.rvClassContent.setAdapter(mClassAdapter);
@@ -100,6 +102,7 @@ public class ClassViewModel implements ClassCallback, SelecteUploadFileCallback 
 
     @Override
     public void refreshErr() {
+        mClassFmBinding.swifreshClassContent.setRefreshing(false);
         Toast.makeText(mClassFragment.getActivity(), "刷新数据失败", Toast.LENGTH_SHORT).show();
         Log.d("fragment", "ClassModelOpt数据刷新失败回调接收方");
     }

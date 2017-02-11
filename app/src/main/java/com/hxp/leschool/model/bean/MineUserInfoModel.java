@@ -15,12 +15,12 @@ import com.hxp.leschool.BR;
 public class MineUserInfoModel extends BaseObservable{
 
     private String userName;
-    private int avatar;
+    private String avatar;
 
     public MineUserInfoModel() {
     }
 
-    public MineUserInfoModel(String userName, int avatar) {
+    public MineUserInfoModel(String userName, String avatar) {
         this.userName = userName;
         this.avatar = avatar;
     }
@@ -36,11 +36,11 @@ public class MineUserInfoModel extends BaseObservable{
     }
 
     @Bindable
-    public int getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(int avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
         notifyPropertyChanged(BR.avatar);
     }

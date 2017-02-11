@@ -35,9 +35,9 @@ public class MyNormalMsgHandler extends AVIMMessageHandler {
                 } else {
                     new MyNotification(msg.getFrom(), R.mipmap.ic_launcher, msg.getText(), 100);
                 }
-                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), "头像URL", msg.getText(), lastTime, 1, 2);
+                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), msg.getText(), lastTime, 1, 2);
             } else if (attrs.get("TYPE").equals("NEW_FRIEND_REQUEST")) {//加好友消息
-                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), "头像URL", msg.getText(), lastTime, 1, 1);
+                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), msg.getText(), lastTime, 1, 1);
                 new MyNotification(msg.getFrom(), R.mipmap.ic_launcher, msg.getText(), 100);
             }
         }

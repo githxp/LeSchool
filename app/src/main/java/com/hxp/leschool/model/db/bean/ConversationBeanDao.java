@@ -24,11 +24,10 @@ public class ConversationBeanDao extends AbstractDao<ConversationBean, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property UserName = new Property(1, String.class, "userName", false, "userName");
-        public final static Property Avatar = new Property(2, String.class, "avatar", false, "avatar");
-        public final static Property Msg = new Property(3, String.class, "msg", false, "msg");
-        public final static Property LastTime = new Property(4, String.class, "lastTime", false, "lastTime");
-        public final static Property Num = new Property(5, int.class, "num", false, "num");
-        public final static Property Type = new Property(6, int.class, "type", false, "type");
+        public final static Property Msg = new Property(2, String.class, "msg", false, "msg");
+        public final static Property LastTime = new Property(3, String.class, "lastTime", false, "lastTime");
+        public final static Property Num = new Property(4, int.class, "num", false, "num");
+        public final static Property Type = new Property(5, int.class, "type", false, "type");
     }
 
 
@@ -46,11 +45,10 @@ public class ConversationBeanDao extends AbstractDao<ConversationBean, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"CONVERSATION_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"userName\" TEXT UNIQUE ," + // 1: userName
-                "\"avatar\" TEXT," + // 2: avatar
-                "\"msg\" TEXT," + // 3: msg
-                "\"lastTime\" TEXT," + // 4: lastTime
-                "\"num\" INTEGER NOT NULL ," + // 5: num
-                "\"type\" INTEGER NOT NULL );"); // 6: type
+                "\"msg\" TEXT," + // 2: msg
+                "\"lastTime\" TEXT," + // 3: lastTime
+                "\"num\" INTEGER NOT NULL ," + // 4: num
+                "\"type\" INTEGER NOT NULL );"); // 5: type
     }
 
     /** Drops the underlying database table. */
@@ -73,22 +71,17 @@ public class ConversationBeanDao extends AbstractDao<ConversationBean, Long> {
             stmt.bindString(2, userName);
         }
  
-        String avatar = entity.getAvatar();
-        if (avatar != null) {
-            stmt.bindString(3, avatar);
-        }
- 
         String msg = entity.getMsg();
         if (msg != null) {
-            stmt.bindString(4, msg);
+            stmt.bindString(3, msg);
         }
  
         String lastTime = entity.getLastTime();
         if (lastTime != null) {
-            stmt.bindString(5, lastTime);
+            stmt.bindString(4, lastTime);
         }
-        stmt.bindLong(6, entity.getNum());
-        stmt.bindLong(7, entity.getType());
+        stmt.bindLong(5, entity.getNum());
+        stmt.bindLong(6, entity.getType());
     }
 
     @Override
@@ -105,22 +98,17 @@ public class ConversationBeanDao extends AbstractDao<ConversationBean, Long> {
             stmt.bindString(2, userName);
         }
  
-        String avatar = entity.getAvatar();
-        if (avatar != null) {
-            stmt.bindString(3, avatar);
-        }
- 
         String msg = entity.getMsg();
         if (msg != null) {
-            stmt.bindString(4, msg);
+            stmt.bindString(3, msg);
         }
  
         String lastTime = entity.getLastTime();
         if (lastTime != null) {
-            stmt.bindString(5, lastTime);
+            stmt.bindString(4, lastTime);
         }
-        stmt.bindLong(6, entity.getNum());
-        stmt.bindLong(7, entity.getType());
+        stmt.bindLong(5, entity.getNum());
+        stmt.bindLong(6, entity.getType());
     }
 
     @Override
@@ -133,11 +121,10 @@ public class ConversationBeanDao extends AbstractDao<ConversationBean, Long> {
         ConversationBean entity = new ConversationBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userName
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // avatar
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // msg
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // lastTime
-            cursor.getInt(offset + 5), // num
-            cursor.getInt(offset + 6) // type
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // msg
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // lastTime
+            cursor.getInt(offset + 4), // num
+            cursor.getInt(offset + 5) // type
         );
         return entity;
     }
@@ -146,11 +133,10 @@ public class ConversationBeanDao extends AbstractDao<ConversationBean, Long> {
     public void readEntity(Cursor cursor, ConversationBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUserName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setAvatar(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setMsg(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setLastTime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setNum(cursor.getInt(offset + 5));
-        entity.setType(cursor.getInt(offset + 6));
+        entity.setMsg(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setLastTime(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setNum(cursor.getInt(offset + 4));
+        entity.setType(cursor.getInt(offset + 5));
      }
     
     @Override

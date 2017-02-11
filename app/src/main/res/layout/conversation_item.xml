@@ -23,11 +23,18 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <ImageView
-                imageres="@{mConversationViewModel.mConversationModelOpt.mData.get(mPosition).avatar}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
+            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/img_Conversation_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                app:riv_border_color="#000000"
+                app:riv_border_width="1dip"
+                app:riv_corner_radius="30dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                app:riv_tile_mode="repeat" />
 
         </LinearLayout>
 

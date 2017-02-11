@@ -3,8 +3,10 @@ package com.hxp.leschool.viewmodel;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hxp.leschool.adapter.ConversationAdapter;
@@ -34,16 +36,29 @@ public class ConversationViewModel implements ConversationCallback {
         mConversationFragment = conversationFragment;
         mConversationFmBinding = conversationFmBinding;
 
-        mConversationFmBinding.setMConversationViewModel(this);
-
-        mConversationAdapter = new ConversationAdapter(this);
+        mConversationModelOpt = new ConversationModelOpt(this, mConversationFragment);
+        mConversationAdapter = new ConversationAdapter(this,mConversationFragment);
 
         mConversationFmBinding.rvConversationContent.setLayoutManager(new LinearLayoutManager(mConversationFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
-        mConversationFmBinding.rvConversationContent.setAdapter(mConversationAdapter);
+        mConversationFmBinding.rvConversationContent.setAdapter(new RecyclerView.Adapter() {
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                return null;
+            }
 
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return 0;
+            }
+        });
         mConversationFmBinding.swifreshConversationContent.setRefreshing(true);
 
-        mConversationModelOpt = new ConversationModelOpt(this, mConversationFragment);
+        mConversationFmBinding.setMConversationViewModel(this);
 
         mConversationModelOpt.get();
 
@@ -57,7 +72,7 @@ public class ConversationViewModel implements ConversationCallback {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        mConversationModelOpt.get();
+                        mConversationModelOpt.refresh();
                     }
                 }
         );
@@ -86,6 +101,14 @@ public class ConversationViewModel implements ConversationCallback {
 
     @Override
     public void get() {
+        mConversationFmBinding.swifreshConversationContent.setRefreshing(false);
+        mConversationFmBinding.rvConversationContent.setLayoutManager(new LinearLayoutManager(mConversationFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
+        mConversationFmBinding.rvConversationContent.setAdapter(mConversationAdapter);
+        Log.d("fragment", "数据刷新成功回调接收方-ConversationModelOpt");
+    }
+
+    @Override
+    public void refresh() {
         mConversationFmBinding.swifreshConversationContent.setRefreshing(false);
         mConversationAdapter.notifyDataSetChanged();
         Log.d("fragment", "数据刷新成功回调接收方-ConversationModelOpt");

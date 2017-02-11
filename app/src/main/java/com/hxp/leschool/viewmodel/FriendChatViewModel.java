@@ -9,10 +9,8 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hxp.leschool.adapter.FriendChatAdapter;
 import com.hxp.leschool.databinding.FriendchatAtBinding;
@@ -23,12 +21,9 @@ import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.utils.event.ChatMsgEvent;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -108,7 +103,7 @@ public class FriendChatViewModel implements ChatCallback {
                     mFriendChatModelOpt.setMsg(msg.getText(), true);
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
                     String lastTime = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-                    ConversationBeanOpt.getInstance().changeORadd(userName, "头像URL", msgContent, lastTime, 1, 2);
+                    ConversationBeanOpt.getInstance().changeORadd(userName, msgContent, lastTime, 1, 2);
                 }
             });
         }

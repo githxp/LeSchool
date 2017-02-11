@@ -7,9 +7,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
-import com.hxp.leschool.R;
 import com.hxp.leschool.model.bean.FriendModel;
-import com.hxp.leschool.view.fragment.FriendFragment;
 import com.hxp.leschool.viewmodel.FriendViewModel;
 
 import java.util.ArrayList;
@@ -27,12 +25,11 @@ public class FriendModelOpt {
     public FriendModel mFriendModel;
     public ArrayList<FriendModel> mData = new ArrayList<>();
     private FriendCallback mFriendCallback;
-    private FriendFragment mFriendFragment;
-    AVQuery<AVObject> avQuery;
+    private AVQuery<AVObject> avQuery;
+    private int mCount = 0;
 
-    public FriendModelOpt(FriendViewModel microblogViewModel, FriendFragment friendFragment) {
+    public FriendModelOpt(FriendViewModel microblogViewModel) {
         mFriendCallback = microblogViewModel;
-        mFriendFragment = friendFragment;
     }
 
     //刷新数据
@@ -40,10 +37,10 @@ public class FriendModelOpt {
         AVQuery<AVUser> followeeQuery = AVUser.followeeQuery(AVUser.getCurrentUser().getObjectId(), AVUser.class);
         followeeQuery.findInBackground(new FindCallback<AVUser>() {
             @Override
-            public void done(List<AVUser> avObjects, AVException avException) {//avObject是好友列表
+            public void done(final List<AVUser> avObjects, AVException avException) {//avObject是好友列表
                 mData.clear();
                 avQuery = new AVQuery<>("UserInfo");
-                avQuery.selectKeys(Arrays.asList("userName", "userObjectID"));
+                avQuery.selectKeys(Arrays.asList("userName", "avatar", "userObjectID"));
                 avQuery.orderByDescending("createdAt");
                 for (int i = 0; i < avObjects.size(); i++) {
                     avQuery.whereEqualTo("userObjectID", avObjects.get(i).getObjectId());
@@ -54,11 +51,17 @@ public class FriendModelOpt {
                                 Log.d("fragment", "size:" + list.size());
                                 if (list.size() == 1) {
                                     mFriendModel = new FriendModel();
-                                    mFriendModel.setAvatar(R.mipmap.ic_launcher);
+                                    mFriendModel.setAvatar(list.get(0).getString("avatar"));
                                     mFriendModel.setUserName(list.get(0).getString("userName"));
                                     Log.d("fragment", "好友：" + list.get(0).getString("userName"));
                                     mData.add(mFriendModel);
-                                    mFriendCallback.refresh();
+                                    mCount++;
+                                    Log.d("fragment", "测试发行" + "mcount:" + mCount + "mdata:" + avObjects.size());
+                                    if (mCount == avObjects.size()) {
+                                        mCount = 0;
+                                        Log.d("fragment", "数据刷新成功回调发送方-FriendModelOpt");
+                                        mFriendCallback.refresh();
+                                    }
                                 } else {
                                     Log.d("fragment", "好友账号异常");
                                 }

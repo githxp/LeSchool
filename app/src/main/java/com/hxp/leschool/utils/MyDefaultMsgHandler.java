@@ -31,9 +31,9 @@ public class MyDefaultMsgHandler extends AVIMMessageHandler {
             AVIMTextMessage msg = (AVIMTextMessage) message;
             Map<String, Object> attrs = msg.getAttrs();
             if (attrs == null) {//普通消息
-                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), "头像URL", msg.getText(), lastTime, 1, 2);
+                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), msg.getText(), lastTime, 1, 2);
             } else if (attrs.get("TYPE").equals("NEW_FRIEND_REQUEST")) {//加好友消息
-                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), "头像URL", msg.getText(), lastTime, 1, 1);
+                ConversationBeanOpt.getInstance().changeORadd(message.getFrom(), msg.getText(), lastTime, 1, 1);
             }
             new MyNotification(msg.getFrom(), R.mipmap.ic_launcher, msg.getText(), 100);
         }

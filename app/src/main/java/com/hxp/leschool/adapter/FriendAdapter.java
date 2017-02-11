@@ -7,9 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
+import com.hxp.leschool.utils.AvatarHelper;
+import com.hxp.leschool.view.fragment.FriendFragment;
 import com.hxp.leschool.viewmodel.FriendViewModel;
 
 
@@ -22,6 +27,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     private FriendViewModel mFriendViewModel;
     private OnItemClickListener mOnItemClickListener;
+    private FriendFragment mFriendFragment;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding mViewDataBinding;
@@ -39,8 +45,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         }
     }
 
-    public FriendAdapter(FriendViewModel friendViewModel) {
+    public FriendAdapter(FriendViewModel friendViewModel, FriendFragment friendFragment) {
         mFriendViewModel = friendViewModel;
+        mFriendFragment = friendFragment;
     }
 
     @Override
@@ -57,6 +64,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         holder.getBinding().setVariable(BR.mFriendViewModel, mFriendViewModel);
         holder.getBinding().setVariable(BR.mPosition, position);
         holder.getBinding().executePendingBindings();
+        Log.d("fragment","mdata："+mFriendViewModel.mFriendModelOpt.mData.get(position).getAvatar());
+        new AvatarHelper(mFriendFragment.getContext(), (ImageView) holder.itemView.findViewById(R.id.img_Friend_avatar), mFriendViewModel.mFriendModelOpt.mData.get(position).getAvatar());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

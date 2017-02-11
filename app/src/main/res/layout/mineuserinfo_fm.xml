@@ -17,9 +17,12 @@
         android:orientation="vertical">
 
         <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            imageres="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.avatar}"
+            android:id="@+id/img_MineUserInfo_avatar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:scaleType="fitCenter"
             app:riv_border_color="#000000"
             app:riv_border_width="1dip"
@@ -30,7 +33,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userName}" />
     </LinearLayout>
 </layout>

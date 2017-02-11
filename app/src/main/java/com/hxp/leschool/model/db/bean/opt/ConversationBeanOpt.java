@@ -37,13 +37,13 @@ public class ConversationBeanOpt {
     }
 
     //插入一条数据
-    public void insert(String userName, String avatar, String msg, String lastTime, int num, int type) {
-        conversationBeanDao.insert(new ConversationBean(null, userName, avatar, msg, lastTime, num, type));
+    public void insert(String userName, String msg, String lastTime, int num, int type) {
+        conversationBeanDao.insert(new ConversationBean(null, userName, msg, lastTime, num, type));
         EventBus.getDefault().postSticky(new AddConversationEvent());
     }
 
     //修改或添加一条数据
-    public void changeORadd(String userName, String avatar, String msg, String lastTime, int num, int type) {
+    public void changeORadd(String userName, String msg, String lastTime, int num, int type) {
         ConversationBean conversationBean = conversationBeanDao.queryBuilder().where(ConversationBeanDao.Properties.UserName.eq(userName)).unique();
         if (conversationBean != null) {//修改
             conversationBean.setMsg(msg);
@@ -52,7 +52,7 @@ public class ConversationBeanOpt {
             conversationBeanDao.update(conversationBean);
             EventBus.getDefault().postSticky(new ChangeConversationEvent());
         } else {//添加
-            insert(userName, avatar, msg, lastTime, num, type);
+            insert(userName, msg, lastTime, num, type);
         }
     }
 

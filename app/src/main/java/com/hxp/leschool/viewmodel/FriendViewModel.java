@@ -6,6 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hxp.leschool.R;
 import com.hxp.leschool.adapter.FriendAdapter;
 import com.hxp.leschool.databinding.FriendFmBinding;
 import com.hxp.leschool.model.opt.FriendModelOpt;
@@ -31,15 +34,15 @@ public class FriendViewModel implements FriendCallback {
         mFriendFragment = friendFragment;
         mFriendFmBinding = friendFmBinding;
 
-        mFriendFmBinding.setMFriendViewModel(this);
-
-        mFriendModelOpt = new FriendModelOpt(this, mFriendFragment);
-        mFriendAdapter = new FriendAdapter(this);
+        mFriendModelOpt = new FriendModelOpt(this);
+        mFriendAdapter = new FriendAdapter(this,mFriendFragment);
 
         mFriendFmBinding.rvFriendContent.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mFriendFmBinding.rvFriendContent.setAdapter(mFriendAdapter);
 
         mFriendFmBinding.swifreshFriendContent.setRefreshing(true);
+
+        mFriendFmBinding.setMFriendViewModel(this);
 
         mFriendModelOpt.refresh();
 

@@ -47,7 +47,7 @@ public class RoundViewModel implements LocationSource, AMapLocationListener, Poi
     private PoiSearch mPoiSearch;
     private AMapLocation mAMapLocation;
     private int mCurrentPageNum = 0;
-    private int mCurrentPageSize = 2;
+    private int mCurrentPageSize = 7;
     private ArrayList<PoiItem> mPoiItem;
 
 
@@ -102,32 +102,7 @@ public class RoundViewModel implements LocationSource, AMapLocationListener, Poi
             @Override
             public void onClick(View v) {
                 mCurrentPageNum++;
-                if ((mCurrentPageNum + 1) * mCurrentPageSize < mPoiItem.size()) {
-                    for (int i = (mCurrentPageNum * mCurrentPageSize); i < ((mCurrentPageNum + 1) * mCurrentPageSize); i++) {
-                        mAMap.clear();
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(new LatLng(mPoiItem.get(i).getLatLonPoint().getLatitude(),
-                                mPoiItem.get(i).getLatLonPoint().getLongitude()))
-                                .title(mPoiItem.get(i).getTitle());
-                        mMarkerOptionData.add(markerOptions);
-                        mAMap.addMarkers(mMarkerOptionData, true);
-                    }
-                    Log.d("fragment", "当前页1");
-                } else if ((mCurrentPageNum + 1) * mCurrentPageSize >= mPoiItem.size()) {
-                    for (int i = (mCurrentPageNum * mCurrentPageSize); i < mPoiItem.size(); i++) {
-                        mAMap.clear();
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(new LatLng(mPoiItem.get(i).getLatLonPoint().getLatitude(),
-                                mPoiItem.get(i).getLatLonPoint().getLongitude()))
-                                .title(mPoiItem.get(i).getTitle());
-                        mMarkerOptionData.add(markerOptions);
-                        mAMap.addMarkers(mMarkerOptionData, true);
-                    }
-                    mCurrentPageNum = 0;
-                    Toast.makeText(mRoundActivity, "没有更多内容", Toast.LENGTH_SHORT).show();
-                }
-                Log.d("fragment", "当前页：" + mCurrentPageNum);
-                Log.d("fragment", "总:" + mPoiItem.size());
+                poiSearch();
             }
         });
     }
@@ -169,7 +144,6 @@ public class RoundViewModel implements LocationSource, AMapLocationListener, Poi
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (mOnLocationChangedListener != null && aMapLocation != null) {
             if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
-                //mOnLocationChangedListener.onLocationChanged(aMapLocation);
                 if (mAMapLocation == null) {
                     mAMapLocation = aMapLocation;
                     poiSearch();
@@ -191,6 +165,8 @@ public class RoundViewModel implements LocationSource, AMapLocationListener, Poi
                     mPoiItem = poiResult.getPois();
                     Log.d("fragment", "找到：" + mPoiItem.size());
                     if (mPoiItem != null && mPoiItem.size() > 0) {
+                        mAMap.clear();
+                        mMarkerOptionData.clear();
                         for (int j = 0; j < mPoiItem.size(); j++) {
                             MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position(new LatLng(mPoiItem.get(j).getLatLonPoint().getLatitude(),
@@ -199,8 +175,11 @@ public class RoundViewModel implements LocationSource, AMapLocationListener, Poi
                             mMarkerOptionData.add(markerOptions);
                         }
                         mAMap.addMarkers(mMarkerOptionData, true);
-                    } else
-                        Toast.makeText(mRoundActivity, "没有找到检索数据", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mRoundActivity, "返回第一页", Toast.LENGTH_SHORT).show();
+                        mCurrentPageNum = 0;
+                        poiSearch();
+                    }
                 }
             }
         }

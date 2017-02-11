@@ -19,8 +19,6 @@ public class ConversationBean {
     @Property(nameInDb = "userName")//会话用户名
     @Unique
     private String userName;
-    @Property(nameInDb = "avatar")//会话用户头像
-    private String avatar;
     @Property(nameInDb = "msg")//会话最近一条消息
     private String msg;
     @Property(nameInDb = "lastTime")//会话最近一次时间
@@ -29,12 +27,11 @@ public class ConversationBean {
     private int num;
     @Property(nameInDb = "type")//消息类型
     private int type;
-    @Generated(hash = 877576375)
-    public ConversationBean(Long id, String userName, String avatar, String msg,
-            String lastTime, int num, int type) {
+    @Generated(hash = 841142474)
+    public ConversationBean(Long id, String userName, String msg, String lastTime,
+            int num, int type) {
         this.id = id;
         this.userName = userName;
-        this.avatar = avatar;
         this.msg = msg;
         this.lastTime = lastTime;
         this.num = num;
@@ -54,12 +51,6 @@ public class ConversationBean {
     }
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-    public String getAvatar() {
-        return this.avatar;
-    }
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
     public String getMsg() {
         return this.msg;

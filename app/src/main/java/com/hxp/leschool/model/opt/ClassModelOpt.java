@@ -2,6 +2,11 @@ package com.hxp.leschool.model.opt;
 
 import android.util.Log;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.hxp.leschool.R;
 import com.hxp.leschool.model.server.object.MyClassObject;
 import com.hxp.leschool.model.bean.ClassModel;
@@ -12,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -31,6 +37,8 @@ public class ClassModelOpt {
     public ArrayList<ClassModel> mData = new ArrayList<>();
     private ClassCallback mClassCallback;
     private int mFirstProcess = 0;
+    private AVQuery<AVObject> avQuery;
+    private int mCount = 0;
 
     public ClassModelOpt(ClassViewModel classViewModel) {
         mClassCallback = classViewModel;
@@ -48,20 +56,54 @@ public class ClassModelOpt {
                     mData.clear();
                     for (int i = 0; i < list.size(); i++) {
                         mClassModel = new ClassModel();
-                        mClassModel.setAvatar(R.mipmap.ic_launcher);
+                        mClassModel.setUserName(list.get(i).getUserName());
                         mClassModel.setTitle(list.get(i).getTitle());
                         mClassModel.setUrl(list.get(i).getUrl());
                         mData.add(mClassModel);
                         Log.d("fragment", "查询成功" + list.get(i).getTitle());
                     }
-                    Log.d("fragment", "ClassModelOpt数据刷新成功回调发送方");
-                    mClassCallback.refresh();
                 } else {
-                    Log.d("fragment", "ClassModelOpt数据刷新失败回调发送方");
-                    mClassCallback.refreshErr();
+                    Log.d("fragment", "查询失败");
                 }
+                Log.d("fragment", "开始查询头像");
+                refreshAvatar();
             }
         });
+    }
+
+
+    //刷新头像
+    private void refreshAvatar() {
+        avQuery = new AVQuery<>("UserInfo");
+        avQuery.selectKeys(Arrays.asList("userName", "avatar"));
+        for (int i = 0; i < mData.size(); i++) {
+            Log.d("fragment", "开始查询" + mData.get(i).getUserName() + "的头像");
+            avQuery.whereEqualTo("userName", mData.get(i).getUserName());
+            final int j = i;
+            avQuery.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    if (e == null) {
+                        if (list.size() == 1) {
+                            mData.get(j).setAvatar(list.get(0).getString("avatar"));
+                            Log.d("fragment", j + mData.get(j).getUserName() + "的头像获取成功" + mData.get(j).getAvatar());
+                            mCount++;
+                            Log.d("fragment", "测试发行");
+                            if (mCount == mData.size()) {
+                                mCount = 0;
+                                Log.d("fragment", "ClassModelOpt数据刷新成功回调发送方");
+                                mClassCallback.refresh();
+                            }
+                        } else {
+                            Log.d("fragment", "头像获取数量异常");
+                        }
+                    } else {
+                        Log.d("fragment", "ClassModelOpt数据刷新失败回调发送方"+e.getMessage());
+                        mClassCallback.refreshErr();
+                    }
+                }
+            });
+        }
     }
 
     //获取数据数量
@@ -78,6 +120,7 @@ public class ClassModelOpt {
             public void done(BmobException e) {
                 Log.d("fragment", "上传文件成功:" + bmobFile.getFileUrl());
                 MyClassObject myClassObject = new MyClassObject();
+                myClassObject.setUserName(AVUser.getCurrentUser().getUsername());
                 myClassObject.setTitle(bmobFile.getFilename());
                 myClassObject.setUrl(bmobFile.getFileUrl());
                 myClassObject.save(new SaveListener<String>() {
