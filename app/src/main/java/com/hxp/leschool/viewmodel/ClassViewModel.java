@@ -2,6 +2,7 @@ package com.hxp.leschool.viewmodel;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.ClassDetailActivity;
 import com.hxp.leschool.view.activity.MainActivity.SelecteUploadFileCallback;
 import com.hxp.leschool.view.fragment.ClassFragment;
+import com.hxp.leschool.widget.RecycleItemDivider;
 
 /**
  * Created by hxp on 17-1-13.
@@ -42,6 +44,8 @@ public class ClassViewModel implements ClassCallback, SelecteUploadFileCallback 
 
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mClassFmBinding.rvClassContent.setAdapter(mClassAdapter);
+        mClassFmBinding.rvClassContent.setItemAnimator(new DefaultItemAnimator());
+        mClassFmBinding.rvClassContent.addItemDecoration(new RecycleItemDivider(mClassFragment.getActivity(),RecycleItemDivider.VERTICAL_LIST));
         mClassFmBinding.swifreshClassContent.setRefreshing(true);
 
         mClassFmBinding.setMClassViewModel(this);

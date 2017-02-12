@@ -13,6 +13,7 @@ import com.hxp.leschool.model.db.bean.ConversationBean;
 import com.hxp.leschool.model.db.bean.opt.ConversationBeanOpt;
 import com.hxp.leschool.utils.event.AddConversationEvent;
 import com.hxp.leschool.utils.event.ChangeConversationEvent;
+import com.hxp.leschool.utils.event.DelConversationEvent;
 import com.hxp.leschool.view.fragment.ConversationFragment;
 import com.hxp.leschool.viewmodel.ConversationViewModel;
 
@@ -39,11 +40,6 @@ public class ConversationModelOpt {
     public ConversationModelOpt(ConversationViewModel conversationViewModel, ConversationFragment conversationFragment) {
         mConversationCallback = conversationViewModel;
         mConversationFragment = conversationFragment;
-    }
-
-    //删除消息
-    public void removeConversation(ConversationModel conversationModel) {
-
     }
 
     //获取数据
@@ -157,12 +153,16 @@ public class ConversationModelOpt {
     }
 
     public void handleAddConversationEvent(AddConversationEvent addConversationEvent) {
-        Log.d("fragment", "ConversationModelOpt正在处理");
+        Log.d("fragment", "ConversationModelOpt-添加 正在处理");
         get();
     }
 
     public void handleChangeConversationEvent(ChangeConversationEvent changeConversationEvent) {
-        Log.d("fragment", "ConversationModelOpt正在处理");
+        Log.d("fragment", "ConversationModelOpt-修改 正在处理");
         get();
+    }
+
+    public void handleDelConversationEvent(DelConversationEvent delConversationEvent) {
+        Log.d("fragment", "ConversationModelOpt-删除 正在处理");
     }
 }

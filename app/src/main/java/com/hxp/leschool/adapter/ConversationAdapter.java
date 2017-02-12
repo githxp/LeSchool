@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
 import com.hxp.leschool.utils.AvatarHelper;
 import com.hxp.leschool.view.fragment.ConversationFragment;
 import com.hxp.leschool.viewmodel.ConversationViewModel;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 
 /**
@@ -23,11 +22,12 @@ import com.hxp.leschool.viewmodel.ConversationViewModel;
  */
 
 
-public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ViewHolder> {
+public class ConversationAdapter extends SwipeMenuAdapter<ConversationAdapter.ViewHolder> {
 
     private ConversationViewModel mConversationViewModel;
     private ConversationFragment mConversationFragment;
     private OnItemClickListener mOnItemClickListener;
+    private ViewDataBinding viewDataBinding;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding mViewDataBinding;
@@ -51,11 +51,15 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.conversation_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(viewDataBinding.getRoot());
+    public View onCreateContentView(ViewGroup parent, int viewType) {
+        viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.conversation_item, parent, false);
+        return viewDataBinding.getRoot();
+    }
+
+    @Override
+    public ViewHolder onCompatCreateViewHolder(View realContentView, int viewType) {
+        ViewHolder viewHolder = new ViewHolder(realContentView);
         viewHolder.setBinding(viewDataBinding);
-        Log.d("fragment", "onCreateViewHolder()-ConversationAdapter");
         return viewHolder;
     }
 

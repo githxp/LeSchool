@@ -9,6 +9,7 @@ import com.hxp.leschool.model.db.bean.DaoSession;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.utils.event.AddConversationEvent;
 import com.hxp.leschool.utils.event.ChangeConversationEvent;
+import com.hxp.leschool.utils.event.DelConversationEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -68,6 +69,20 @@ public class ConversationBeanOpt {
             return false;
         } else {
             return true;
+        }
+    }
+
+    //删除所有数据
+    public void deleteAll() {
+        conversationBeanDao.deleteAll();
+    }
+
+    //删除一条数据
+    public void delete(String userName) {
+        ConversationBean conversationBean = conversationBeanDao.queryBuilder().where(ConversationBeanDao.Properties.UserName.eq(userName)).unique();
+        if (conversationBean != null) {//修改
+            conversationBeanDao.delete(conversationBean);
+            EventBus.getDefault().postSticky(new DelConversationEvent());
         }
     }
 }

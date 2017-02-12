@@ -2,6 +2,7 @@ package com.hxp.leschool.viewmodel;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.hxp.leschool.model.opt.FriendModelOpt.FriendCallback;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
 import com.hxp.leschool.view.fragment.FriendFragment;
+import com.hxp.leschool.widget.RecycleItemDivider;
 
 
 /**
@@ -39,7 +41,8 @@ public class FriendViewModel implements FriendCallback {
 
         mFriendFmBinding.rvFriendContent.setLayoutManager(new LinearLayoutManager(mFriendFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mFriendFmBinding.rvFriendContent.setAdapter(mFriendAdapter);
-
+        mFriendFmBinding.rvFriendContent.setItemAnimator(new DefaultItemAnimator());
+        mFriendFmBinding.rvFriendContent.addItemDecoration(new RecycleItemDivider(mFriendFragment.getActivity(),RecycleItemDivider.VERTICAL_LIST));
         mFriendFmBinding.swifreshFriendContent.setRefreshing(true);
 
         mFriendFmBinding.setMFriendViewModel(this);

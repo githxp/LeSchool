@@ -10,6 +10,7 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.hxp.leschool.databinding.UsercenterAtBinding;
+import com.hxp.leschool.model.db.bean.opt.ConversationBeanOpt;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.activity.UserCenterActivity;
@@ -43,6 +44,8 @@ public class UserCenterViewModel {
                 @Override
                 public void done(AVIMClient avimClient, AVIMException e) {
                     Toast.makeText(mUserCenterActivity, "当前用户已与服务器断开连接", Toast.LENGTH_SHORT).show();
+                    ConversationBeanOpt.getInstance().deleteAll();
+                    Toast.makeText(mUserCenterActivity, "用户数据已重置", Toast.LENGTH_SHORT).show();
                 }
             });
             mUserCenterActivity.startActivity(new Intent(mUserCenterActivity, LoginAndRegActivity.class));

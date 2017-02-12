@@ -14,6 +14,7 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.ConversationFmBinding;
 import com.hxp.leschool.utils.event.AddConversationEvent;
 import com.hxp.leschool.utils.event.ChangeConversationEvent;
+import com.hxp.leschool.utils.event.DelConversationEvent;
 import com.hxp.leschool.viewmodel.ConversationViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,13 +77,19 @@ public class ConversationFragment extends Fragment {
 
     @Subscribe(sticky = true)
     public void handleAddConversationEvent(AddConversationEvent addConversationEvent) {
-        Log.d("fragment", "新消息处理" + "conversationEvent");
+        Log.d("fragment", "新消息处理-添加" + "conversationEvent");
         mConversationViewModel.handleAddConversationEvent(addConversationEvent);
     }
 
     @Subscribe(sticky = true)
     public void handleChangeConversationEvent(ChangeConversationEvent changeConversationEvent) {
-        Log.d("fragment", "新消息处理" + "conversationEvent");
+        Log.d("fragment", "新消息处理-修改" + "conversationEvent");
         mConversationViewModel.handleChangeConversationEvent(changeConversationEvent);
+    }
+
+    @Subscribe(sticky = true)
+    public void handleDelConversationEvent(DelConversationEvent delConversationEvent) {
+        Log.d("fragment", "消息处理-删除" + "conversationEvent");
+        mConversationViewModel.handleDelConversationEvent(delConversationEvent);
     }
 }

@@ -10,6 +10,7 @@ import com.hxp.leschool.R;
 import com.hxp.leschool.adapter.MineFunctionAdapter;
 import com.hxp.leschool.databinding.MinefunctionFmBinding;
 import com.hxp.leschool.model.bean.MineFunctionModel;
+import com.hxp.leschool.view.activity.CustomActivity;
 import com.hxp.leschool.view.activity.DownloadActivity;
 import com.hxp.leschool.view.activity.MapActivity;
 import com.hxp.leschool.view.activity.RoundActivity;
@@ -71,6 +72,7 @@ public class MineFunctionViewModel{
                         Toast.makeText(mMineFunctionFragment.getActivity(), "成绩", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
+                        mMineFunctionFragment.getActivity().startActivity(new Intent(mMineFunctionFragment.getActivity(), CustomActivity.class));
                         Toast.makeText(mMineFunctionFragment.getActivity(), "设置", Toast.LENGTH_SHORT).show();
                         break;
                     default:
