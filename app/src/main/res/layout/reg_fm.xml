@@ -23,24 +23,71 @@
             <EditText
                 android:id="@+id/et_reg_userName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_loginandreg"
+                android:hint="账号"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textCursorDrawable="@drawable/et_cursor" />
 
             <EditText
                 android:id="@+id/et_reg_userPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_loginandreg"
+                android:hint="密码"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textCursorDrawable="@drawable/et_cursor" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{mRegViewModel.onReg_Layout_RegClicked}"
-                android:text="注册" />
+                android:background="@drawable/btn_login"
+                android:onClick="@{mRegViewModel.btn_Reg_reg}"
+                android:text="注册"
+                android:textColor="@color/primaryTextColorLight" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:onClick="@{mRegViewModel.ll_Reg_login}">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="账号登陆"
+                    android:textColor="@color/primaryColorDefault" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>

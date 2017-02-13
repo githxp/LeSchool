@@ -55,7 +55,6 @@
         <activity android:name=".view.activity.ScoreActivity" />
         <activity android:name=".view.activity.RoundActivity" />
         <activity android:name=".view.activity.NavActivity" />
-        <activity android:name=".view.activity.CustomActivity" />
         <activity
             android:name=".view.activity.LoginAndRegActivity"
             android:launchMode="singleTask" />

@@ -10,10 +10,10 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.hxp.leschool.databinding.RegFmBinding;
-import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.utils.event.RegSwitchLoginEvent;
 import com.hxp.leschool.view.fragment.RegFragment;
 
-import cn.bmob.v3.listener.SaveListener;
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -34,7 +34,7 @@ public class RegViewModel {
         mRegFmBinding.setMRegViewModel(this);
     }
 
-    public void onReg_Layout_RegClicked(View view) {
+    public void btn_Reg_reg(View view) {
         final String userName = mRegFmBinding.etRegUserName.getText().toString();
         final String userPassword = mRegFmBinding.etRegUserPassword.getText().toString();
         if ((!userName.equals("")) && (!userPassword.equals(""))) {
@@ -69,5 +69,9 @@ public class RegViewModel {
         } else {
             Toast.makeText(mRegFragment.getActivity(), "请输入用户名和密码", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void ll_Reg_login(View view){
+        EventBus.getDefault().post(new RegSwitchLoginEvent());
     }
 }

@@ -33,18 +33,18 @@ public class LoginFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("Fragment生命周期管理", "onPause()触发-Login");
+        Log.d("Fragment", "onPause()触发-Login");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("Fragment生命周期管理", "onResume()触发-Login");
+        Log.d("Fragment", "onResume()触发-Login");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("Fragment生命周期管理", "onDestroy()触发-Login");
+        Log.d("Fragment", "onDestroy()触发-Login");
     }
 }

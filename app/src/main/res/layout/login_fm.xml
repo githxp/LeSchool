@@ -6,7 +6,6 @@
         <variable
             name="mLoginViewModel"
             type="com.hxp.leschool.viewmodel.LoginViewModel" />
-
     </data>
 
     <LinearLayout
@@ -25,20 +24,70 @@
             <EditText
                 android:id="@+id/et_login_userName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_loginandreg"
+                android:hint="账号"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textCursorDrawable="@drawable/et_cursor" />
 
             <EditText
                 android:id="@+id/et_login_userPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_loginandreg"
+                android:hint="密码"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textCursorDrawable="@drawable/et_cursor" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{mLoginViewModel.onLogin_Layout_LoginClicked}"
-                android:text="登陆" />
-        </LinearLayout>
+                android:layout_height="48dp"
+                android:background="@drawable/btn_login"
+                android:onClick="@{mLoginViewModel.btn_Login_login}"
+                android:text="登陆"
+                android:textColor="@color/primaryTextColorLight" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="26dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="26dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:onClick="@{mLoginViewModel.ll_Login_reg}">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="免费注册"
+                        android:textColor="@color/primaryColorDefault" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </layout>

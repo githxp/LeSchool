@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.hxp.leschool.R;
 import com.hxp.leschool.databinding.LoginandregAtBinding;
+import com.hxp.leschool.utils.event.LoginSwitchRegEvent;
+import com.hxp.leschool.utils.event.RegSwitchLoginEvent;
 import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.fragment.LoginFragment;
 import com.hxp.leschool.view.fragment.RegFragment;
@@ -30,28 +32,26 @@ public class LoginAndRegViewModel {
         mLoginandregAtBinding.setMLoginAndRegViewModel(this);
         if (mLoginFragment == null) {
             mLoginFragment = new LoginFragment();
-            Log.d("Fragment生命周期管理", "创建LoginFragment");
+            Log.d("Fragment", "创建LoginFragment");
         }
-        mLoginAndRegActivity.getFragmentManager().beginTransaction().add(R.id.ll_mine_loginAndReg_content, mLoginFragment).commit();
+        mLoginAndRegActivity.getFragmentManager().beginTransaction().add(R.id.ll_loginAndReg_content, mLoginFragment).commit();
     }
 
-    public void onLoginAndReg_Layout_LoginClicked(View view) {
-        if (mLoginFragment == null) {
-            mLoginFragment = new LoginFragment();
-            Log.d("Fragment生命周期管理", "创建LoginFragment");
-        }
-        if (!mLoginFragment.isVisible()) {
-            mLoginAndRegActivity.getFragmentManager().beginTransaction().replace(R.id.ll_mine_loginAndReg_content, mLoginFragment).commit();
-        }
+    public void handleRegSwitchLoginEvent(RegSwitchLoginEvent regSwitchLoginEvent) {
+        mLoginAndRegActivity.getFragmentManager().beginTransaction().hide(mRegFragment).commit();
+        mLoginAndRegActivity.getFragmentManager().beginTransaction().show(mLoginFragment).commit();
     }
 
-    public void onLoginAndReg_Layout_RegClicked(View view) {
+    public void handleLoginSwitchRegEvent(LoginSwitchRegEvent loginSwitchRegEvent) {
         if (mRegFragment == null) {
             mRegFragment = new RegFragment();
-            Log.d("Fragment生命周期管理", "创建RegisterFragment");
-        }
-        if (!mRegFragment.isVisible()) {
-            mLoginAndRegActivity.getFragmentManager().beginTransaction().replace(R.id.ll_mine_loginAndReg_content, mRegFragment).commit();
+            Log.d("Fragment", "创建RegisterFragment");
+            mLoginAndRegActivity.getFragmentManager().beginTransaction().hide(mLoginFragment).commit();
+            mLoginAndRegActivity.getFragmentManager().beginTransaction().add(R.id.ll_loginAndReg_content, mRegFragment).commit();
+        } else {
+            Log.d("Fragment", "显示RegisterFragment");
+            mLoginAndRegActivity.getFragmentManager().beginTransaction().hide(mLoginFragment).commit();
+            mLoginAndRegActivity.getFragmentManager().beginTransaction().show(mRegFragment).commit();
         }
     }
 }

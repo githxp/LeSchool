@@ -81,6 +81,7 @@ public class ConversationViewModel implements ConversationCallback {
                         .setTextSize(16) // 文字大小
                         .setWidth(260)
                         .setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
+
                 swipeRightMenu.addMenuItem(deleteItem);// 添加一个按钮到右侧侧菜单
             }
         });
