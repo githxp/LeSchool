@@ -14,4 +14,6 @@
     <color name="accentColor">#FFC107</color>
 
     <color name="dividerColor">#BDBDBD</color>
+
+    <color name="fabIconColor">#FFFFFF</color>
 </resources>

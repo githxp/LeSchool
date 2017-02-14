@@ -2,7 +2,10 @@ package com.hxp.leschool.view.activity;
 
 import android.content.Intent;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hxp.leschool.R;
-import com.hxp.leschool.model.db.bean.opt.ConversationBeanOpt;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.ConversationFragment;
@@ -45,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         }
         getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
         Log.d("Fragment", "添加mClassFragment in1");
+
+        ImageView imageView = (ImageView) findViewById(R.id.img_Main_class);
+        Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_class);
+        DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+        imageView.setImageDrawable(drawable);
     }
 
     public void onMain_Layout_ClassClicked(View view) {
@@ -53,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Fragment", "创建mClassFragment in2");
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
             Log.d("Fragment", "添加mClassFragment in2");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_class);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_class);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
             if (mConversationFragment != null) {
                 getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
                 Log.d("Fragment", "隐藏mConversationFragment in");
@@ -80,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
             }
             getFragmentManager().beginTransaction().show(mClassFragment).commit();
             Log.d("Fragment", "显示mClassFragment on");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_class);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_class);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
         }
     }
 
@@ -89,6 +106,12 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Fragment", "创建mConversationFragment in");
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mConversationFragment).commit();
             Log.d("Fragment", "添加mConversationFragment in");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_conversation);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_msg);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
+
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
@@ -116,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
             }
             getFragmentManager().beginTransaction().show(mConversationFragment).commit();
             Log.d("Fragment", "显示mConversationFragment on");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_conversation);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_msg);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
         }
     }
 
@@ -125,6 +153,12 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Fragment", "创建mFriendFragment in");
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mFriendFragment).commit();
             Log.d("Fragment", "添加mFriendFragment in");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_friend);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_friend);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
+
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
@@ -152,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
             }
             getFragmentManager().beginTransaction().show(mFriendFragment).commit();
             Log.d("Fragment", "显示mFriendFragment on");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_friend);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_friend);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
         }
     }
 
@@ -161,6 +200,12 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Fragment", "创建MineFragment in");
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mMineFragment).commit();
             Log.d("Fragment", "添加mMineFragment in");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_mine);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_mine);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
+
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
@@ -188,6 +233,11 @@ public class MainActivity extends AppCompatActivity {
             }
             getFragmentManager().beginTransaction().show(mMineFragment).commit();
             Log.d("Fragment", "显示mMineFragment on");
+
+            ImageView imageView = (ImageView) findViewById(R.id.img_Main_mine);
+            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_mine);
+            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
+            imageView.setImageDrawable(drawable);
         }
     }
 

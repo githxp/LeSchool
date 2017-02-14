@@ -2,11 +2,29 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="android:statusBarColor">@color/primaryColorDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:textColorPrimary">@color/primaryTextColorGray</item>
+        <item name="android:colorAccent">@color/accentColor</item>
         <item name="android:listDivider">@drawable/item_divider</item>
+    </style>
+
+    <!-- toolbar样式 -->
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!--溢出菜单图标颜色-->
+        <item name="android:textColorSecondary">@color/primaryTextColorLight</item>
+    </style>
+
+    <!--toolbar弹出菜单样式-->
+    <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primaryTextColorGray</item>
+    </style>
+
+    <!--toolbar标题文字样式-->
+    <style name="ToolbarTitleStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primaryTextColorLight</item>
     </style>
 
 </resources>

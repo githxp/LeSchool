@@ -29,8 +29,8 @@
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                app:riv_border_color="#000000"
-                app:riv_border_width="1dip"
+                app:riv_border_color="@color/primaryColorGray"
+                app:riv_border_width="2dip"
                 app:riv_corner_radius="30dip"
                 app:riv_mutate_background="true"
                 app:riv_oval="true"
@@ -42,20 +42,43 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="left"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@{mClassViewModel.mClassModelOpt.mData.get(mPosition).title}" />
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{mClassViewModel.mClassModelOpt.mData.get(mPosition).title}"
+                    android:textColor="@color/primaryTextColorDark"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@{mClassViewModel.mClassModelOpt.mData.get(mPosition).userName}" />
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{mClassViewModel.mClassModelOpt.mData.get(mPosition).userName}"
+                    android:textColor="@color/primaryTextColorGray"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>
