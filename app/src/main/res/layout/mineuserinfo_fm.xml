@@ -24,8 +24,8 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:scaleType="fitCenter"
-            app:riv_border_color="#000000"
-            app:riv_border_width="1dip"
+            app:riv_border_color="@color/primaryColorGray"
+            app:riv_border_width="2dip"
             app:riv_corner_radius="30dip"
             app:riv_mutate_background="true"
             app:riv_oval="true"
@@ -35,6 +35,13 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userName}" />
+            android:text="@{mMineUserInfoViewModel.mMineUserInfoModelOpt.mData.userName}"
+            android:textColor="@color/primaryTextColorGray"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/dividerColor" />
     </LinearLayout>
 </layout>

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hxp.leschool.R;
@@ -21,6 +22,7 @@ import com.hxp.leschool.view.fragment.ClassFragment;
 import com.hxp.leschool.view.fragment.ConversationFragment;
 import com.hxp.leschool.view.fragment.FriendFragment;
 import com.hxp.leschool.view.fragment.MineFragment;
+import com.hxp.leschool.widget.MainNavbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_toolbar);
-        setSupportActionBar(toolbar);
 
         MyApplication.getInstance().setMainActivity(this);
 
@@ -48,10 +48,9 @@ public class MainActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
         Log.d("Fragment", "添加mClassFragment in1");
 
-        ImageView imageView = (ImageView) findViewById(R.id.img_Main_class);
-        Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_class);
-        DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-        imageView.setImageDrawable(drawable);
+        ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_pressed, null));
+        ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
+
     }
 
     public void onMain_Layout_ClassClicked(View view) {
@@ -61,42 +60,64 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mClassFragment).commit();
             Log.d("Fragment", "添加mClassFragment in2");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_class);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_class);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
+
             if (mConversationFragment != null) {
                 getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
                 Log.d("Fragment", "隐藏mConversationFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
                 Log.d("Fragment", "隐藏mMineFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
         } else if (!mClassFragment.isVisible()) {
             if (mConversationFragment != null) {
                 getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
                 Log.d("Fragment", "隐藏mConversationFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment on");
+
+                ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
                 Log.d("Fragment", "隐藏mMineFragment on");
+
+                ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             getFragmentManager().beginTransaction().show(mClassFragment).commit();
             Log.d("Fragment", "显示mClassFragment on");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_class);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_class);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
+
         }
     }
 
@@ -107,43 +128,64 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mConversationFragment).commit();
             Log.d("Fragment", "添加mConversationFragment in");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_conversation);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_msg);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
 
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
                 Log.d("Fragment", "隐藏mMineFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
         } else if (!mConversationFragment.isVisible()) {
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
                 Log.d("Fragment", "隐藏mMineFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             getFragmentManager().beginTransaction().show(mConversationFragment).commit();
             Log.d("Fragment", "显示mConversationFragment on");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_conversation);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_msg);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
+
         }
     }
 
@@ -154,43 +196,64 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mFriendFragment).commit();
             Log.d("Fragment", "添加mFriendFragment in");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_friend);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_friend);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
 
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mConversationFragment != null) {
                 getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
                 Log.d("Fragment", "隐藏mConversationFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
                 Log.d("Fragment", "隐藏mMineFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
         } else if (!mFriendFragment.isVisible()) {
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment on");
+
+                ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mConversationFragment != null) {
                 getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
                 Log.d("Fragment", "隐藏mConversationFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mMineFragment != null) {
                 getFragmentManager().beginTransaction().hide(mMineFragment).commit();
                 Log.d("Fragment", "隐藏mMineFragment on");
+
+                ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             getFragmentManager().beginTransaction().show(mFriendFragment).commit();
             Log.d("Fragment", "显示mFriendFragment on");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_friend);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_friend);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
+
         }
     }
 
@@ -201,43 +264,64 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().add(R.id.fl_main_fms, mMineFragment).commit();
             Log.d("Fragment", "添加mMineFragment in");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_mine);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_mine);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
 
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mConversationFragment != null) {
                 getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
                 Log.d("Fragment", "隐藏mConversationFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
         } else if (!mMineFragment.isVisible()) {
             if (mClassFragment != null) {
                 getFragmentManager().beginTransaction().hide(mClassFragment).commit();
                 Log.d("Fragment", "隐藏mClassFragment on");
+
+                ((ImageView) findViewById(R.id.img_Main_class)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_class_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_class)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mConversationFragment != null) {
                 getFragmentManager().beginTransaction().hide(mConversationFragment).commit();
                 Log.d("Fragment", "隐藏mConversationFragment in");
+
+                ((ImageView) findViewById(R.id.img_Main_conversation)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_msg_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_conversation)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             if (mFriendFragment != null) {
                 getFragmentManager().beginTransaction().hide(mFriendFragment).commit();
                 Log.d("Fragment", "隐藏mFriendFragment on");
+
+                ((ImageView) findViewById(R.id.img_Main_friend)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_friend_unpressed, null));
+                ((TextView) findViewById(R.id.tv_Main_friend)).setTextColor(this.getResources().getColor(R.color.primaryTextColorGray, null));
+
             }
             getFragmentManager().beginTransaction().show(mMineFragment).commit();
             Log.d("Fragment", "显示mMineFragment on");
 
-            ImageView imageView = (ImageView) findViewById(R.id.img_Main_mine);
-            Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_mine);
-            DrawableCompat.setTint(drawable,ContextCompat.getColor(this,R.color.primaryColorDark));
-            imageView.setImageDrawable(drawable);
+            ((ImageView) findViewById(R.id.img_Main_mine)).setImageDrawable(this.getResources().getDrawable(R.drawable.ic_mine_pressed, null));
+            ((TextView) findViewById(R.id.tv_Main_mine)).setTextColor(this.getResources().getColor(R.color.primaryColorDark, null));
+
         }
     }
 

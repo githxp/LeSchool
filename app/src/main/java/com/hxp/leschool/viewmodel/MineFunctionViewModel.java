@@ -1,6 +1,7 @@
 package com.hxp.leschool.viewmodel;
 
 import android.content.Intent;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.hxp.leschool.view.activity.MapActivity;
 import com.hxp.leschool.view.activity.RoundActivity;
 import com.hxp.leschool.view.activity.ScoreActivity;
 import com.hxp.leschool.view.fragment.MineFunctionFragment;
+import com.hxp.leschool.widget.RecycleItemDivider;
 
 import java.util.ArrayList;
 
@@ -47,6 +49,8 @@ public class MineFunctionViewModel{
         mLinearLayoutManager = new LinearLayoutManager(mMineFunctionFragment.getActivity(), LinearLayoutManager.VERTICAL, false);
         mMinefunctionFmBinding.rvMineFunction.setLayoutManager(mLinearLayoutManager);
         mMinefunctionFmBinding.rvMineFunction.setAdapter(mMineFunctionAdapter);
+        mMinefunctionFmBinding.rvMineFunction.setItemAnimator(new DefaultItemAnimator());
+        mMinefunctionFmBinding.rvMineFunction.addItemDecoration(new RecycleItemDivider(mMineFunctionFragment.getActivity(),RecycleItemDivider.VERTICAL_LIST));
 
         minefunctionFmBinding.setMMineFunctionViewModel(this);
 

@@ -9,22 +9,22 @@
         <item name="android:listDivider">@drawable/item_divider</item>
     </style>
 
-    <!-- toolbar样式 -->
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <!--溢出菜单图标颜色-->
-        <item name="android:textColorSecondary">@color/primaryTextColorLight</item>
-    </style>
+    <!--&lt;!&ndash; toolbar样式 &ndash;&gt;-->
+    <!--<style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">-->
+        <!--&lt;!&ndash;溢出菜单图标颜色&ndash;&gt;-->
+        <!--<item name="android:textColorSecondary">@color/primaryTextColorLight</item>-->
+    <!--</style>-->
 
-    <!--toolbar弹出菜单样式-->
-    <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/primaryTextColorGray</item>
-    </style>
+    <!--&lt;!&ndash;toolbar弹出菜单样式&ndash;&gt;-->
+    <!--<style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Light">-->
+        <!--<item name="android:textSize">16sp</item>-->
+        <!--<item name="android:textColor">@color/primaryTextColorGray</item>-->
+    <!--</style>-->
 
-    <!--toolbar标题文字样式-->
-    <style name="ToolbarTitleStyle">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/primaryTextColorLight</item>
-    </style>
+    <!--&lt;!&ndash;toolbar标题文字样式&ndash;&gt;-->
+    <!--<style name="ToolbarTitleStyle">-->
+        <!--<item name="android:textSize">18sp</item>-->
+        <!--<item name="android:textColor">@color/primaryTextColorLight</item>-->
+    <!--</style>-->
 
 </resources>

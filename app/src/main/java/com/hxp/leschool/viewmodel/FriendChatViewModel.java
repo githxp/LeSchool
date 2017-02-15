@@ -42,7 +42,7 @@ public class FriendChatViewModel implements ChatCallback {
 
     public FriendChatViewModel(FriendChatActivity friendChatActivity, FriendchatAtBinding friendchatAtBinding) {
 
-        Log.d("fragment", "MicroblogSingleChatViewModel创建");
+        Log.d("fragment", "FriendChatViewModel创建");
         mFriendChatActivity = friendChatActivity;
         mFriendchatAtBinding = friendchatAtBinding;
 
@@ -69,6 +69,8 @@ public class FriendChatViewModel implements ChatCallback {
         });
 
         initChat();
+
+        mFriendchatAtBinding.subNavbarFriendChatContent.setTitle(userName);
     }
 
     public void initChat() {
@@ -89,7 +91,7 @@ public class FriendChatViewModel implements ChatCallback {
         });
     }
 
-    public void img_FriendChat_sendMsg(View view) {
+    public void btn_FriendChat_sendMsg(View view) {
         final AVIMTextMessage msg = new AVIMTextMessage();
         final String msgContent = mFriendchatAtBinding.etFriendChatMsg.getText().toString();
         if (msgContent.equals("")) {

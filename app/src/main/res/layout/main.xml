@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_main_toolbar"
+
+    <com.hxp.leschool.widget.MainNavbar
+        android:id="@+id/mainNavbar_Main_content"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/primaryColorDark"
-        android:elevation="4dp"
-        android:theme="@style/ToolbarTheme"
-        app:popupTheme="@style/ToolbarPopupTheme"
-        app:titleTextAppearance="@style/ToolbarTitleStyle" />
+        android:layout_height="wrap_content" />
 
     <!--首页Fragment切换-->
     <FrameLayout
@@ -21,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_main_buttomNav"
-        android:layout_below="@+id/tb_main_toolbar"></FrameLayout>
+        android:layout_below="@+id/mainNavbar_Main_content"></FrameLayout>
 
     <!--底部导航栏-->
     <LinearLayout
@@ -34,7 +29,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#3b000000" />
+            android:background="@color/dividerColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,12 +51,14 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="0dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_class" />
+                    android:src="@drawable/ic_class_unpressed" />
 
                 <TextView
+                    android:id="@+id/tv_Main_class"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="课堂" />
+                    android:text="课堂"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -78,12 +75,14 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="0dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_msg" />
+                    android:src="@drawable/ic_msg_unpressed" />
 
                 <TextView
+                    android:id="@+id/tv_Main_conversation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="消息" />
+                    android:text="消息"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,12 +99,14 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="0dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_friend" />
+                    android:src="@drawable/ic_friend_unpressed" />
 
                 <TextView
+                    android:id="@+id/tv_Main_friend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="好友" />
+                    android:text="好友"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,12 +123,14 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="0dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_mine" />
+                    android:src="@drawable/ic_mine_unpressed" />
 
                 <TextView
+                    android:id="@+id/tv_Main_mine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的" />
+                    android:text="我的"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 

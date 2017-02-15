@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hxp.leschool.R;
 
@@ -14,17 +15,23 @@ import com.hxp.leschool.R;
  * Created by hxp on 17-1-24.
  */
 
-public class Navbar extends LinearLayout {
+public class SubNavbar extends LinearLayout {
 
-    public Navbar(Context context, AttributeSet attrs) {
+    private TextView mTextView;
+
+    public SubNavbar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        View view = LayoutInflater.from(context).inflate(R.layout.navbar, this);
-        ImageView imageView = (ImageView) view.findViewById(R.id.img_navbar_back);
-        imageView.setOnClickListener(new OnClickListener() {
+        LayoutInflater.from(context).inflate(R.layout.subnavbar, this);
+        mTextView = (TextView) findViewById(R.id.tv_SubNavbar_title);
+        findViewById(R.id.img_SubNavbar_back).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((Activity) getContext()).finish();
             }
         });
+    }
+
+    public void setTitle(String title){
+        mTextView.setText(title);
     }
 }

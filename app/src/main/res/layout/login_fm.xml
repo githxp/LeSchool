@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/btn_login"
+                style="?android:attr/borderlessButtonStyle"
                 android:onClick="@{mLoginViewModel.btn_Login_login}"
                 android:text="登陆"
                 android:textColor="@color/primaryTextColorLight" />
