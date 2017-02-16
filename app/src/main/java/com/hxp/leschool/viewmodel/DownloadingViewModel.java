@@ -1,5 +1,6 @@
 package com.hxp.leschool.viewmodel;
 
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import com.hxp.leschool.model.opt.DownloadingModelOpt;
 import com.hxp.leschool.model.opt.DownloadingModelOpt.DownloadCallback;
 import com.hxp.leschool.utils.event.DownloadEvent;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
+import com.hxp.leschool.widget.RecycleItemDivider;
 
 
 /**
@@ -36,6 +38,8 @@ public class DownloadingViewModel implements DownloadCallback {
 
         mDownloadingFmBinding.rvDownloadingContent.setLayoutManager(new LinearLayoutManager(mDownloadingFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mDownloadingFmBinding.rvDownloadingContent.setAdapter(mDownloadingAdapter);
+        mDownloadingFmBinding.rvDownloadingContent.setItemAnimator(new DefaultItemAnimator());
+        mDownloadingFmBinding.rvDownloadingContent.addItemDecoration(new RecycleItemDivider(mDownloadingFragment.getActivity(), RecycleItemDivider.VERTICAL_LIST));
 
         mDownloadingFmBinding.setMDownloadingViewModel(this);
         mDownloadingItemBinding.setMDownloadingViewModel(this);
@@ -48,8 +52,8 @@ public class DownloadingViewModel implements DownloadCallback {
     }
 
     //处理下载事件
-    public void handleDownloadEvent(DownloadEvent downloadEvent){
-        Log.d("fragment","交给downloadingopt处理");
+    public void handleDownloadEvent(DownloadEvent downloadEvent) {
+        Log.d("fragment", "交给downloadingopt处理");
         mDownloadingModelOpt.handleDownloadEvent(downloadEvent);
     }
 }

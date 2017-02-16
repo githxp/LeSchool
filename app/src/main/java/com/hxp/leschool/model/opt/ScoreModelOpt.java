@@ -39,14 +39,14 @@ public class ScoreModelOpt {
         Matcher stuNumMat = stuNumPat.matcher(tables.get(0).text());
         Matcher stuNameMat = stuNamePat.matcher(tables.get(0).text());
         if (stuNumMat.find()) {
-            Log.d("fragment", stuNumMat.group());
-            mScorePersonModel.setStuNum(stuNumMat.group());
+            Log.d("fragment", stuNumMat.group().substring(stuNumMat.group().lastIndexOf("：") + 1));
+            mScorePersonModel.setStuNum(stuNumMat.group().substring(stuNumMat.group().lastIndexOf("：") + 1));
         } else {
             Log.d("fragment", "stuNumMat未找到");
         }
         if (stuNameMat.find()) {
-            Log.d("fragment", stuNameMat.group());
-            mScorePersonModel.setStuName(stuNameMat.group());
+            Log.d("fragment", stuNameMat.group().substring(stuNumMat.group().lastIndexOf("：") + 1));
+            mScorePersonModel.setStuName(stuNameMat.group().substring(stuNumMat.group().lastIndexOf("：") + 1));
         } else {
             Log.d("fragment", "setStuName未找到");
         }

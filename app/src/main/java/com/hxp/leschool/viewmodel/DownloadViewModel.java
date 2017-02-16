@@ -9,6 +9,7 @@ import com.hxp.leschool.view.activity.DownloadActivity;
 import com.hxp.leschool.view.fragment.DownloadCompletedFragment;
 import com.hxp.leschool.view.fragment.DownloadingFragment;
 import com.hxp.leschool.view.fragment.UploadingFragment;
+import com.hxp.leschool.widget.SubNavbar;
 
 
 /**
@@ -23,11 +24,15 @@ public class DownloadViewModel {
     private DownloadCompletedFragment mDownloadCompletedFragment;
     private DownloadingFragment mDownloadingFragment;
     private UploadingFragment mUploadingFragment;
+    private SubNavbar mSubNavbar;
 
     public DownloadViewModel(DownloadActivity downloadActivity, DownloadAtBinding downloadAtBinding) {
 
         mDownloadActivity = downloadActivity;
         mDownloadAtBinding = downloadAtBinding;
+
+        mSubNavbar = mDownloadAtBinding.subNavbarDownloadContent;
+        mSubNavbar.setTitle("下载");
 
         mDownloadAtBinding.setMDownloadViewModel(this);
         if (mDownloadCompletedFragment == null) {

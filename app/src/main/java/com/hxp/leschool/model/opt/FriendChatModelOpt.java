@@ -8,7 +8,6 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
-import com.hxp.leschool.model.bean.ConversationModel;
 import com.hxp.leschool.model.bean.FriendChatModel;
 import com.hxp.leschool.utils.event.ChatMsgEvent;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;

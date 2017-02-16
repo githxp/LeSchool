@@ -14,6 +14,7 @@ import com.hxp.leschool.model.db.bean.opt.ConversationBeanOpt;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.LoginAndRegActivity;
 import com.hxp.leschool.view.activity.UserCenterActivity;
+import com.hxp.leschool.widget.SubNavbar;
 
 
 /**
@@ -26,12 +27,16 @@ public class UserCenterViewModel {
 
     private UserCenterActivity mUserCenterActivity;
     private UsercenterAtBinding mUsercenterAtBinding;
+    private SubNavbar mSubNavbar;
 
     public UserCenterViewModel(UserCenterActivity userCenterActivity, UsercenterAtBinding usercenterAtBinding) {
 
         Log.d("fragment", "MicroblogSingleChatViewModel创建");
         mUserCenterActivity = userCenterActivity;
         mUsercenterAtBinding = usercenterAtBinding;
+
+        mSubNavbar = mUsercenterAtBinding.subNavbarUserCenterContent;
+        mSubNavbar.setTitle("个人中心");
 
         mUsercenterAtBinding.setMUserCenterViewModel(this);
     }

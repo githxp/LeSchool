@@ -1,5 +1,6 @@
 package com.hxp.leschool.viewmodel;
 
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import com.hxp.leschool.model.opt.UploadingModelOpt;
 import com.hxp.leschool.model.opt.UploadingModelOpt.UploadCallback;
 import com.hxp.leschool.utils.event.UploadEvent;
 import com.hxp.leschool.view.fragment.UploadingFragment;
+import com.hxp.leschool.widget.RecycleItemDivider;
 
 
 /**
@@ -36,6 +38,8 @@ public class UploadingViewModel implements UploadCallback {
 
         mUploadingFmBinding.rvUploadingContent.setLayoutManager(new LinearLayoutManager(mUploadingFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
         mUploadingFmBinding.rvUploadingContent.setAdapter(mUploadingAdapter);
+        mUploadingFmBinding.rvUploadingContent.setItemAnimator(new DefaultItemAnimator());
+        mUploadingFmBinding.rvUploadingContent.addItemDecoration(new RecycleItemDivider(mUploadingFragment.getActivity(), RecycleItemDivider.VERTICAL_LIST));
 
         mUploadingFmBinding.setMUploadingViewModel(this);
         mUploadingItemBinding.setMUploadingViewModel(this);

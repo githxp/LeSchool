@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.hxp.leschool.model.opt.ScoreModelOpt;
 import com.hxp.leschool.model.opt.ScoreModelOpt.ScoreModelOptCallback;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.view.activity.ScoreActivity;
+import com.hxp.leschool.widget.RecycleItemDivider;
+import com.hxp.leschool.widget.SubNavbar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -51,6 +54,7 @@ public class ScoreViewModel implements ScoreModelOptCallback {
     private ScoreAdapter mScoreAdapter;
     private Document mTxtXmDoc;
     private String mTxtXm;
+    private SubNavbar mSubNavbar;
     private boolean mIsLogin = false;
     private Handler mHandle = new Handler() {
         @Override
@@ -70,11 +74,16 @@ public class ScoreViewModel implements ScoreModelOptCallback {
         mScoreActivity = scoreActivity;
         mScoreAtBinding = scoreAtBinding;
 
+        mSubNavbar = mScoreAtBinding.subNavbarScoreContent;
+        mSubNavbar.setTitle("成绩");
+
         mScoreModelOpt = new ScoreModelOpt(this);
         mScoreAdapter = new ScoreAdapter(this);
 
         mScoreAtBinding.rvScoreContent.setLayoutManager(new LinearLayoutManager(mScoreActivity, LinearLayoutManager.VERTICAL, false));
         mScoreAtBinding.rvScoreContent.setAdapter(mScoreAdapter);
+        mScoreAtBinding.rvScoreContent.setItemAnimator(new DefaultItemAnimator());
+        mScoreAtBinding.rvScoreContent.addItemDecoration(new RecycleItemDivider(mScoreActivity, RecycleItemDivider.VERTICAL_LIST));
         mScoreAtBinding.swifreshScoreContent.setRefreshing(true);
 
         mScoreAtBinding.setMScoreViewModel(this);

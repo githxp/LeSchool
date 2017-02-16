@@ -1,6 +1,7 @@
 package com.hxp.leschool.viewmodel;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +15,7 @@ import com.hxp.leschool.databinding.DownloadcompletedItemBinding;
 import com.hxp.leschool.model.opt.DownloadCompletedModelOpt;
 import com.hxp.leschool.model.opt.DownloadCompletedModelOpt.DownloadCompletedOptCallback;
 import com.hxp.leschool.view.fragment.DownloadCompletedFragment;
-
+import com.hxp.leschool.widget.RecycleItemDivider;
 
 
 /**
@@ -52,6 +53,8 @@ public class DownloadCompletedViewModel implements DownloadCompletedOptCallback 
                 return 0;
             }
         });
+        mDownloadcompletedFmBinding.rvDownloadCompletedContent.setItemAnimator(new DefaultItemAnimator());
+        mDownloadcompletedFmBinding.rvDownloadCompletedContent.addItemDecoration(new RecycleItemDivider(mDownloadCompletedFragment.getActivity(),RecycleItemDivider.VERTICAL_LIST));
         mDownloadcompletedFmBinding.swifreshDownloadCompletedContent.setRefreshing(true);
 
         mDownloadCompletedAdapter = new DownloadCompletedAdapter(this);

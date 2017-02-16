@@ -25,6 +25,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.hxp.leschool.R;
 import com.hxp.leschool.view.activity.NavActivity;
 import com.hxp.leschool.view.activity.RoundActivity;
+import com.hxp.leschool.widget.SubNavbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +50,15 @@ public class RoundViewModel implements LocationSource, AMapLocationListener, Poi
     private int mCurrentPageNum = 0;
     private int mCurrentPageSize = 7;
     private ArrayList<PoiItem> mPoiItem;
+    private SubNavbar mSubNavbar;
 
 
     public RoundViewModel(RoundActivity roundActivity) {
         mRoundActivity = roundActivity;
         mAMap = mRoundActivity.getAMap();
+
+        mSubNavbar = (SubNavbar) mRoundActivity.findViewById(R.id.subNavbar_Round_content);
+        mSubNavbar.setTitle("附近");
 
         mAMap.setLocationSource(this);
         mAMap.getUiSettings().setMyLocationButtonEnabled(true);

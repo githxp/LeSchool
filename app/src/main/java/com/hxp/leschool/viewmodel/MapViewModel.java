@@ -9,7 +9,9 @@ import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
+import com.hxp.leschool.R;
 import com.hxp.leschool.view.activity.MapActivity;
+import com.hxp.leschool.widget.SubNavbar;
 
 
 /**
@@ -22,12 +24,16 @@ public class MapViewModel implements LocationSource, AMapLocationListener {
     public AMapLocationClient mAMapLocationClient;
     private AMap mAMap;
     private MapActivity mMapActivity;
+    private SubNavbar mSubNavbar;
     private OnLocationChangedListener mOnLocationChangedListener;
     private AMapLocationClientOption mAMapLocationClientOption;
 
     public MapViewModel(MapActivity mapFActivity) {
         mMapActivity = mapFActivity;
         mAMap = mMapActivity.getAMap();
+
+        mSubNavbar = (SubNavbar) mMapActivity.findViewById(R.id.subNavbar_Map_content);
+        mSubNavbar.setTitle("地图");
 
         mAMap.setLocationSource(this);
         mAMap.getUiSettings().setMyLocationButtonEnabled(true);

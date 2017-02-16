@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <com.hxp.leschool.widget.SubNavbar
+            android:id="@+id/subNavbar_UserCenter_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

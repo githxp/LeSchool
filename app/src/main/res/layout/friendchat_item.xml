@@ -14,38 +14,98 @@
             type="int" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="70dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:background="@drawable/friendchat_item_left_bg"
-            android:gravity="center"
-            android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.GONE : View.VISIBLE}">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).msg}" />
-        </LinearLayout>
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical|left"
+                android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.INVISIBLE : View.VISIBLE}">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@drawable/friendchat_item_right_bg"
-            android:gravity="center"
-            android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.VISIBLE : View.GONE}">
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/img_FriendChat_recAvatar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    app:riv_border_color="@color/primaryTextColorLight"
+                    app:riv_border_width="2dip"
+                    app:riv_corner_radius="30dip"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="true"
+                    app:riv_tile_mode="repeat" />
+            </LinearLayout>
 
-            <TextView
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rec_friendchat_bg"
+                    android:gravity="center"
+                    android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.GONE : View.VISIBLE}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).msg}"
+                        android:textColor="@color/primaryTextColorDark" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/send_friendchat_bg"
+                    android:gravity="center"
+                    android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.VISIBLE : View.GONE}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).msg}"
+                        android:textColor="@color/primaryTextColorLight" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).msg}" />
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical|right"
+                android:visibility="@{mFriendChatViewModel.mFriendChatModelOpt.mData.get(mPosition).isSend ? View.VISIBLE : View.INVISIBLE}">
+
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/img_FriendChat_sendAvatar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    app:riv_border_color="@color/primaryTextColorLight"
+                    app:riv_border_width="2dip"
+                    app:riv_corner_radius="30dip"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="true"
+                    app:riv_tile_mode="repeat" />
+            </LinearLayout>
+
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

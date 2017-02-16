@@ -4,26 +4,35 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.hxp.leschool.R;
 import com.hxp.leschool.adapter.FriendChatAdapter;
 import com.hxp.leschool.databinding.FriendchatAtBinding;
 import com.hxp.leschool.model.db.bean.opt.ConversationBeanOpt;
 import com.hxp.leschool.model.opt.FriendChatModelOpt;
 import com.hxp.leschool.model.opt.FriendChatModelOpt.ChatCallback;
+import com.hxp.leschool.utils.AvatarHelper;
 import com.hxp.leschool.utils.MyApplication;
 import com.hxp.leschool.utils.event.ChatMsgEvent;
 import com.hxp.leschool.view.activity.FriendChatActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -38,7 +47,10 @@ public class FriendChatViewModel implements ChatCallback {
     private FriendchatAtBinding mFriendchatAtBinding;
     private FriendChatAdapter mFriendChatAdapter;
     private AVIMConversation mAvimConversation;
+    private AVQuery<AVObject> avQuery;
     private String userName;
+    public String[] mAvatarData = new String[2];
+    private int mCount = 0;
 
     public FriendChatViewModel(FriendChatActivity friendChatActivity, FriendchatAtBinding friendchatAtBinding) {
 
@@ -47,7 +59,7 @@ public class FriendChatViewModel implements ChatCallback {
         mFriendchatAtBinding = friendchatAtBinding;
 
         mFriendChatModelOpt = new FriendChatModelOpt(this);
-        mFriendChatAdapter = new FriendChatAdapter(this);
+        mFriendChatAdapter = new FriendChatAdapter(this, mFriendChatActivity);
 
         mFriendchatAtBinding.setMFriendChatViewModel(this);
 
@@ -83,7 +95,7 @@ public class FriendChatViewModel implements ChatCallback {
                 if (e == null) {
                     mAvimConversation = avimConversation;
                     Toast.makeText(mFriendChatActivity, "已和" + userName + "建立会话", Toast.LENGTH_SHORT).show();
-                    mFriendChatModelOpt.get(mAvimConversation);
+                    initAvatar(userName);
                 } else {
                     Toast.makeText(mFriendChatActivity, "请检查网络连接", Toast.LENGTH_SHORT).show();
                 }
@@ -110,6 +122,42 @@ public class FriendChatViewModel implements ChatCallback {
             });
         }
     }
+
+    private void initAvatar(String userName) {
+        avQuery = new AVQuery<>("UserInfo");
+        avQuery.selectKeys(Arrays.asList("userName", "avatar"));
+        for (int i = 0; i < mAvatarData.length; i++) {
+            if (i == 0) {
+                avQuery.whereEqualTo("userName", AVUser.getCurrentUser().getUsername());
+            } else {
+                avQuery.whereEqualTo("userName", userName);
+            }
+            final int finalI = i;
+            avQuery.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    if (e == null) {
+                        if (list.size() == 1) {
+                            mAvatarData[finalI] = list.get(0).getString("avatar");
+                            Log.d("fragment", "的头像获取成功" + list.get(0).getString("avatar"));
+                            mCount++;
+                            Log.d("fragment", "测试发行" + "mcount:" + mCount);
+                            if (mCount == mAvatarData.length) {
+                                mCount = 0;
+                                Log.d("fragment", "发行");
+                                mFriendChatModelOpt.get(mAvimConversation);
+                            }
+                        } else {
+                            Log.d("fragment", "头像获取数量异常");
+                        }
+                    } else {
+                        Log.d("fragment", "ClassModelOpt数据刷新失败回调发送方" + e.getMessage());
+                    }
+                }
+            });
+        }
+    }
+
 
     @Override
     public void refresh() {

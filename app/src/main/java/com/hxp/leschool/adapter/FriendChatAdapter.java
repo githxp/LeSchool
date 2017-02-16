@@ -7,9 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.hxp.leschool.BR;
 import com.hxp.leschool.R;
+import com.hxp.leschool.utils.AvatarHelper;
+import com.hxp.leschool.utils.MyApplication;
+import com.hxp.leschool.view.activity.FriendChatActivity;
 import com.hxp.leschool.viewmodel.FriendChatViewModel;
 
 
@@ -22,6 +26,7 @@ public class FriendChatAdapter extends RecyclerView.Adapter<FriendChatAdapter.Vi
 
     private FriendChatViewModel mFriendChatViewModel;
     private OnItemClickListener mOnItemClickListener;
+    private FriendChatActivity mFriendChatActivity;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding mViewDataBinding;
@@ -39,8 +44,9 @@ public class FriendChatAdapter extends RecyclerView.Adapter<FriendChatAdapter.Vi
         }
     }
 
-    public FriendChatAdapter(FriendChatViewModel friendChatViewModel) {
+    public FriendChatAdapter(FriendChatViewModel friendChatViewModel, FriendChatActivity friendChatActivity) {
         mFriendChatViewModel = friendChatViewModel;
+        mFriendChatActivity = friendChatActivity;
     }
 
     @Override
@@ -57,6 +63,8 @@ public class FriendChatAdapter extends RecyclerView.Adapter<FriendChatAdapter.Vi
         holder.getBinding().setVariable(BR.mFriendChatViewModel, mFriendChatViewModel);
         holder.getBinding().setVariable(BR.mPosition, position);
         holder.getBinding().executePendingBindings();
+        new AvatarHelper(mFriendChatActivity, (ImageView) holder.itemView.findViewById(R.id.img_FriendChat_sendAvatar), mFriendChatViewModel.mAvatarData[0]);
+        new AvatarHelper(mFriendChatActivity, (ImageView) holder.itemView.findViewById(R.id.img_FriendChat_recAvatar), mFriendChatViewModel.mAvatarData[1]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

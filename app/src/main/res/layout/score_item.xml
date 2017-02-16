@@ -14,20 +14,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:gravity="center"
-            android:padding="10dp">
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@{mScoreViewModel.mScoreModelOpt.mData.get(mPosition).title}" />
 
         </LinearLayout>
@@ -37,10 +40,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp">
+            android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_Score_midScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -52,10 +55,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp">
+            android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_Score_endScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -67,15 +70,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp">
+            android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_Score_finalScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@{mScoreViewModel.mScoreModelOpt.mData.get(mPosition).finScore}" />
-
         </LinearLayout>
     </LinearLayout>
 </layout>

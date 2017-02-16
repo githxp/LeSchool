@@ -15,12 +15,14 @@ public class FriendChatModel extends BaseObservable {
 
     private String msg;
     private boolean isSend;//t为发送，f为接收
+    private String avatar;
 
     public FriendChatModel() {
     }
 
-    public FriendChatModel(String msg, boolean isSend) {
+    public FriendChatModel(String msg, String avatar,boolean isSend) {
         this.msg = msg;
+        this.avatar = avatar;
         this.isSend = isSend;
     }
 
@@ -32,6 +34,16 @@ public class FriendChatModel extends BaseObservable {
     public void setMsg(String msg) {
         this.msg = msg;
         notifyPropertyChanged(BR.msg);
+    }
+
+    @Bindable
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
     }
 
     public boolean isSend() {
