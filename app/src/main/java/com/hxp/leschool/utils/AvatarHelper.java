@@ -21,16 +21,16 @@ public class AvatarHelper {
     private ImageView mImageView;
     private String mAvatarUrl;
 
-    public AvatarHelper(Context context, ImageView imageView,String avatarUrl){
+    public AvatarHelper(Context context, ImageView imageView, String avatarUrl) {
         mContext = context;
         mImageView = imageView;
         mAvatarUrl = avatarUrl;
 
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        ImageLoader imageLoader = new ImageLoader(requestQueue,new BitmapCache());
+        ImageLoader imageLoader = new ImageLoader(requestQueue, new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(mImageView,
-                R.drawable.ic_avatarloading,R.drawable.ic_avatarloadfail);
-        imageLoader.get(mAvatarUrl,imageListener);
+                R.drawable.ic_avatarloading, R.drawable.ic_avatarloadfail);
+        imageLoader.get(mAvatarUrl, imageListener);
     }
 
     class BitmapCache implements ImageLoader.ImageCache {

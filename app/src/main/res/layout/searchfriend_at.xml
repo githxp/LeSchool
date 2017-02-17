@@ -14,25 +14,49 @@
         android:orientation="vertical">
 
         <com.hxp.leschool.widget.SubNavbar
+            android:id="@+id/subNavbar_SearchFriend_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="4dp">
 
-            <EditText
-                android:id="@+id/et_searchFriend_userName"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingRight="4dp">
 
-            <Button
+                <EditText
+                    android:id="@+id/et_searchFriend_userName"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_searchfriend"
+                    android:hint="好友昵称"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textCursorDrawable="@drawable/et_cursor"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{mSearchFriendViewModel.btn_SearchFriend_search}"
-                android:text="搜索" />
+                android:layout_height="match_parent">
+
+                <Button
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="60dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/btn_search"
+                    android:onClick="@{mSearchFriendViewModel.btn_SearchFriend_search}"
+                    android:text="搜索"
+                    android:textColor="@color/primaryTextColorLight" />
+            </LinearLayout>
+
         </LinearLayout>
 
 

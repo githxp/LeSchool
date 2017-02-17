@@ -18,8 +18,8 @@
     <color name="fabIconColor">#FFFFFF</color>
 
     <color name="scoreLessSixty">#ff0000</color>
-    <color name="scoreLessSeventy">#B1B1B1</color>
-    <color name="scoreLessEighty">#757575</color>
-    <color name="scoreLessNinety">#1b75bf</color>
+    <color name="scoreLessSeventy">#5a2196f3</color>
+    <color name="scoreLessEighty">#912196f3</color>
+    <color name="scoreLessNinety">#c82196f3</color>
     <color name="scoreLessHundred">#2196F3</color>
 </resources>

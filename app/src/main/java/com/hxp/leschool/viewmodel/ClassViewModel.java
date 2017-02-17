@@ -43,15 +43,30 @@ public class ClassViewModel implements ClassCallback, SelecteUploadFileCallback 
         mClassAdapter = new ClassAdapter(this, mClassFragment);
 
         mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
-        mClassFmBinding.rvClassContent.setAdapter(mClassAdapter);
+        mClassFmBinding.rvClassContent.setAdapter(new RecyclerView.Adapter() {
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                return null;
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return 0;
+            }
+        });
         mClassFmBinding.rvClassContent.setItemAnimator(new DefaultItemAnimator());
-        mClassFmBinding.rvClassContent.addItemDecoration(new RecycleItemDivider(mClassFragment.getActivity(),RecycleItemDivider.VERTICAL_LIST));
+        mClassFmBinding.rvClassContent.addItemDecoration(new RecycleItemDivider(mClassFragment.getActivity(), RecycleItemDivider.VERTICAL_LIST));
         mClassFmBinding.swifreshClassContent.setRefreshing(true);
 
         mClassFmBinding.setMClassViewModel(this);
         mClassItemBinding.setMClassViewModel(this);
 
-        mClassModelOpt.refresh();
+        mClassModelOpt.get();
 
         mClassFmBinding.swifreshClassContent.setProgressViewOffset(true, 0, 50);
         mClassFmBinding.swifreshClassContent.setColorSchemeResources(
@@ -95,6 +110,21 @@ public class ClassViewModel implements ClassCallback, SelecteUploadFileCallback 
                 mClassFragment.getActivity().startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void get() {
+        mClassFmBinding.swifreshClassContent.setRefreshing(false);
+        mClassFmBinding.rvClassContent.setLayoutManager(new LinearLayoutManager(mClassFragment.getActivity(), LinearLayoutManager.VERTICAL, false));
+        mClassFmBinding.rvClassContent.setAdapter(mClassAdapter);
+        Log.d("fragment", "ClassModelOpt数据获取成功回调接收方");
+    }
+
+    @Override
+    public void getErr() {
+        mClassFmBinding.swifreshClassContent.setRefreshing(false);
+        Toast.makeText(mClassFragment.getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+        Log.d("fragment", "ClassModelOpt数据获取失败回调接收方");
     }
 
     @Override

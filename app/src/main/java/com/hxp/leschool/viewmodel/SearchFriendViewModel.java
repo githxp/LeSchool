@@ -2,6 +2,7 @@ package com.hxp.leschool.viewmodel;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.hxp.leschool.model.opt.SearchFriendModelOpt;
 import com.hxp.leschool.model.opt.SearchFriendModelOpt.SearchFriendallback;
 import com.hxp.leschool.view.activity.SearchFriendActivity;
 import com.hxp.leschool.view.activity.SendAddReqActivity;
+import com.hxp.leschool.widget.RecycleItemDivider;
+import com.hxp.leschool.widget.SubNavbar;
 
 
 /**
@@ -27,6 +30,7 @@ public class SearchFriendViewModel implements SearchFriendallback {
     private SearchFriendActivity mSearchFriendActivity;
     private SearchfriendAtBinding mSearchfriendAtBinding;
     private SearchFriendAdapter mSearchFriendAdapter;
+    private SubNavbar mSubNavbar;
 
     public SearchFriendViewModel(SearchFriendActivity searchFriendActivity, SearchfriendAtBinding searchfriendAtBinding) {
 
@@ -34,13 +38,19 @@ public class SearchFriendViewModel implements SearchFriendallback {
         mSearchFriendActivity = searchFriendActivity;
         mSearchfriendAtBinding = searchfriendAtBinding;
 
+        mSubNavbar = mSearchfriendAtBinding.subNavbarSearchFriendContent;
+        mSubNavbar.setTitle("添加好友");
+
         mSearchFriendModelOpt = new SearchFriendModelOpt(this);
-        mSearchFriendAdapter = new SearchFriendAdapter(this);
+        mSearchFriendAdapter = new SearchFriendAdapter(this, mSearchFriendActivity);
 
         mSearchfriendAtBinding.setMSearchFriendViewModel(this);
 
         mSearchfriendAtBinding.rvSearchFriendContent.setLayoutManager(new LinearLayoutManager(mSearchFriendActivity, LinearLayoutManager.VERTICAL, false));
         mSearchfriendAtBinding.rvSearchFriendContent.setAdapter(mSearchFriendAdapter);
+        mSearchfriendAtBinding.rvSearchFriendContent.setItemAnimator(new DefaultItemAnimator());
+        mSearchfriendAtBinding.rvSearchFriendContent.addItemDecoration(new RecycleItemDivider(mSearchFriendActivity, RecycleItemDivider.VERTICAL_LIST));
+
 
         mSearchfriendAtBinding.swifreshSearchFriendContent.setProgressViewOffset(true, 0, 50);
         mSearchfriendAtBinding.swifreshSearchFriendContent.setColorSchemeResources(

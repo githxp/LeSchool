@@ -25,6 +25,7 @@ public class SearchFriendModelOpt {
     public ArrayList<SearchFriendModel> mData = new ArrayList<>();
     private SearchFriendallback mSearchFriendallback;
     private AVQuery<AVObject> avQuery = new AVQuery<>("UserInfo");
+    private int mCount = 0;
 
     public SearchFriendModelOpt(SearchFriendViewModel searchFriendViewModel) {
         mSearchFriendallback = searchFriendViewModel;
@@ -45,18 +46,49 @@ public class SearchFriendModelOpt {
                     for (int i = 0; i < list.size(); i++) {
                         mSearchFriendModel = new SearchFriendModel();
                         mSearchFriendModel.setUserName(list.get(i).getString("userName"));
-                        mSearchFriendModel.setAvatar(R.mipmap.ic_launcher);
                         mData.add(mSearchFriendModel);
+                        Log.d("fragment", "查询成功" + list.get(i).getString("userName"));
                     }
-                    Log.d("fragment", "mdata.size:" + mData.size() + "FriendModelOpt");
-                    Log.d("fragment", "数据刷新成功回调发送方-FriendModelOpt");
-                    mSearchFriendallback.refresh();
                 } else {
-                    Log.d("fragment", "数据刷新失败回调发送方-FriendModelOpt");
-                    mSearchFriendallback.refreshErr();
+                    Log.d("fragment", "查询失败");
                 }
+                Log.d("fragment", "开始查询头像");
+                getAvatar();
             }
         });
+    }
+
+    //获取头像
+    private void getAvatar() {
+        avQuery.selectKeys(Arrays.asList("userName", "avatar"));
+        for (int i = 0; i < mData.size(); i++) {
+            Log.d("fragment", "开始查询" + mData.get(i).getUserName() + "的头像");
+            avQuery.whereEqualTo("userName", mData.get(i).getUserName());
+            final int j = i;
+            avQuery.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    if (e == null) {
+                        if (list.size() == 1) {
+                            mData.get(j).setAvatar(list.get(0).getString("avatar"));
+                            Log.d("fragment", j + mData.get(j).getUserName() + "的头像获取成功" + mData.get(j).getAvatar());
+                            mCount++;
+                            Log.d("fragment", "测试发行");
+                            if (mCount == mData.size()) {
+                                mCount = 0;
+                                Log.d("fragment", "ClassModelOpt数据获取成功回调发送方");
+                                mSearchFriendallback.refresh();
+                            }
+                        } else {
+                            Log.d("fragment", "头像获取数量异常");
+                        }
+                    } else {
+                        Log.d("fragment", "ClassModelOpt数据获取失败回调发送方" + e.getMessage());
+                        mSearchFriendallback.refreshErr();
+                    }
+                }
+            });
+        }
     }
 
     //获取数据数量

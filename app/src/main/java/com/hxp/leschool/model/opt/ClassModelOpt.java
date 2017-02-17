@@ -39,9 +39,71 @@ public class ClassModelOpt {
     private int mFirstProcess = 0;
     private AVQuery<AVObject> avQuery;
     private int mCount = 0;
+    private BmobQuery<MyClassObject> bmobQuery;
 
     public ClassModelOpt(ClassViewModel classViewModel) {
         mClassCallback = classViewModel;
+    }
+
+    //获取数据
+    public void get() {
+        bmobQuery = new BmobQuery<>();
+        bmobQuery.order("-createdAt");
+        bmobQuery.findObjects(new FindListener<MyClassObject>() {
+            @Override
+            public void done(List<MyClassObject> list, BmobException e) {
+                if (e == null) {
+                    Log.d("fragment", "查询成功" + list.size());
+                    mData.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        mClassModel = new ClassModel();
+                        mClassModel.setUserName(list.get(i).getUserName());
+                        mClassModel.setTitle(list.get(i).getTitle());
+                        mClassModel.setUrl(list.get(i).getUrl());
+                        mData.add(mClassModel);
+                        Log.d("fragment", "查询成功" + list.get(i).getTitle());
+                    }
+                } else {
+                    Log.d("fragment", "查询失败");
+                }
+                Log.d("fragment", "开始查询头像");
+                getAvatar();
+            }
+        });
+    }
+
+    //获取头像
+    private void getAvatar() {
+        avQuery = new AVQuery<>("UserInfo");
+        avQuery.selectKeys(Arrays.asList("userName", "avatar"));
+        for (int i = 0; i < mData.size(); i++) {
+            Log.d("fragment", "开始查询" + mData.get(i).getUserName() + "的头像");
+            avQuery.whereEqualTo("userName", mData.get(i).getUserName());
+            final int j = i;
+            avQuery.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    if (e == null) {
+                        if (list.size() == 1) {
+                            mData.get(j).setAvatar(list.get(0).getString("avatar"));
+                            Log.d("fragment", j + mData.get(j).getUserName() + "的头像获取成功" + mData.get(j).getAvatar());
+                            mCount++;
+                            Log.d("fragment", "测试发行");
+                            if (mCount == mData.size()) {
+                                mCount = 0;
+                                Log.d("fragment", "ClassModelOpt数据获取成功回调发送方");
+                                mClassCallback.get();
+                            }
+                        } else {
+                            Log.d("fragment", "头像获取数量异常");
+                        }
+                    } else {
+                        Log.d("fragment", "ClassModelOpt数据获取失败回调发送方" + e.getMessage());
+                        mClassCallback.getErr();
+                    }
+                }
+            });
+        }
     }
 
     //刷新数据
@@ -98,7 +160,7 @@ public class ClassModelOpt {
                             Log.d("fragment", "头像获取数量异常");
                         }
                     } else {
-                        Log.d("fragment", "ClassModelOpt数据刷新失败回调发送方"+e.getMessage());
+                        Log.d("fragment", "ClassModelOpt数据刷新失败回调发送方" + e.getMessage());
                         mClassCallback.refreshErr();
                     }
                 }
@@ -150,6 +212,10 @@ public class ClassModelOpt {
     //刷新数据成功回调
     //刷新数据失败回调
     public interface ClassCallback {
+        void get();
+
+        void getErr();
+
         void refresh();
 
         void refreshErr();
